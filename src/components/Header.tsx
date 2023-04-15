@@ -7,9 +7,16 @@ import { AiFillHome } from "react-icons/ai";
 import { RxCaretDown } from "react-icons/rx";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineDarkMode } from "react-icons/md";
+import { useAppDispatch } from "../redux/hooks";
+import {
+  open,
+  setLogInMode,
+  setSignUpMode,
+} from "../redux/features/userAuthModal";
 
 const Header = () => {
   const location = useLocation();
+  const dispatch = useAppDispatch();
 
   return (
     <header className={styles.root}>
@@ -50,8 +57,24 @@ const Header = () => {
       </div>
 
       <div className={styles.rightSide}>
-        <button className={btnStyles.btnVariantTwo}>Sign Up</button>
-        <button className={btnStyles.btnVariantOne}>Log In</button>
+        <button
+          className={btnStyles.btnVariantTwo}
+          onClick={() => {
+            dispatch(open());
+            dispatch(setSignUpMode());
+          }}
+        >
+          Sign Up
+        </button>
+        <button
+          className={btnStyles.btnVariantOne}
+          onClick={() => {
+            dispatch(open());
+            dispatch(setLogInMode());
+          }}
+        >
+          Log In
+        </button>
         <button className={styles.themeBtn}>
           <MdOutlineDarkMode />
         </button>

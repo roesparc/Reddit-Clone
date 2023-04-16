@@ -1,15 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { INITIAL_USER_AUTH_MODAL } from "../../ts_common/initialStates";
+
+interface UserAuthModalState {
+  isUserAuthOpen: boolean;
+  authMode: "logIn" | "signUp";
+}
+
+const initialState: UserAuthModalState = {
+  isUserAuthOpen: false,
+  authMode: "logIn",
+};
 
 const slice = createSlice({
   name: "userAuthModal",
-  initialState: INITIAL_USER_AUTH_MODAL,
+  initialState,
   reducers: {
-    open: (state) => {
+    openAuthModal: (state) => {
       state.isUserAuthOpen = true;
     },
-    close: (state) => {
+    closeAuthModal: (state) => {
       state.isUserAuthOpen = false;
     },
     setLogInMode: (state) => {
@@ -21,7 +30,8 @@ const slice = createSlice({
   },
 });
 
-export const { open, close, setLogInMode, setSignUpMode } = slice.actions;
+export const { openAuthModal, closeAuthModal, setLogInMode, setSignUpMode } =
+  slice.actions;
 
 export const selectIsUserAuthOpen = (state: RootState) =>
   state.userAuthModal.isUserAuthOpen;

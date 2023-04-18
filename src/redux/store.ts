@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userAuthModalReducer from "./features/userAuthModal";
+import authReducer from "./features/auth";
 
 const store = configureStore({
   reducer: {
     userAuthModal: userAuthModalReducer,
+    auth: authReducer,
   },
 });
 

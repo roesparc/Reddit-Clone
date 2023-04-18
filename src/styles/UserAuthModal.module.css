@@ -1,0 +1,49 @@
+.root {
+  border-radius: 12px;
+  height: 640px;
+  width: 400px;
+  background-color: var(--color-background-one);
+  box-shadow: 1px 7px 20px 2px var(--color-overlay);
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  background-color: var(--color-overlay);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.closeBtn {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: initial;
+}
+
+.closeBtn svg path {
+  height: 14px;
+  width: 14px;
+  stroke-width: 3px;
+  stroke: var(--color-utility-one);
+}
+
+.logo {
+  width: 5rem;
+  height: 5rem;
+}

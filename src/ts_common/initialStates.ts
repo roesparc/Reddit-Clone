@@ -1,6 +1,10 @@
-import { UserAuthModalState } from "./interfaces";
+import { UserProfile } from "./interfaces";
 
-export const INITIAL_USER_AUTH_MODAL: UserAuthModalState = {
-  isUserAuthOpen: false,
-  authMode: "logIn",
+export const INITIAL_USER_PROFILE: UserProfile = {
+  uid: "",
+  username: "",
+  displayName: "",
+  about: "",
+  userImg: "",
+  cakeDay: "",
 };

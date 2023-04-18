@@ -9,7 +9,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { useAppDispatch } from "../redux/hooks";
 import {
-  open,
+  openAuthModal,
   setLogInMode,
   setSignUpMode,
 } from "../redux/features/userAuthModal";
@@ -60,7 +60,7 @@ const Header = () => {
         <button
           className={btnStyles.btnVariantTwo}
           onClick={() => {
-            dispatch(open());
+            dispatch(openAuthModal());
             dispatch(setSignUpMode());
           }}
         >
@@ -69,7 +69,7 @@ const Header = () => {
         <button
           className={btnStyles.btnVariantOne}
           onClick={() => {
-            dispatch(open());
+            dispatch(openAuthModal());
             dispatch(setLogInMode());
           }}
         >

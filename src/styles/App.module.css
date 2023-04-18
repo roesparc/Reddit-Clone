@@ -1,3 +1,27 @@
+.light {
+  /* wont change */
+  --color-main: #ff4500;
+  --color-overlay: #00000066;
+  --color-button-auth: #d93a00;
+  --color-button-auth-hover: #d93a00e8;
+  --color-error-one: #fb133a;
+  --color-valid-one: #24a0ed;
+
+  /* will change */
+  --color-background-one: #ffffff;
+  --color-button-one: #0076d1;
+  --color-button-one-hover: #0076d1eb;
+  --color-button-one-active: #0076d1c2;
+  --color-button-one-alt-hover: #0076d10a;
+  --color-button-one-alt-active: #0076d129;
+  --color-link-one: #0079d3;
+  --color-border-one: #edeff1;
+  --color-input-one: #f6f7f8;
+  --color-input-border-one: #00000033;
+  --color-label-one: #737577;
+  --color-utility-one: #878a8c;
+}
+
 .root {
   min-height: 100vh;
 }

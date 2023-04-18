@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Noto+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 :root {
   font-size: 12px;
@@ -32,8 +32,23 @@ a {
   font-size: 14px;
 }
 
+a {
+  text-decoration: none;
+}
+
 button {
   font-size: 14px;
   font-weight: bold;
   font-family: "Noto Sans", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+}
+
+input,
+label {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 14px;
 }

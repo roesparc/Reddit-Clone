@@ -1,20 +1,23 @@
 .root {
   padding: 0 20px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border-one);
 }
 
 .leftSide {
-  flex-grow: 1;
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
 .rightSide {
-  margin-left: 20px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: flex-end;
+  gap: 1rem;
+  width: 400px;
 }
 
 .logoContainer {
@@ -38,7 +41,7 @@
   width: 270px;
   height: 36px;
   font-weight: normal;
-  background-color: var(--color-background-one);
+  background-color: transparent;
   border: 1px solid transparent;
   outline: none;
   border-radius: 4px;
@@ -48,6 +51,7 @@
 }
 
 .currentLocationImg {
+  color: var(--color-font-one);
   padding: 0 0.5rem;
   font-size: 20px;
   height: 20px;
@@ -64,11 +68,12 @@
 .caretDown {
   font-size: 20px;
   padding: 0 0.5rem;
+  color: var(--color-utility-one);
 }
 
 .searchBarContainer {
-  margin: 0 auto;
   flex-grow: 1;
+  margin: 0 20px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -76,9 +81,10 @@
   background-color: var(--color-input-one);
   border: 1px solid var(--color-border-one);
   border-radius: 2rem;
-  box-shadow: none;
   height: 40px;
   max-width: 690px;
+  max-width: 360px;
+  overflow: hidden;
 }
 .searchBarContainer:hover,
 .searchBarContainer:focus-within {
@@ -87,7 +93,7 @@
 }
 
 .searchBarForm {
-  flex-grow: 1;
+  width: 100%;
   display: flex;
 }
 
@@ -99,7 +105,7 @@
 .searchBarIcon {
   font-size: 20px;
   display: block;
-  color: #878a8c;
+  color: var(--color-utility-one);
 }
 
 .searchBarInput {
@@ -107,6 +113,7 @@
   background-color: transparent;
   outline: none;
   border: none;
+  overflow: hidden;
 }
 .searchBarInput::-webkit-search-cancel-button {
   display: none;
@@ -118,7 +125,120 @@
   background-color: transparent;
   border-radius: 4px;
   border: 1px solid transparent;
+  color: var(--color-font-one);
 }
 .themeBtn:hover {
   border-color: var(--color-border-one);
+}
+
+.authBtns {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.userBlock {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userInteractionBtns {
+  width: 32px;
+  height: 32px;
+  border-radius: 2px;
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+  color: var(--color-font-one);
+}
+.userInteractionBtns:hover,
+.userInteractionBtns:focus {
+  background-color: var(--color-font-one-faded);
+}
+
+.userNav {
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 5px 0;
+}
+.userNav:hover {
+  border-color: var(--color-border-one);
+}
+
+.userImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 3rem;
+  margin-right: 5px;
+  margin-left: 8px;
+}
+
+.username {
+  width: 10rem;
+  color: var(--color-font-one);
+  text-align: start;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: "IBM Plex Sans", sans-serif;
+  overflow: hidden;
+}
+
+@media (max-width: 1080px) {
+  .username {
+    display: none;
+  }
+
+  .rightSide {
+    width: unset;
+  }
+
+  .logoText {
+    display: none;
+  }
+
+  .currentLocationInfo {
+    display: none;
+  }
+
+  .navBtn {
+    width: unset;
+  }
+}
+
+@media (max-width: 650px) {
+  .searchBarContainer {
+    margin: 0 1rem;
+  }
+
+  .caretDown {
+    display: none;
+  }
+
+  .userImg {
+    margin-left: 5px;
+  }
+
+  .leftSide {
+    gap: 1rem;
+  }
+
+  .authBtns button:first-child {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .searchBarContainer {
+    padding: 0 0.5rem;
+  }
+
+  .searchBarLabel {
+    margin-right: 0.5rem;
+  }
+
+  .navBtn {
+    display: none;
+  }
 }

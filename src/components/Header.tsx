@@ -7,16 +7,21 @@ import { AiFillHome } from "react-icons/ai";
 import { RxCaretDown } from "react-icons/rx";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineDarkMode } from "react-icons/md";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import {
   openAuthModal,
   setLogInMode,
   setSignUpMode,
 } from "../redux/features/userAuthModal";
+import { selectCurrentUser, selectUserProfile } from "../redux/features/auth";
+import { RiNotification2Line } from "react-icons/ri";
+import { BsPlusLg } from "react-icons/bs";
 
 const Header = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
+  const currentUser = useAppSelector(selectCurrentUser);
+  const userProfile = useAppSelector(selectUserProfile);
 
   return (
     <header className={styles.root}>
@@ -31,53 +36,77 @@ const Header = () => {
             <>
               <AiFillHome className={styles.currentLocationImg} />
               <span className={styles.currentLocationInfo}>Home</span>
-              <RxCaretDown className={styles.caretDown} />
+              <RxCaretDown viewBox="1 1 13 13" className={styles.caretDown} />
             </>
           ) : (
             ""
           )}
         </button>
+      </div>
 
-        <div className={styles.searchBarContainer}>
-          <form className={styles.searchBarForm}>
-            <label
-              htmlFor="header-search-bar"
-              className={styles.searchBarLabel}
-            >
-              <IoSearchOutline className={styles.searchBarIcon} />
-            </label>
-            <input
-              className={styles.searchBarInput}
-              type="search"
-              id="header-search-bar"
-              placeholder="Search users & subreddits"
-            />
-          </form>
-        </div>
+      <div className={styles.searchBarContainer}>
+        <form className={styles.searchBarForm}>
+          <label htmlFor="header-search-bar" className={styles.searchBarLabel}>
+            <IoSearchOutline className={styles.searchBarIcon} />
+          </label>
+          <input
+            className={styles.searchBarInput}
+            type="search"
+            id="header-search-bar"
+            placeholder="Search"
+          />
+        </form>
       </div>
 
       <div className={styles.rightSide}>
-        <button
-          className={btnStyles.btnVariantTwo}
-          onClick={() => {
-            dispatch(openAuthModal());
-            dispatch(setSignUpMode());
-          }}
-        >
-          Sign Up
-        </button>
-        <button
-          className={btnStyles.btnVariantOne}
-          onClick={() => {
-            dispatch(openAuthModal());
-            dispatch(setLogInMode());
-          }}
-        >
-          Log In
-        </button>
-        <button className={styles.themeBtn}>
-          <MdOutlineDarkMode />
-        </button>
+        {currentUser ? (
+          <div className={styles.userBlock}>
+            <Link to="/submit">
+              <button className={styles.userInteractionBtns}>
+                <BsPlusLg />
+              </button>
+            </Link>
+
+            <button className={styles.userInteractionBtns}>
+              <RiNotification2Line />
+            </button>
+
+            <button className={styles.userNav}>
+              <img
+                src={userProfile.userImg}
+                alt="User"
+                className={styles.userImg}
+              />
+              <p className={styles.username}>{userProfile.username}</p>
+              <RxCaretDown viewBox="1 1 13 13" className={styles.caretDown} />
+            </button>
+          </div>
+        ) : (
+          <div className={styles.authBtns}>
+            <button
+              className={btnStyles.btnVariantTwo}
+              onClick={() => {
+                dispatch(openAuthModal());
+                dispatch(setSignUpMode());
+              }}
+            >
+              Sign Up
+            </button>
+            <button
+              className={btnStyles.btnVariantOne}
+              onClick={() => {
+                dispatch(openAuthModal());
+                dispatch(setLogInMode());
+              }}
+            >
+              Log In
+            </button>
+
+            <button className={styles.themeBtn}>
+              <MdOutlineDarkMode />
+            </button>
+          </div>
+        )}
       </div>
     </header>
   );

@@ -1,5 +1,5 @@
 import { selectUserProfile } from "../../redux/features/auth";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useEffect, useRef, useState } from "react";
 import { RxCaretDown } from "react-icons/rx";
 import { HiOutlineUserCircle } from "react-icons/hi";
@@ -10,15 +10,23 @@ import styles from "../../styles/header/UserNav.module.css";
 import btnStyles from "../../styles/elements/buttons.module.css";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
+import { selectCurrentTheme, toggleTheme } from "../../redux/features/theme";
 
 const UserNav = () => {
+  const dispatch = useAppDispatch();
+  const currentTheme = useAppSelector(selectCurrentTheme);
   const userProfile = useAppSelector(selectUserProfile);
+
   const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
   const userNavBtnRef = useRef<HTMLButtonElement>(null);
+  const themeBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (!userNavBtnRef.current?.contains(event.target as Node)) {
+      if (
+        !userNavBtnRef.current?.contains(event.target as Node) &&
+        !themeBtnRef.current?.contains(event.target as Node)
+      ) {
         setShowUserMenu(false);
       }
     };
@@ -61,9 +69,15 @@ const UserNav = () => {
           </div>
 
           <div className={styles.userMenuSection}>
-            <button>
+            <button onClick={() => dispatch(toggleTheme())} ref={themeBtnRef}>
               <span>Dark Mode</span>
-              <div className={btnStyles.toggleBtn}>
+              <div
+                className={`${btnStyles.toggleBtn} ${
+                  currentTheme === "dark"
+                    ? btnStyles.toggleBtnActive
+                    : undefined
+                }`}
+              >
                 <div></div>
               </div>
             </button>

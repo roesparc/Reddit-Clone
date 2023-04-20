@@ -27,3 +27,25 @@
 .btnVariantTwo:active {
   background-color: var(--color-button-one-alt-active);
 }
+
+.toggleBtn {
+  background-color: var(--color-font-one-faded);
+  border-width: 2.25px;
+  height: 24px;
+  width: 37.5px;
+  border: 2px solid transparent;
+  border-radius: 3rem;
+  transition: all 150ms ease;
+  justify-content: flex-start;
+}
+.toggleBtn > div {
+  background-color: #ffffff;
+  box-shadow: 0 0 0 1px #0000001a, 0 2px 3px 0 #00000033;
+  border-radius: 3rem;
+  height: 19.5px;
+  width: 19.5px;
+}
+.toggleBtnActive {
+  background-color: var(--color-link-one);
+  justify-content: flex-end;
+}

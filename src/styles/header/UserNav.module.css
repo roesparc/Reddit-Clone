@@ -27,6 +27,12 @@
   overflow: hidden;
 }
 
+.caretDown {
+  font-size: 20px;
+  padding: 0 0.5rem;
+  color: var(--color-utility-one);
+}
+
 .userMenu {
   position: fixed;
   right: 20px;
@@ -96,4 +102,20 @@
 }
 .sectionOnlyBtn:hover {
   background-color: var(--color-font-one-faded);
+}
+
+@media (max-width: 1080px) {
+  .username {
+    display: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .caretDown {
+    display: none;
+  }
+
+  .userImg {
+    margin-left: 5px;
+  }
 }

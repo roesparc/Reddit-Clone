@@ -158,10 +158,6 @@
 }
 
 @media (max-width: 1080px) {
-  .username {
-    display: none;
-  }
-
   .rightSide {
     width: unset;
   }
@@ -186,10 +182,6 @@
 
   .caretDown {
     display: none;
-  }
-
-  .userImg {
-    margin-left: 5px;
   }
 
   .leftSide {

@@ -16,7 +16,7 @@ import {
   where,
 } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
-import styles from "../../styles/AuthFormsShared.module.css";
+import styles from "../..//styles/userAuthModal/AuthFormsShared.module.css";
 
 const SignUpForm = () => {
   const dispatch = useAppDispatch();

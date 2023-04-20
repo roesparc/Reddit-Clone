@@ -4,7 +4,7 @@ import {
   selectIsUserAuthOpen,
 } from "../../redux/features/userAuthModal";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import styles from "../../styles/UserAuthModal.module.css";
+import styles from "../../styles/userAuthModal/UserAuthModal.module.css";
 import { GrClose } from "react-icons/gr";
 import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import LogInForm from "./LoginForm";

@@ -6,7 +6,7 @@ import {
   setSignUpMode,
 } from "../../redux/features/userAuthModal";
 import { auth } from "../../firebase/config";
-import styles from "../../styles/AuthFormsShared.module.css";
+import styles from "../../styles/userAuthModal/AuthFormsShared.module.css";
 
 const LogInForm = () => {
   const dispatch = useAppDispatch();

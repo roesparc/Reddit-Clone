@@ -36,7 +36,10 @@
   border: 2px solid transparent;
   border-radius: 3rem;
   transition: all 150ms ease;
+  display: flex;
+  align-items: center;
   justify-content: flex-start;
+  box-sizing: border-box;
 }
 .toggleBtn > div {
   background-color: #ffffff;

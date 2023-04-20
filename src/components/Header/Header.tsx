@@ -1,27 +1,27 @@
 import { Link, useLocation } from "react-router-dom";
-import { ReactComponent as Logo } from "../assets/img/logo.svg";
-import { ReactComponent as LogoText } from "../assets/img/logo_text.svg";
-import styles from "../styles/Header.module.css";
-import btnStyles from "../styles/elements/buttons.module.css";
+import { ReactComponent as Logo } from "../../assets/img/logo.svg";
+import { ReactComponent as LogoText } from "../../assets/img/logo_text.svg";
+import styles from "../../styles/header/Header.module.css";
+import btnStyles from "../../styles/elements/buttons.module.css";
 import { AiFillHome } from "react-icons/ai";
 import { RxCaretDown } from "react-icons/rx";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineDarkMode } from "react-icons/md";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   openAuthModal,
   setLogInMode,
   setSignUpMode,
-} from "../redux/features/userAuthModal";
-import { selectCurrentUser, selectUserProfile } from "../redux/features/auth";
+} from "../../redux/features/userAuthModal";
+import { selectCurrentUser } from "../../redux/features/auth";
 import { RiNotification2Line } from "react-icons/ri";
 import { BsPlusLg } from "react-icons/bs";
+import UserNav from "./UserNav";
 
 const Header = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
-  const userProfile = useAppSelector(selectUserProfile);
 
   return (
     <header className={styles.root}>
@@ -71,15 +71,7 @@ const Header = () => {
               <RiNotification2Line />
             </button>
 
-            <button className={styles.userNav}>
-              <img
-                src={userProfile.userImg}
-                alt="User"
-                className={styles.userImg}
-              />
-              <p className={styles.username}>{userProfile.username}</p>
-              <RxCaretDown viewBox="1 1 13 13" className={styles.caretDown} />
-            </button>
+            <UserNav />
           </div>
         ) : (
           <div className={styles.authBtns}>

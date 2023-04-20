@@ -1,0 +1,99 @@
+.root {
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 5px 0;
+}
+.root:hover,
+.root:focus {
+  border-color: var(--color-border-one);
+}
+
+.userImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 3rem;
+  margin-right: 5px;
+  margin-left: 8px;
+}
+
+.username {
+  width: 10rem;
+  color: var(--color-font-one);
+  text-align: start;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: "IBM Plex Sans", sans-serif;
+  overflow: hidden;
+}
+
+.userMenu {
+  position: fixed;
+  right: 20px;
+  top: 51px;
+  width: 252px;
+  background-color: var(--color-background-one);
+  border: 1px solid var(--color-border-one);
+  border-radius: 4px;
+  padding: 0.5rem 0;
+  overflow-y: auto;
+  max-height: 80%;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 20px;
+  color: var(--color-label-one);
+  height: 40px;
+}
+
+.sectionTitle svg {
+  font-size: 20px;
+}
+
+.sectionTitle h3 {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.userMenuSection {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--color-border-one);
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+}
+
+.userMenuSection > a,
+.userMenuSection > button {
+  box-sizing: border-box;
+  height: 40px;
+  width: 100%;
+  font-weight: 500;
+  color: var(--color-font-one);
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
+  padding-left: 52px;
+  background-color: transparent;
+  border: none;
+  justify-content: space-between;
+}
+.userMenuSection > a:hover,
+.userMenuSection > button:hover {
+  background-color: var(--color-font-one-faded);
+}
+
+.sectionOnlyBtn {
+  color: var(--color-font-one);
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  border: none;
+  background-color: transparent;
+}
+.sectionOnlyBtn:hover {
+  background-color: var(--color-font-one-faded);
+}

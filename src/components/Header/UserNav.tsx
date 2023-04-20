@@ -8,6 +8,8 @@ import { BsEye } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import styles from "../../styles/header/UserNav.module.css";
 import btnStyles from "../../styles/elements/buttons.module.css";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase/config";
 
 const UserNav = () => {
   const userProfile = useAppSelector(selectUserProfile);
@@ -61,13 +63,16 @@ const UserNav = () => {
           <div className={styles.userMenuSection}>
             <button>
               <span>Dark Mode</span>
-              <button className={btnStyles.toggleBtn}>
+              <div className={btnStyles.toggleBtn}>
                 <div></div>
-              </button>
+              </div>
             </button>
           </div>
 
-          <button className={`${styles.sectionTitle} ${styles.sectionOnlyBtn}`}>
+          <button
+            className={`${styles.sectionTitle} ${styles.sectionOnlyBtn}`}
+            onClick={() => signOut(auth)}
+          >
             <FiLogOut style={{ strokeWidth: 1 }} />
             <h3>Log Out</h3>
           </button>

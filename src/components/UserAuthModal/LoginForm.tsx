@@ -32,9 +32,15 @@ const LogInForm = () => {
       });
   };
 
-  const blurInputOnKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const blurOnEnterAndSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      const form = e.currentTarget.form;
+
       e.currentTarget.blur();
+
+      setTimeout(() => {
+        form?.dispatchEvent(new Event("submit", { bubbles: true }));
+      }, 0);
     }
   };
 
@@ -85,7 +91,7 @@ const LogInForm = () => {
             required
             ref={emailRef}
             onBlur={(e) => setEmail(e.target.value)}
-            onKeyDown={blurInputOnKeyDown}
+            onKeyDown={blurOnEnterAndSubmit}
           />
           <label htmlFor="sign-up-email">Email</label>
           <p>{emailMessage}</p>
@@ -101,7 +107,7 @@ const LogInForm = () => {
             required
             ref={passwordRef}
             onBlur={(e) => setPassword(e.target.value)}
-            onKeyDown={blurInputOnKeyDown}
+            onKeyDown={blurOnEnterAndSubmit}
           />
           <label htmlFor="sign-up-password">Password</label>
         </fieldset>

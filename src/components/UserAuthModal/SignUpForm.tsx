@@ -96,9 +96,15 @@ const SignUpForm = () => {
       });
   };
 
-  const blurInputOnKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const blurOnEnterAndSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
+      const form = e.currentTarget.form;
+
       e.currentTarget.blur();
+
+      setTimeout(() => {
+        form?.dispatchEvent(new Event("submit", { bubbles: true }));
+      }, 0);
     }
   };
 
@@ -196,7 +202,7 @@ const SignUpForm = () => {
             required
             ref={usernameRef}
             onBlur={(e) => setUsername(e.target.value)}
-            onKeyDown={blurInputOnKeyDown}
+            onKeyDown={blurOnEnterAndSubmit}
           />
           <label htmlFor="sign-up-username">Username</label>
           <p>{usernameMessage}</p>
@@ -218,7 +224,7 @@ const SignUpForm = () => {
             required
             ref={emailRef}
             onBlur={(e) => setEmail(e.target.value)}
-            onKeyDown={blurInputOnKeyDown}
+            onKeyDown={blurOnEnterAndSubmit}
           />
           <label htmlFor="sign-up-email">Email</label>
           <p>{emailMessage}</p>
@@ -240,7 +246,7 @@ const SignUpForm = () => {
             required
             ref={passwordRef}
             onBlur={(e) => setPassword(e.target.value)}
-            onKeyDown={blurInputOnKeyDown}
+            onKeyDown={blurOnEnterAndSubmit}
           />
           <label htmlFor="sign-up-password">Password</label>
           <p>{passwordMessage}</p>
@@ -262,7 +268,7 @@ const SignUpForm = () => {
             required
             ref={confirmPasswordRef}
             onBlur={(e) => setConfirmPassword(e.target.value)}
-            onKeyDown={blurInputOnKeyDown}
+            onKeyDown={blurOnEnterAndSubmit}
           />
           <label htmlFor="sign-up-confirm-password">Confirm Password</label>
           <p>{confirmPasswordMessage}</p>

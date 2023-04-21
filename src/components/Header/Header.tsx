@@ -3,10 +3,8 @@ import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import { ReactComponent as LogoText } from "../../assets/img/logo_text.svg";
 import styles from "../../styles/header/Header.module.css";
 import btnStyles from "../../styles/elements/buttons.module.css";
-import { AiFillHome } from "react-icons/ai";
 import { RxCaretDown } from "react-icons/rx";
 import { IoSearchOutline } from "react-icons/io5";
-import { MdOutlineDarkMode } from "react-icons/md";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   openAuthModal,
@@ -14,14 +12,16 @@ import {
   setSignUpMode,
 } from "../../redux/features/userAuthModal";
 import { selectCurrentUser } from "../../redux/features/auth";
-import { RiNotification2Line } from "react-icons/ri";
-import { BsPlusLg } from "react-icons/bs";
+import { BsPlusLg, BsBell, BsMoon, BsSun } from "react-icons/bs";
+import { FaHome } from "react-icons/fa";
 import UserNav from "./UserNav";
+import { selectCurrentTheme, toggleTheme } from "../../redux/features/theme";
 
 const Header = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
+  const currentTheme = useAppSelector(selectCurrentTheme);
 
   return (
     <header className={styles.root}>
@@ -34,7 +34,7 @@ const Header = () => {
         <button className={styles.navBtn}>
           {location.pathname === "/" ? (
             <>
-              <AiFillHome className={styles.currentLocationImg} />
+              <FaHome className={styles.currentLocationImg} />
               <span className={styles.currentLocationInfo}>Home</span>
               <RxCaretDown viewBox="1 1 13 13" className={styles.caretDown} />
             </>
@@ -68,7 +68,7 @@ const Header = () => {
             </Link>
 
             <button className={styles.userInteractionBtns}>
-              <RiNotification2Line />
+              <BsBell />
             </button>
 
             <UserNav />
@@ -94,8 +94,11 @@ const Header = () => {
               Log In
             </button>
 
-            <button className={styles.themeBtn}>
-              <MdOutlineDarkMode />
+            <button
+              className={styles.themeBtn}
+              onClick={() => dispatch(toggleTheme())}
+            >
+              {currentTheme === "light" ? <BsMoon /> : <BsSun />}
             </button>
           </div>
         )}

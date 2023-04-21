@@ -3,6 +3,7 @@ export interface UserProfile {
   username: string;
   displayName: string;
   about: string;
+  userTheme: "light" | "dark";
   userImg: string;
   cakeDay: string;
 }

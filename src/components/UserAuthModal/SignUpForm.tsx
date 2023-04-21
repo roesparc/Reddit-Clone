@@ -3,7 +3,7 @@ import {
   closeAuthModal,
   setLogInMode,
 } from "../../redux/features/userAuthModal";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { UserCredential, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db, storage } from "../../firebase/config";
 import {
@@ -17,9 +17,11 @@ import {
 } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import styles from "../..//styles/userAuthModal/AuthFormsShared.module.css";
+import { selectCurrentTheme } from "../../redux/features/theme";
 
 const SignUpForm = () => {
   const dispatch = useAppDispatch();
+  const currentTheme = useAppSelector(selectCurrentTheme);
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -70,6 +72,7 @@ const SignUpForm = () => {
       displayName: username,
       about: "",
       userImg: avatarUrl,
+      userTheme: currentTheme,
       cakeDay: new Date().toLocaleDateString("en-US", {
         month: "long",
         day: "numeric",

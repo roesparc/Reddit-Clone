@@ -9,8 +9,9 @@ import { Link } from "react-router-dom";
 import styles from "../../styles/header/UserNav.module.css";
 import btnStyles from "../../styles/elements/buttons.module.css";
 import { signOut } from "firebase/auth";
-import { auth } from "../../firebase/config";
+import { auth, db } from "../../firebase/config";
 import { selectCurrentTheme, toggleTheme } from "../../redux/features/theme";
+import { doc, updateDoc } from "firebase/firestore";
 
 const UserNav = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +21,14 @@ const UserNav = () => {
   const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
   const userNavBtnRef = useRef<HTMLButtonElement>(null);
   const themeBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const updateUserTheme = async () => {
+      const userRef = doc(db, "users", userProfile.uid);
+      await updateDoc(userRef, { userTheme: currentTheme });
+    };
+    updateUserTheme();
+  }, [currentTheme, userProfile.uid]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

@@ -33,7 +33,6 @@
 }
 
 .formWrapper fieldset p {
-  color: var(--color-error-one);
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -44,6 +43,9 @@
 }
 .formWrapper .inputValid p {
   color: var(--color-valid-one);
+}
+.formWrapper .inputInvalid p {
+  color: var(--color-error-one);
 }
 
 .formWrapper label {

@@ -33,17 +33,23 @@ const SignUpForm = () => {
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  const [isUsernameValid, setIsUsernameValid] = useState<boolean>(false);
-  const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
-  const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
-  const [isConfirmPasswordValid, setIsConfirmPasswordValid] =
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState<string>("");
+  const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState<string>("");
+  const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
+    useState<string>("");
+
+  const [isUsernameAvailable, setIsUsernameAvailable] =
     useState<boolean>(false);
 
-  const [usernameMessage, setUsernameMessage] = useState<string>("");
-  const [emailMessage, setEmailMessage] = useState<string>("");
-  const [passwordMessage, setPasswordMessage] = useState<string>("");
-  const [confirmPasswordMessage, setConfirmPasswordMessage] =
-    useState<string>("");
+  const [reportUsernameValidity, setReportUsernameValidity] =
+    useState<boolean>(false);
+  const [reportEmailValidity, setReportEmailValidity] =
+    useState<boolean>(false);
+  const [reportPasswordValidity, setReportPasswordValidity] =
+    useState<boolean>(false);
+  const [reportConfirmPasswordValidity, setReportConfirmPasswordValidity] =
+    useState<boolean>(false);
 
   const checkUsernameAvailable = useCallback(async () => {
     const usersRef = collection(db, "users");
@@ -52,12 +58,12 @@ const SignUpForm = () => {
 
     if (!querySnapshot.empty) {
       usernameRef.current?.setCustomValidity("Username is not available");
-      setUsernameMessage("Username is not available");
-      setIsUsernameValid(false);
+      setUsernameErrorMessage("Username is not available");
+      setIsUsernameAvailable(false);
     } else {
       usernameRef.current?.setCustomValidity("");
-      setUsernameMessage("Username is available");
-      setIsUsernameValid(true);
+      setUsernameErrorMessage("");
+      setIsUsernameAvailable(true);
     }
   }, [username]);
 
@@ -90,22 +96,9 @@ const SignUpForm = () => {
       .catch((error) => {
         if (error.code === "auth/email-already-in-use") {
           emailRef.current?.setCustomValidity("Email already in use");
-          setEmailMessage("Email already in use");
-          setIsEmailValid(false);
+          setEmailErrorMessage("Email already in use");
         }
       });
-  };
-
-  const blurOnEnterAndSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      const form = e.currentTarget.form;
-
-      e.currentTarget.blur();
-
-      setTimeout(() => {
-        form?.dispatchEvent(new Event("submit", { bubbles: true }));
-      }, 0);
-    }
   };
 
   const onSubmitSignUp = (e: React.FormEvent<HTMLFormElement>) => {
@@ -114,20 +107,16 @@ const SignUpForm = () => {
   };
 
   useEffect(() => {
-    if (username.length) {
-      if (username.length < 3 || username.length > 20) {
-        usernameRef.current?.setCustomValidity(
-          "Username must be between 3 and 20 characters"
-        );
-        setUsernameMessage("Username must be between 3 and 20 characters");
-        setIsUsernameValid(false);
-      } else {
-        usernameRef.current?.setCustomValidity("Cheking Username...");
-        setUsernameMessage("");
-        checkUsernameAvailable();
-      }
+    if (username.length < 3 || username.length > 20) {
+      usernameRef.current?.setCustomValidity(
+        "Username must be between 3 and 20 characters"
+      );
+      setUsernameErrorMessage("Username must be between 3 and 20 characters");
+      setIsUsernameAvailable(false);
     } else {
-      setIsUsernameValid(false);
+      usernameRef.current?.setCustomValidity("Cheking Username...");
+      setUsernameErrorMessage("");
+      checkUsernameAvailable();
     }
   }, [username, checkUsernameAvailable]);
 
@@ -135,33 +124,26 @@ const SignUpForm = () => {
     if (email.length) {
       if (!email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)) {
         emailRef.current?.setCustomValidity("Not a valid email address");
-        setEmailMessage("Not a valid email address");
-        setIsEmailValid(false);
+        setEmailErrorMessage("Not a valid email address");
       } else {
         emailRef.current?.setCustomValidity("");
-        setEmailMessage("");
-        setIsEmailValid(true);
+        setEmailErrorMessage("");
       }
     } else {
-      setIsEmailValid(false);
+      emailRef.current?.setCustomValidity("Please enter an email address");
+      setEmailErrorMessage("Please enter an email address");
     }
   }, [email]);
 
   useEffect(() => {
-    if (password.length) {
-      if (password.length < 8) {
-        passwordRef.current?.setCustomValidity(
-          "Password must be at least 8 characters long"
-        );
-        setPasswordMessage("Password must be at least 8 characters long");
-        setIsPasswordValid(false);
-      } else {
-        passwordRef.current?.setCustomValidity("");
-        setPasswordMessage("");
-        setIsPasswordValid(true);
-      }
+    if (password.length < 8) {
+      passwordRef.current?.setCustomValidity(
+        "Password must be at least 8 characters long"
+      );
+      setPasswordErrorMessage("Password must be at least 8 characters long");
     } else {
-      setIsPasswordValid(false);
+      passwordRef.current?.setCustomValidity("");
+      setPasswordErrorMessage("");
     }
   }, [password]);
 
@@ -169,15 +151,14 @@ const SignUpForm = () => {
     if (confirmPassword.length) {
       if (password !== confirmPassword) {
         confirmPasswordRef.current?.setCustomValidity("Passwords do not match");
-        setConfirmPasswordMessage("Passwords do not match");
-        setIsConfirmPasswordValid(false);
+        setConfirmPasswordErrorMessage("Passwords do not match");
       } else {
         confirmPasswordRef.current?.setCustomValidity("");
-        setConfirmPasswordMessage("");
-        setIsConfirmPasswordValid(true);
+        setConfirmPasswordErrorMessage("");
       }
     } else {
-      setIsConfirmPasswordValid(false);
+      confirmPasswordRef.current?.setCustomValidity("Confirm your password");
+      setConfirmPasswordErrorMessage("Confirm your password");
     }
   }, [password, confirmPassword]);
 
@@ -188,9 +169,9 @@ const SignUpForm = () => {
       <form onSubmit={onSubmitSignUp}>
         <fieldset
           className={
-            !isUsernameValid && usernameMessage.length
+            usernameErrorMessage.length && reportUsernameValidity
               ? styles.inputInvalid
-              : isUsernameValid
+              : reportUsernameValidity
               ? styles.inputValid
               : undefined
           }
@@ -198,21 +179,27 @@ const SignUpForm = () => {
           <input
             type="text"
             id="sign-up-username"
+            value={username}
             placeholder=" "
             required
             ref={usernameRef}
-            onBlur={(e) => setUsername(e.target.value)}
-            onKeyDown={blurOnEnterAndSubmit}
+            onChange={(e) => setUsername(e.target.value)}
+            onBlur={() => setReportUsernameValidity(true)}
           />
           <label htmlFor="sign-up-username">Username</label>
-          <p>{usernameMessage}</p>
+          <p>{reportUsernameValidity && usernameErrorMessage}</p>
+          <p>
+            {reportUsernameValidity &&
+              isUsernameAvailable &&
+              "Username is available"}
+          </p>
         </fieldset>
 
         <fieldset
           className={
-            !isEmailValid && emailMessage.length
+            emailErrorMessage.length && reportEmailValidity
               ? styles.inputInvalid
-              : isEmailValid
+              : reportEmailValidity
               ? styles.inputValid
               : undefined
           }
@@ -220,21 +207,22 @@ const SignUpForm = () => {
           <input
             type="text"
             id="sign-up-email"
+            value={email}
             placeholder=" "
             required
             ref={emailRef}
-            onBlur={(e) => setEmail(e.target.value)}
-            onKeyDown={blurOnEnterAndSubmit}
+            onChange={(e) => setEmail(e.target.value)}
+            onBlur={() => setReportEmailValidity(true)}
           />
           <label htmlFor="sign-up-email">Email</label>
-          <p>{emailMessage}</p>
+          <p>{reportEmailValidity && emailErrorMessage}</p>
         </fieldset>
 
         <fieldset
           className={
-            !isPasswordValid && passwordMessage.length
+            passwordErrorMessage.length && reportPasswordValidity
               ? styles.inputInvalid
-              : isPasswordValid
+              : reportPasswordValidity
               ? styles.inputValid
               : undefined
           }
@@ -242,21 +230,22 @@ const SignUpForm = () => {
           <input
             type="password"
             id="sign-up-password"
+            value={password}
             placeholder=" "
             required
             ref={passwordRef}
-            onBlur={(e) => setPassword(e.target.value)}
-            onKeyDown={blurOnEnterAndSubmit}
+            onChange={(e) => setPassword(e.target.value)}
+            onBlur={() => setReportPasswordValidity(true)}
           />
           <label htmlFor="sign-up-password">Password</label>
-          <p>{passwordMessage}</p>
+          <p>{reportPasswordValidity && passwordErrorMessage}</p>
         </fieldset>
 
         <fieldset
           className={
-            !isConfirmPasswordValid && confirmPasswordMessage.length
+            confirmPasswordErrorMessage.length && reportConfirmPasswordValidity
               ? styles.inputInvalid
-              : isConfirmPasswordValid
+              : reportConfirmPasswordValidity
               ? styles.inputValid
               : undefined
           }
@@ -264,14 +253,15 @@ const SignUpForm = () => {
           <input
             type="password"
             id="sign-up-confirm-password"
+            value={confirmPassword}
             placeholder=" "
             required
             ref={confirmPasswordRef}
-            onBlur={(e) => setConfirmPassword(e.target.value)}
-            onKeyDown={blurOnEnterAndSubmit}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            onBlur={() => setReportConfirmPasswordValidity(true)}
           />
           <label htmlFor="sign-up-confirm-password">Confirm Password</label>
-          <p>{confirmPasswordMessage}</p>
+          <p>{reportConfirmPasswordValidity && confirmPasswordErrorMessage}</p>
         </fieldset>
 
         <button className={styles.submitBtn} type="submit">

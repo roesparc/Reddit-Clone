@@ -12,45 +12,26 @@ const LogInForm = () => {
   const dispatch = useAppDispatch();
 
   const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
-  const [isPasswordValid, setIsPasswordValid] = useState<boolean>(true);
+  const [emailErrorMessage, setEmailErrorMessage] = useState<string>("");
 
-  const [emailMessage, setEmailMessage] = useState<string>("");
+  const [reportEmailValidity, setReportEmailValidity] =
+    useState<boolean>(false);
 
   const signIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => dispatch(closeAuthModal()))
       .catch(() => {
-        setEmailMessage("Incorrect username or password");
-        setIsEmailValid(false);
-        setIsPasswordValid(false);
+        setEmailErrorMessage("Incorrect username or password");
       });
-  };
-
-  const blurOnEnterAndSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      const form = e.currentTarget.form;
-
-      e.currentTarget.blur();
-
-      setTimeout(() => {
-        form?.dispatchEvent(new Event("submit", { bubbles: true }));
-      }, 0);
-    }
   };
 
   const onSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    setEmailMessage("");
-    setIsEmailValid(true);
-    setIsPasswordValid(true);
-
+    setEmailErrorMessage("");
     signIn();
   };
 
@@ -58,15 +39,14 @@ const LogInForm = () => {
     if (email.length) {
       if (!email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)) {
         emailRef.current?.setCustomValidity("Not a valid email address");
-        setEmailMessage("Not a valid email address");
-        setIsEmailValid(false);
+        setEmailErrorMessage("Not a valid email address");
       } else {
         emailRef.current?.setCustomValidity("");
-        setEmailMessage("");
-        setIsEmailValid(true);
+        setEmailErrorMessage("");
       }
     } else {
-      setIsEmailValid(false);
+      emailRef.current?.setCustomValidity("Please enter an email address");
+      setEmailErrorMessage("Please enter an email address");
     }
   }, [email]);
 
@@ -77,9 +57,9 @@ const LogInForm = () => {
       <form onSubmit={onSubmitLogin}>
         <fieldset
           className={
-            !isEmailValid && emailMessage.length
+            emailErrorMessage.length && reportEmailValidity
               ? styles.inputInvalid
-              : isEmailValid
+              : reportEmailValidity
               ? styles.inputValid
               : undefined
           }
@@ -87,27 +67,31 @@ const LogInForm = () => {
           <input
             type="text"
             id="sign-up-email"
+            value={email}
             placeholder=" "
             required
             ref={emailRef}
-            onBlur={(e) => setEmail(e.target.value)}
-            onKeyDown={blurOnEnterAndSubmit}
+            onBlur={() => setReportEmailValidity(true)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <label htmlFor="sign-up-email">Email</label>
-          <p>{emailMessage}</p>
+          <p>{reportEmailValidity && emailErrorMessage}</p>
         </fieldset>
 
         <fieldset
-          className={!isPasswordValid ? styles.inputInvalid : undefined}
+          className={
+            emailErrorMessage === "Incorrect username or password"
+              ? styles.inputInvalid
+              : undefined
+          }
         >
           <input
             type="password"
             id="sign-up-password"
+            value={password}
             placeholder=" "
             required
-            ref={passwordRef}
-            onBlur={(e) => setPassword(e.target.value)}
-            onKeyDown={blurOnEnterAndSubmit}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <label htmlFor="sign-up-password">Password</label>
         </fieldset>

@@ -5,6 +5,7 @@ import UserAuthModal from "./components/UserAuthModal/UserAuthModal";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "./redux/hooks";
 import handleAuthStateChange from "./functions/handleAuthStateChange ";
+import Main from "./components/Main";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -19,10 +20,11 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <div className={styles.lightTheme}>
+    <div className={`${styles.root} ${styles.lightTheme}`}>
       {!isInitialRender && (
         <HashRouter>
           <Header />
+          <Main />
           <UserAuthModal />
         </HashRouter>
       )}

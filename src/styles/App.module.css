@@ -1,7 +1,9 @@
-.light {
+.lightTheme {
   /* wont change */
   --color-main: #ff4500;
   --color-overlay: #00000066;
+  --color-upvote: #cc3700;
+  --color-downvote: #5a75cc;
   --color-button-auth: #d93a00;
   --color-button-auth-hover: #d93a00e8;
   --color-error-one: #fb133a;
@@ -9,6 +11,10 @@
 
   /* will change */
   --color-background-one: #ffffff;
+  --color-background-post: #ffffffcc;
+  --canvas: #dae0e6;
+  --color-font-one: #1a1a1b;
+  --color-font-one-faded: #1a1a1b1a;
   --color-button-one: #0076d1;
   --color-button-one-hover: #0076d1eb;
   --color-button-one-active: #0076d1c2;
@@ -20,8 +26,10 @@
   --color-input-border-one: #00000033;
   --color-label-one: #737577;
   --color-utility-one: #878a8c;
+  --color-utility-two: #787c7e;
 }
 
 .root {
   min-height: 100vh;
+  background-color: var(--canvas);
 }

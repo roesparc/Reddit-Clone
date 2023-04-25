@@ -1,0 +1,137 @@
+.root {
+  border-radius: 4px;
+  padding-left: 40px;
+  cursor: pointer;
+  border: 1px solid var(--color-border-one);
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--color-background-post);
+}
+.root:hover {
+  border-color: var(--color-utility-one);
+}
+
+.root button {
+  background-color: transparent;
+  border: none;
+  color: var(--color-utility-one);
+  border-radius: 2px;
+}
+.root button:hover {
+  background-color: var(--color-font-one-faded);
+}
+
+.votesContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  margin-top: 8px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.votesContainer button {
+  height: 24px;
+  width: 24px;
+}
+.votesContainer button:first-child:hover {
+  color: var(--color-upvote);
+}
+.votesContainer button:last-child:hover {
+  color: var(--color-downvote);
+}
+
+.votesContainer p {
+  color: var(--color-font-one);
+  margin: 4px 0;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  pointer-events: none;
+  word-break: normal;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.contentContainer {
+  padding: 8px 8px 0;
+  background-color: var(--color-background-one);
+}
+
+.postLink {
+  color: var(--color-font-one);
+}
+.postLink:visited {
+  color: var(--color-utility-one);
+}
+
+.postInfo,
+.postInfo a {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: var(--color-utility-two);
+  font-family: "IBM Plex Sans", sans-serif;
+  margin-bottom: 8px;
+}
+.postInfo a:hover {
+  text-decoration: underline;
+}
+
+.postInfo img {
+  height: 20px;
+  margin-right: 4px;
+  vertical-align: middle;
+  width: 20px;
+  border-radius: 50%;
+}
+
+.subName {
+  font-weight: 700 !important;
+  color: var(--color-font-one) !important;
+}
+
+.postBody {
+  margin-top: 13px;
+  /* margin-bottom: 10px; */
+  max-height: 250px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+  mask-image: linear-gradient(180deg, #000 60%, transparent);
+  font-size: 16px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.postImg {
+  max-width: 100%;
+  max-height: 512px;
+  margin: auto;
+  display: block;
+  margin-top: 8px;
+}
+
+.interactionsContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 40px;
+}
+
+.interactionsContainer button {
+  height: 36px;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  font-family: "IBM Plex Sans", sans-serif;
+  padding: 4px;
+}
+
+@media (max-width: 520px) {
+  .author {
+    display: none;
+  }
+}

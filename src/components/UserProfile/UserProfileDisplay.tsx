@@ -1,7 +1,7 @@
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
 import { selectUserProfile } from "../../redux/features/auth";
-import styles from "../../styles/userProfile/UserProfile.module.css";
+import styles from "../../styles/userProfile/UserProfileDisplay.module.css";
 import { useEffect, useState } from "react";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { db } from "../../firebase/config";

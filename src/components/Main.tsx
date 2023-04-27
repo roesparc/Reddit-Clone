@@ -1,15 +1,24 @@
 import { Route, Routes } from "react-router-dom";
-import UserProfile from "./UserProfile/UserProfile";
+import UserProfileDisplay from "./UserProfile/UserProfileDisplay";
 
 const Main = () => {
   return (
     <main>
       <Routes>
-        <Route path="/user/:username" element={<UserProfile />} />
-        <Route path="/user/:username/comments" element={<UserProfile />} />
-        <Route path="/user/:username/saved" element={<UserProfile />} />
-        <Route path="/user/:username/upvoted" element={<UserProfile />} />
-        <Route path="/user/:username/downvoted" element={<UserProfile />} />
+        <Route path="/user/:username" element={<UserProfileDisplay />} />
+        <Route
+          path="/user/:username/comments"
+          element={<UserProfileDisplay />}
+        />
+        <Route path="/user/:username/saved" element={<UserProfileDisplay />} />
+        <Route
+          path="/user/:username/upvoted"
+          element={<UserProfileDisplay />}
+        />
+        <Route
+          path="/user/:username/downvoted"
+          element={<UserProfileDisplay />}
+        />
       </Routes>
     </main>
   );

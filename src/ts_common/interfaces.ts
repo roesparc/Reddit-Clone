@@ -7,6 +7,7 @@ export interface UserProfile {
   about: string;
   userTheme: "light" | "dark";
   userImg: string;
+  coverImg: string;
   cakeDay: string;
 }
 

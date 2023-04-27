@@ -7,6 +7,7 @@ export const INITIAL_USER_PROFILE: UserProfile = {
   about: "",
   userTheme: "light",
   userImg: "",
+  coverImg: "",
   cakeDay: "",
 };
 

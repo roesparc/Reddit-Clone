@@ -62,7 +62,7 @@ const UserInfo = ({ userInfo }: Props) => {
       </div>
 
       {username === userProfile.username && (
-        <Link to="/settings" className={styles.userSettingsBtn}>
+        <Link to="/settings/profile" className={styles.userSettingsBtn}>
           <IoSettingsOutline viewBox="20 20 480 480" />
         </Link>
       )}

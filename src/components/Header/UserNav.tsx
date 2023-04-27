@@ -69,7 +69,7 @@ const UserNav = () => {
 
           <div className={styles.userMenuSection}>
             <Link to={`/user/${userProfile.username}`}>Profile</Link>
-            <Link to="/settings">User Settings</Link>
+            <Link to="/settings/profile">User Settings</Link>
           </div>
 
           <div className={styles.sectionTitle}>

@@ -68,9 +68,15 @@ const SignUpForm = () => {
   }, [username]);
 
   const storeUserInFirestore = async (userCredential: UserCredential) => {
-    const avatarUrl = await getDownloadURL(
-      ref(storage, "misc/avatar_default.png")
-    );
+    const [avatarUrl, coverUrl] = await Promise.all([
+      getDownloadURL(
+        ref(
+          storage,
+          `misc/avatars/avatar_default_${Math.floor(Math.random() * 11)}.png`
+        )
+      ),
+      getDownloadURL(ref(storage, "misc/cover_default.jpg")),
+    ]);
 
     setDoc(doc(db, "users", userCredential.user.uid), {
       uid: userCredential.user.uid,
@@ -78,6 +84,7 @@ const SignUpForm = () => {
       displayName: username,
       about: "",
       userImg: avatarUrl,
+      coverImg: coverUrl,
       userTheme: currentTheme,
       cakeDay: new Date().toLocaleDateString("en-US", {
         month: "long",

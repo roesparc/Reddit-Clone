@@ -11,6 +11,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { db, storage } from "../../firebase/config";
 import { doc, updateDoc } from "firebase/firestore";
 import { UserProfile } from "../../ts_common/interfaces";
+import btnStyles from "../../styles/elements/buttons.module.css";
 
 interface Props {
   userInfo: UserProfile;
@@ -51,7 +52,7 @@ const UserInfo = ({ userInfo }: Props) => {
           alt="cover"
         />
         {username === userProfile.username && (
-          <label>
+          <label className={btnStyles.cameraBtn}>
             <TbCameraPlus />
             <input type="file" onChange={(e) => updateCoverImg(e)} />
           </label>

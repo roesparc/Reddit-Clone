@@ -52,3 +52,24 @@
   background-color: var(--color-link-one);
   justify-content: flex-end;
 }
+
+.cameraBtn {
+  box-sizing: border-box;
+  background-color: var(--color-background-one);
+  border: 1px solid var(--color-link-one);
+  border-radius: 50%;
+  bottom: 8px;
+  height: 36px;
+  right: 8px;
+  width: 36px;
+  position: absolute;
+  color: var(--color-link-one);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  cursor: pointer;
+}
+.cameraBtn input {
+  display: none;
+}

@@ -1,6 +1,4 @@
-import { Link, useLocation, useParams } from "react-router-dom";
-import { useAppSelector } from "../../redux/hooks";
-import { selectUserProfile } from "../../redux/features/auth";
+import { useLocation, useParams } from "react-router-dom";
 import styles from "../../styles/userProfile/UserProfileDisplay.module.css";
 import { useEffect, useState } from "react";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
@@ -9,11 +7,11 @@ import UserOverView from "./UserOverview";
 import UserInfo from "./UserInfo";
 import { INITIAL_USER_PROFILE } from "../../ts_common/initialStates";
 import { UserProfile } from "../../ts_common/interfaces";
+import UserProfileNav from "./UserProfileNav";
 
 const UserProfileDisplay = () => {
   const { username } = useParams();
   const location = useLocation();
-  const userProfile = useAppSelector(selectUserProfile);
 
   const [currentTab, setCurrentTab] = useState<string>("");
   const [userInfo, setUserInfo] = useState<UserProfile>(INITIAL_USER_PROFILE);
@@ -43,42 +41,7 @@ const UserProfileDisplay = () => {
 
   return (
     <div>
-      <div className={styles.userProfileNav}>
-        <Link
-          to={`/user/${username}`}
-          className={currentTab === username ? styles.activeTab : ""}
-        >
-          Overview
-        </Link>
-        <Link
-          to={`/user/${username}/comments`}
-          className={currentTab === "comments" ? styles.activeTab : ""}
-        >
-          Comments
-        </Link>
-        {username === userProfile.username && (
-          <>
-            <Link
-              to={`/user/${username}/saved`}
-              className={currentTab === "saved" ? styles.activeTab : ""}
-            >
-              Saved
-            </Link>
-            <Link
-              to={`/user/${username}/upvoted`}
-              className={currentTab === "upvoted" ? styles.activeTab : ""}
-            >
-              Upvoted
-            </Link>
-            <Link
-              to={`/user/${username}/downvoted`}
-              className={currentTab === "downvoted" ? styles.activeTab : ""}
-            >
-              Downvoted
-            </Link>
-          </>
-        )}
-      </div>
+      <UserProfileNav currentTab={currentTab} />
 
       <div className={styles.contentWrapper}>
         {currentTab === username && <UserOverView userInfo={userInfo} />}

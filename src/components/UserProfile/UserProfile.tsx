@@ -6,14 +6,17 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import UserOverView from "./UserOverview";
+import UserInfo from "./UserInfo";
+import { INITIAL_USER_PROFILE } from "../../ts_common/initialStates";
+import { UserProfile } from "../../ts_common/interfaces";
 
-const UserProfile = () => {
+const UserProfileDisplay = () => {
   const { username } = useParams();
   const location = useLocation();
   const userProfile = useAppSelector(selectUserProfile);
 
   const [currentTab, setCurrentTab] = useState<string>("");
-  const [userId, setUserId] = useState<string>("");
+  const [userInfo, setUserInfo] = useState<UserProfile>(INITIAL_USER_PROFILE);
 
   useEffect(() => {
     const currentTab = location.pathname.split("/").pop();
@@ -30,7 +33,7 @@ const UserProfile = () => {
       const usernameQuerySnapshot = await getDocs(usernameQuery);
 
       if (!usernameQuerySnapshot.empty) {
-        setUserId(usernameQuerySnapshot.docs[0].data().uid);
+        setUserInfo(usernameQuerySnapshot.docs[0].data() as UserProfile);
       } else {
         // TODO: NO USER FOUND PAGE
       }
@@ -78,12 +81,12 @@ const UserProfile = () => {
       </div>
 
       <div className={styles.contentWrapper}>
-        {currentTab === username && <UserOverView userId={userId} />}
+        {currentTab === username && <UserOverView userInfo={userInfo} />}
 
-        <div></div>
+        <UserInfo userInfo={userInfo} />
       </div>
     </div>
   );
 };
 
-export default UserProfile;
+export default UserProfileDisplay;

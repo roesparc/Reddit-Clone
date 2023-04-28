@@ -86,6 +86,9 @@ const SignUpForm = () => {
       userImg: avatarUrl,
       coverImg: coverUrl,
       userTheme: currentTheme,
+      upvotedPosts: [],
+      downvotedPosts: [],
+      savedPosts: [],
       cakeDay: new Date().toLocaleDateString("en-US", {
         month: "long",
         day: "numeric",
@@ -94,7 +97,7 @@ const SignUpForm = () => {
     });
   };
 
-  const createUser = async () => {
+  const createUser = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         storeUserInFirestore(userCredential);

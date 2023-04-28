@@ -25,10 +25,16 @@ const UserInfo = ({ userInfo }: Props) => {
 
   const updateCoverImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
+      if (
+        e.target.files[0].type !== "image/png" &&
+        e.target.files[0].type !== "image/jpeg"
+      )
+        return;
+
       setShowCoverImgSpinner(true);
 
       const img = e.target.files[0];
-      const imgRef = ref(storage, `users/${userProfile.uid}/cover`);
+      const imgRef = ref(storage, `users/${userProfile.uid}/coverImg`);
 
       await uploadBytes(imgRef, img);
       const imgUrl = await getDownloadURL(imgRef);
@@ -72,9 +78,13 @@ const UserInfo = ({ userInfo }: Props) => {
         <img src={userInfo.userImg} alt="user" />
       </div>
 
-      <h1 className={styles.userDisplayName}>{userInfo.displayName}</h1>
+      <h1 className={styles.userDisplayName}>
+        {userInfo.displayName || userInfo.username}
+      </h1>
 
       <p className={styles.username}>u/{userInfo.username}</p>
+
+      <p className={styles.about}>{userInfo.about}</p>
 
       <div className={styles.cakeDayContainer}>
         <h5>Cake Day</h5>

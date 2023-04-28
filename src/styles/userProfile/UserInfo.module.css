@@ -53,6 +53,7 @@
 }
 
 .userImgContainer img {
+  object-fit: cover;
   position: absolute;
   width: 210px;
   height: 210px;
@@ -74,6 +75,11 @@
   text-align: center;
   color: var(--color-utility-two);
   font-family: "IBM Plex Sans", sans-serif;
+}
+
+.about {
+  margin: 8px 0;
+  text-align: center;
 }
 
 .cakeDayContainer {
@@ -98,4 +104,10 @@
 
 .cakeDayContainer svg {
   color: var(--color-valid-one);
+}
+
+@media (max-width: 1020px) {
+  .root {
+    display: none;
+  }
 }

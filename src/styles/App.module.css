@@ -9,6 +9,8 @@
   --color-error-one: #fb133a;
   --color-valid-one: #24a0ed;
 
+  --spinner-animation: spin 1s linear infinite;
+
   /* will change */
   --color-background-one: #ffffff;
   --color-background-post: #ffffffcc;
@@ -32,4 +34,10 @@
 .root {
   min-height: 100vh;
   background-color: var(--canvas);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

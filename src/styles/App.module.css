@@ -2,8 +2,8 @@
   /* wont change */
   --color-main: #ff4500;
   --color-overlay: #00000066;
-  --color-upvote: #cc3700;
-  --color-downvote: #5a75cc;
+  --color-upvote: #ff4500;
+  --color-downvote: #7193ff;
   --color-button-auth: #d93a00;
   --color-button-auth-hover: #d93a00e8;
   --color-error-one: #fb133a;

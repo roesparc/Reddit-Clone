@@ -45,6 +45,24 @@
   color: var(--color-downvote);
 }
 
+.upvoted .upvoteBtn,
+.upvoted .upvoteCount {
+  color: var(--color-upvote);
+}
+
+.upvoted .upvoteBtn svg {
+  fill: var(--color-upvote);
+}
+
+.downvoted .downvoteBtn,
+.downvoted .upvoteCount {
+  color: var(--color-downvote);
+}
+
+.downvoted .downvoteBtn svg {
+  fill: var(--color-downvote);
+}
+
 .votesContainer p {
   color: var(--color-font-one);
   margin: 4px 0;

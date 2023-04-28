@@ -9,6 +9,9 @@ export const INITIAL_USER_PROFILE: UserProfile = {
   userImg: "",
   coverImg: "",
   cakeDay: "",
+  upvotedPosts: [],
+  downvotedPosts: [],
+  savedPosts: [],
 };
 
 export const INITIAL_POST_DATA: Post = {

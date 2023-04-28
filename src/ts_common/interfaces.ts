@@ -9,6 +9,9 @@ export interface UserProfile {
   userImg: string;
   coverImg: string;
   cakeDay: string;
+  upvotedPosts: Array<string>;
+  downvotedPosts: Array<string>;
+  savedPosts: Array<string>;
 }
 
 export interface PostRaw {

@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import UserProfileDisplay from "./UserProfile/UserProfileDisplay";
+import UserSettings from "./UserProfile/UserSettings";
 
 const Main = () => {
   return (
@@ -19,6 +20,7 @@ const Main = () => {
           path="/user/:username/downvoted"
           element={<UserProfileDisplay />}
         />
+        <Route path="/settings/profile" element={<UserSettings />} />
       </Routes>
     </main>
   );

@@ -1,7 +1,7 @@
 import { Post, UserProfile } from "./interfaces";
 
 export const INITIAL_USER_PROFILE: UserProfile = {
-  uid: "null",
+  uid: "",
   username: "",
   displayName: "",
   about: "",

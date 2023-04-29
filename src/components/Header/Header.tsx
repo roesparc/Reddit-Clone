@@ -11,7 +11,7 @@ import {
   setLogInMode,
   setSignUpMode,
 } from "../../redux/features/userAuthModal";
-import { selectCurrentUser } from "../../redux/features/auth";
+import { selectUserProfile } from "../../redux/features/auth";
 import { BsPlusLg, BsBell, BsMoon, BsSun } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
 import UserNav from "./UserNav";
@@ -20,7 +20,7 @@ import { selectCurrentTheme, toggleTheme } from "../../redux/features/theme";
 const Header = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const currentUser = useAppSelector(selectCurrentUser);
+  const userProfile = useAppSelector(selectUserProfile);
   const currentTheme = useAppSelector(selectCurrentTheme);
 
   return (
@@ -59,7 +59,7 @@ const Header = () => {
       </div>
 
       <div className={styles.rightSide}>
-        {currentUser ? (
+        {userProfile.uid ? (
           <div className={styles.userBlock}>
             <Link to="/submit">
               <button className={styles.userInteractionBtns}>

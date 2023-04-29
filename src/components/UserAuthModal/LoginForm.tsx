@@ -7,11 +7,13 @@ import {
 } from "../../redux/features/userAuthModal";
 import { auth } from "../../firebase/config";
 import styles from "../../styles/userAuthModal/AuthFormsShared.module.css";
+import { ImSpinner2 } from "react-icons/im";
 
 const LogInForm = () => {
   const dispatch = useAppDispatch();
 
   const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -21,17 +23,34 @@ const LogInForm = () => {
   const [reportEmailValidity, setReportEmailValidity] =
     useState<boolean>(false);
 
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const disableInputs = () => {
+    emailRef.current?.setAttribute("disabled", "true");
+    passwordRef.current?.setAttribute("disabled", "true");
+  };
+
+  const enableInputs = () => {
+    emailRef.current?.removeAttribute("disabled");
+    passwordRef.current?.removeAttribute("disabled");
+  };
+
   const signIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => dispatch(closeAuthModal()))
       .catch(() => {
         setEmailErrorMessage("Incorrect username or password");
+
+        setIsSubmitting(false);
+        enableInputs();
       });
   };
 
   const onSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setEmailErrorMessage("");
+    setIsSubmitting(true);
+    disableInputs();
     signIn();
   };
 
@@ -91,6 +110,7 @@ const LogInForm = () => {
             value={password}
             placeholder=" "
             required
+            ref={passwordRef}
             onChange={(e) => setPassword(e.target.value)}
           />
           <label htmlFor="sign-up-password">Password</label>
@@ -101,20 +121,26 @@ const LogInForm = () => {
           <span className={styles.fakeLink}>password</span> ?
         </p>
 
-        <button className={styles.submitBtn} type="submit">
-          Log In
-        </button>
+        {!isSubmitting && (
+          <button className={styles.submitBtn} type="submit">
+            Log In
+          </button>
+        )}
       </form>
 
-      <p className={styles.helper}>
-        New to Re_edit?{" "}
-        <button
-          className={styles.fakeLink}
-          onClick={() => dispatch(setSignUpMode())}
-        >
-          Sign Up
-        </button>
-      </p>
+      {isSubmitting ? (
+        <ImSpinner2 className={styles.submitSpinner} />
+      ) : (
+        <p className={styles.helper}>
+          New to Re_edit?{" "}
+          <button
+            className={styles.fakeLink}
+            onClick={() => dispatch(setSignUpMode())}
+          >
+            Sign Up
+          </button>
+        </p>
+      )}
     </div>
   );
 };

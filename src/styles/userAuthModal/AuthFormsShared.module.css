@@ -133,3 +133,12 @@
 .submitBtn:hover {
   background-color: var(--color-button-auth-hover);
 }
+
+.submitSpinner {
+  margin: auto;
+  margin-top: 56px;
+  display: block;
+  font-size: 4rem;
+  color: var(--color-button-auth);
+  animation: var(--spinner-animation);
+}

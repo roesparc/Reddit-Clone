@@ -18,6 +18,7 @@ import {
 import { getDownloadURL, ref } from "firebase/storage";
 import styles from "../..//styles/userAuthModal/AuthFormsShared.module.css";
 import { selectCurrentTheme } from "../../redux/features/theme";
+import { ImSpinner2 } from "react-icons/im";
 
 const SignUpForm = () => {
   const dispatch = useAppDispatch();
@@ -50,6 +51,22 @@ const SignUpForm = () => {
     useState<boolean>(false);
   const [reportConfirmPasswordValidity, setReportConfirmPasswordValidity] =
     useState<boolean>(false);
+
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const disableInputs = () => {
+    usernameRef.current?.setAttribute("disabled", "true");
+    emailRef.current?.setAttribute("disabled", "true");
+    passwordRef.current?.setAttribute("disabled", "true");
+    confirmPasswordRef.current?.setAttribute("disabled", "true");
+  };
+
+  const enableInputs = () => {
+    usernameRef.current?.removeAttribute("disabled");
+    emailRef.current?.removeAttribute("disabled");
+    passwordRef.current?.removeAttribute("disabled");
+    confirmPasswordRef.current?.removeAttribute("disabled");
+  };
 
   const checkUsernameAvailable = useCallback(async () => {
     const usersRef = collection(db, "users");
@@ -100,19 +117,25 @@ const SignUpForm = () => {
   const createUser = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        storeUserInFirestore(userCredential);
-        dispatch(closeAuthModal());
+        storeUserInFirestore(userCredential).then(() =>
+          dispatch(closeAuthModal())
+        );
       })
       .catch((error) => {
         if (error.code === "auth/email-already-in-use") {
           emailRef.current?.setCustomValidity("Email already in use");
           setEmailErrorMessage("Email already in use");
+
+          setIsSubmitting(false);
+          enableInputs();
         }
       });
   };
 
   const onSubmitSignUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    disableInputs();
     createUser();
   };
 
@@ -274,20 +297,26 @@ const SignUpForm = () => {
           <p>{reportConfirmPasswordValidity && confirmPasswordErrorMessage}</p>
         </fieldset>
 
-        <button className={styles.submitBtn} type="submit">
-          Sign Up
-        </button>
+        {!isSubmitting && (
+          <button className={styles.submitBtn} type="submit">
+            Sign Up
+          </button>
+        )}
       </form>
 
-      <p className={styles.helper}>
-        Already a re_editor?{" "}
-        <button
-          className={styles.fakeLink}
-          onClick={() => dispatch(setLogInMode())}
-        >
-          Log In
-        </button>
-      </p>
+      {isSubmitting ? (
+        <ImSpinner2 className={styles.submitSpinner} />
+      ) : (
+        <p className={styles.helper}>
+          Already a re_editor?{" "}
+          <button
+            className={styles.fakeLink}
+            onClick={() => dispatch(setLogInMode())}
+          >
+            Log In
+          </button>
+        </p>
+      )}
     </div>
   );
 };

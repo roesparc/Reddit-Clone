@@ -47,3 +47,9 @@
   width: 5rem;
   height: 5rem;
 }
+
+@media (max-width: 420px) {
+  .root {
+    width: 350px;
+  }
+}

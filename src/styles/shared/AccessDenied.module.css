@@ -1,0 +1,18 @@
+.root {
+  background: var(--color-background-one);
+  border-radius: 4px;
+  color: var(--color-utility-two);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.root svg {
+  font-size: 28px;
+}

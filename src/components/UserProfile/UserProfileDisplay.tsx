@@ -8,6 +8,7 @@ import UserInfo from "./UserInfo";
 import { INITIAL_USER_PROFILE } from "../../ts_common/initialStates";
 import { UserProfile } from "../../ts_common/interfaces";
 import UserProfileNav from "./UserProfileNav";
+import UserInteractionPosts from "./UserInteractionPosts";
 
 const UserProfileDisplay = () => {
   const { username } = useParams();
@@ -45,6 +46,15 @@ const UserProfileDisplay = () => {
 
       <div className={styles.contentWrapper}>
         {currentTab === username && <UserOverView userInfo={userInfo} />}
+        {currentTab === "upvoted" && (
+          <UserInteractionPosts interactionType="upvotedPosts" />
+        )}
+        {currentTab === "downvoted" && (
+          <UserInteractionPosts interactionType="downvotedPosts" />
+        )}
+        {currentTab === "saved" && (
+          <UserInteractionPosts interactionType="savedPosts" />
+        )}
 
         <UserInfo userInfo={userInfo} />
       </div>

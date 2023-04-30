@@ -4,7 +4,7 @@ import PostSorting from "../Posts/PostsSorting";
 import { getPosts } from "../../functions/getPosts";
 import { Post, UserProfile } from "../../ts_common/interfaces";
 import { INITIAL_POST_DATA } from "../../ts_common/initialStates";
-import styles from "../../styles/userProfile/UserOverview.module.css";
+import styles from "../../styles/posts/SharedPostsContainer.module.css";
 import { useParams } from "react-router-dom";
 
 interface Props {

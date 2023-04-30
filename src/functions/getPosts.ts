@@ -14,7 +14,7 @@ import {
 import { db } from "../firebase/config";
 import { Post, PostRaw } from "../ts_common/interfaces";
 
-const completePostsInfo = async (
+export const completePostsInfo = async (
   docsArray: QueryDocumentSnapshot<DocumentData>[] | DocumentSnapshot<unknown>[]
 ) => {
   const posts = await Promise.all(
@@ -59,18 +59,4 @@ export const getPosts = async (
   const postsQuerySnapshot = await getDocs(q);
 
   return await completePostsInfo(postsQuerySnapshot.docs);
-};
-
-export const getUserPosts = async (
-  userId: string,
-  postCollection: "saved" | "upvoted" | "downvoted"
-) => {
-  const userRef = doc(db, "users", userId);
-  const q = query(collection(userRef, postCollection), limit(9));
-  const querySnapshot = await getDocs(q);
-
-  const postRefs = querySnapshot.docs.map((doc) => doc.data().postRef);
-  const postDocs = await Promise.all(postRefs.map(getDoc));
-
-  return await completePostsInfo(postDocs);
 };

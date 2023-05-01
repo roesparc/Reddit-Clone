@@ -2,8 +2,25 @@
   width: 640px;
 }
 
+.loadingPostsSpinner {
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  font-size: 4em;
+  color: var(--color-main);
+  animation: var(--spinner-animation);
+}
+
+.noMorePosts {
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--color-utility-two);
+}
+
 @media (max-width: 640px) {
   .root {
-    width: unset;
+    max-width: 640px;
+    min-width: 355px;
   }
 }

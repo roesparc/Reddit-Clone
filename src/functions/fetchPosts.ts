@@ -47,7 +47,7 @@ export const useFetchInteractionPosts = (
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [sliceStart, setSliceStart] = useState<number>(0);
   const isCollectionEmpty = interactionPostIds.length < 1;
-  const pageSize = 3;
+  const pageSize = 9;
 
   const fetchInteractionPosts = async () => {
     if (isCollectionEmpty) return;
@@ -74,6 +74,7 @@ export const useFetchInteractionPosts = (
   return {
     posts,
     isLoading,
+    hasMore,
     isCollectionEmpty,
   };
 };

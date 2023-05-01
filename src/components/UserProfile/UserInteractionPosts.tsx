@@ -6,6 +6,8 @@ import AccessDenied from "../shared/AccessDenied";
 import { useFetchInteractionPosts } from "../../functions/fetchPosts";
 import styles from "../../styles/posts/SharedPostsContainer.module.css";
 import NothingToShow from "../shared/NothingToShow";
+import LoadingPosts from "../Posts/LoadingPosts";
+import { ImSpinner2 } from "react-icons/im";
 
 interface Props {
   interactionType: "upvotedPosts" | "downvotedPosts" | "savedPosts";
@@ -14,7 +16,7 @@ interface Props {
 const UserInteractionPosts = ({ interactionType }: Props) => {
   const { username } = useParams();
   const userProfile = useAppSelector(selectUserProfile);
-  const { posts, isLoading, isCollectionEmpty } =
+  const { posts, isLoading, hasMore, isCollectionEmpty } =
     useFetchInteractionPosts(interactionType);
 
   return (
@@ -23,13 +25,23 @@ const UserInteractionPosts = ({ interactionType }: Props) => {
         isCollectionEmpty ? (
           <NothingToShow />
         ) : (
-          <PostsOverview posts={posts} />
+          <>
+            <PostsOverview posts={posts} />
+
+            {!posts.length && <LoadingPosts />}
+
+            {posts.length > 0 && isLoading && (
+              <ImSpinner2 className={styles.loadingPostsSpinner} />
+            )}
+
+            {!hasMore && posts.length >= 9 && (
+              <p className={styles.noMorePosts}>No more posts</p>
+            )}
+          </>
         )
       ) : (
         <AccessDenied />
       )}
-
-      {isLoading && <div>Loading...</div>}
     </div>
   );
 };

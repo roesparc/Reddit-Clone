@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import PostsOverview from "../Posts/PostsOverview";
 import PostSorting from "../Posts/PostsSorting";
-import { getPosts } from "../../functions/getPosts";
-import { Post, UserProfile } from "../../ts_common/interfaces";
-import { INITIAL_POST_DATA } from "../../ts_common/initialStates";
+import { UserProfile } from "../../ts_common/interfaces";
 import styles from "../../styles/posts/SharedPostsContainer.module.css";
 import { useParams } from "react-router-dom";
+import { useFetchPosts } from "../../functions/fetchPosts";
+import NothingToShow from "../shared/NothingToShow";
+import LoadingPosts from "../Posts/LoadingPosts";
+import { ImSpinner2 } from "react-icons/im";
 
 interface Props {
   userInfo: UserProfile;
@@ -13,20 +15,39 @@ interface Props {
 
 const UserOverView = ({ userInfo }: Props) => {
   const { username } = useParams();
-  const [userPosts, setUserPosts] = useState<Array<Post>>([INITIAL_POST_DATA]);
   const [order, setOrder] = useState<"timestamp" | "upvotes">("timestamp");
+  const [shouldFetch, setShouldFetch] = useState<boolean>(false);
+  const { posts, isLoading, hasMore, isCollectionEmpty } = useFetchPosts(
+    "authorId",
+    userInfo.uid,
+    order,
+    shouldFetch
+  );
 
   useEffect(() => {
-    if (username === userInfo.username)
-      getPosts("authorId", userInfo.uid, order).then((posts) =>
-        setUserPosts(posts)
-      );
+    if (username === userInfo.username) setShouldFetch(true);
   }, [userInfo, username, order]);
 
   return (
     <div className={styles.root}>
-      <PostSorting setOrder={setOrder} order={order} />
-      <PostsOverview posts={userPosts} />
+      {isCollectionEmpty ? (
+        <NothingToShow />
+      ) : (
+        <>
+          <PostSorting setOrder={setOrder} order={order} />
+          <PostsOverview posts={posts} />
+
+          {!posts.length && <LoadingPosts />}
+
+          {posts.length > 0 && isLoading && (
+            <ImSpinner2 className={styles.loadingPostsSpinner} />
+          )}
+
+          {!hasMore && posts.length >= 9 && (
+            <p className={styles.noMorePosts}>No more posts</p>
+          )}
+        </>
+      )}
     </div>
   );
 };

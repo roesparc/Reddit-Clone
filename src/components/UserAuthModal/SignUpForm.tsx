@@ -216,7 +216,7 @@ const SignUpForm = () => {
             placeholder=" "
             required
             ref={usernameRef}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value.trim())}
             onBlur={() => setReportUsernameValidity(true)}
           />
           <label htmlFor="sign-up-username">Username</label>

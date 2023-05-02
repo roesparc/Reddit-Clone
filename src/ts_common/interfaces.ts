@@ -32,3 +32,24 @@ export interface Post extends PostRaw {
   commentNumber: number;
   timestamp: Timestamp | null;
 }
+
+export interface CommentRaw {
+  postId: string;
+  authorId: string;
+  subId: string;
+}
+
+export interface Comment extends CommentRaw {
+  commentId: string;
+  authorUsername: string;
+  authorImg: string;
+  subName: string;
+  subImg: string;
+  postTitle: string;
+  postAuthorId: string;
+  body: string;
+  upvotes: number;
+  downvotes: number;
+  replyNumber: number;
+  timestamp: Timestamp | null;
+}

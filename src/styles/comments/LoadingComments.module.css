@@ -1,0 +1,58 @@
+.root {
+  background-color: var(--color-background-one);
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.root div {
+  border-radius: 4px;
+}
+
+.commentInfo {
+  height: 20px;
+  width: 30%;
+  margin-bottom: 4px;
+  animation: skeleton-pulse 1s ease-in-out infinite alternate;
+}
+
+.commentBody {
+  height: 25px;
+  animation: skeleton-pulse 1s ease-in-out infinite alternate;
+}
+
+.interactionsContainer {
+  display: flex;
+  margin-top: 4px;
+}
+
+.interactionsContainer svg {
+  font-size: 20px;
+  color: var(--color-utility-one);
+}
+
+.voteNumber {
+  height: 20px;
+  width: 20px;
+  margin: 0 4px;
+  animation: skeleton-pulse 1s ease-in-out infinite alternate;
+}
+
+.interactions {
+  height: 20px;
+  width: 20%;
+  margin-left: 4px;
+  animation: skeleton-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    background-color: var(--color-loading-skeleton-initial);
+  }
+  50% {
+    background-color: var(--color-loading-skeleton-final);
+  }
+  100% {
+    background-color: var(--color-loading-skeleton-initial);
+  }
+}

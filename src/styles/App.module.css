@@ -29,6 +29,8 @@
   --color-label-one: #737577;
   --color-utility-one: #878a8c;
   --color-utility-two: #787c7e;
+  --color-loading-skeleton-initial: #f1f1f1;
+  --color-loading-skeleton-final: #e0e0e0;
 }
 
 .root {

@@ -87,12 +87,12 @@
 
 @keyframes skeleton-pulse {
   0% {
-    background-color: #f1f1f1;
+    background-color: var(--color-loading-skeleton-initial);
   }
   50% {
-    background-color: #e0e0e0;
+    background-color: var(--color-loading-skeleton-final);
   }
   100% {
-    background-color: #f1f1f1;
+    background-color: var(--color-loading-skeleton-initial);
   }
 }

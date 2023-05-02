@@ -1,0 +1,116 @@
+.comment {
+  background-color: var(--color-background-one);
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border-one);
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+.comment:hover {
+  border-color: var(--color-utility-one);
+}
+
+.commentInfo {
+  border-bottom: 1px solid var(--color-border-one);
+  padding: 8px;
+  display: flex;
+  gap: 3px;
+  color: var(--color-utility-one);
+  font-size: 12px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.commentInfo a,
+.commentInfo p {
+  font-size: inherit;
+  color: inherit;
+  font-family: inherit;
+}
+
+.commentInfo a:hover {
+  text-decoration: underline;
+}
+
+.commentInfo > svg {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.commentInfo a:first-of-type {
+  color: var(--color-link-one);
+}
+
+.commentInfo a:last-of-type {
+  font-weight: 700;
+  color: var(--color-font-one);
+}
+
+.contentWrapper {
+  display: flex;
+  padding: 8px 16px 0 16px;
+}
+
+.contentWrapper > div:first-child {
+  border-left: 2px dashed var(--color-border-one);
+  margin-right: 16px;
+}
+
+.commentInfoInner {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  color: var(--color-utility-one);
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.commentInfoInner a,
+.commentInfoInner p,
+.commentInfoInner span {
+  font-size: inherit;
+  color: inherit;
+  font-family: inherit;
+}
+
+.commentInfoInner a {
+  color: var(--color-font-one);
+}
+.commentInfoInner a:hover {
+  text-decoration: underline;
+}
+
+.commentInfoInner span {
+  color: #0079d3;
+  font-weight: 700;
+}
+
+.commentBody {
+  padding: 2px 0;
+}
+
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  color: var(--color-utility-one);
+  font-family: "IBM Plex Sans", sans-serif;
+  margin-left: -4px;
+}
+
+.buttonsContainer button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  padding: initial;
+  font-size: inherit;
+  font-family: inherit;
+  margin: 4px;
+  margin-bottom: 0;
+}
+
+.buttonsContainer button:hover {
+  text-decoration: underline;
+  color: var(--color-font-one);
+}

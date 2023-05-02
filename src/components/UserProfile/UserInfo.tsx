@@ -7,11 +7,9 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineCake } from "react-icons/md";
 import { ImSpinner2 } from "react-icons/im";
 import { useState } from "react";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { db, storage } from "../../firebase/config";
-import { doc, updateDoc } from "firebase/firestore";
 import { UserProfile } from "../../ts_common/interfaces";
 import btnStyles from "../../styles/elements/buttons.module.css";
+import updateUserImg from "../../functions/updateUserImg";
 
 interface Props {
   userInfo: UserProfile;
@@ -22,29 +20,6 @@ const UserInfo = ({ userInfo }: Props) => {
   const userProfile = useAppSelector(selectUserProfile);
   const [showCoverImgSpinner, setShowCoverImgSpinner] =
     useState<boolean>(false);
-
-  const updateCoverImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      if (
-        e.target.files[0].type !== "image/png" &&
-        e.target.files[0].type !== "image/jpeg"
-      )
-        return;
-
-      setShowCoverImgSpinner(true);
-
-      const img = e.target.files[0];
-      const imgRef = ref(storage, `users/${userProfile.uid}/coverImg`);
-
-      await uploadBytes(imgRef, img);
-      const imgUrl = await getDownloadURL(imgRef);
-
-      const userRef = doc(db, "users", userProfile.uid);
-      await updateDoc(userRef, { coverImg: imgUrl });
-
-      setShowCoverImgSpinner(false);
-    }
-  };
 
   return (
     <div className={styles.root}>
@@ -60,7 +35,18 @@ const UserInfo = ({ userInfo }: Props) => {
         {username === userProfile.username && (
           <label className={btnStyles.cameraBtn}>
             <TbCameraPlus />
-            <input type="file" onChange={(e) => updateCoverImg(e)} />
+            <input
+              type="file"
+              onChange={(e) =>
+                updateUserImg(
+                  e,
+                  "coverImg",
+                  userProfile,
+                  setShowCoverImgSpinner,
+                  null
+                )
+              }
+            />
           </label>
         )}
         {showCoverImgSpinner && (

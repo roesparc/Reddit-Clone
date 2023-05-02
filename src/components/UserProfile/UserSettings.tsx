@@ -6,10 +6,10 @@ import { ImSpinner2 } from "react-icons/im";
 import styles from "../../styles/userProfile/UserSettings.module.css";
 import btnStyles from "../../styles/elements/buttons.module.css";
 import { useState } from "react";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { db, storage } from "../../firebase/config";
+import { db } from "../../firebase/config";
 import { doc, updateDoc } from "firebase/firestore";
 import { FaCheck } from "react-icons/fa";
+import updateUserImg from "../../functions/updateUserImg";
 
 const UserSettings = () => {
   const userProfile = useAppSelector(selectUserProfile);
@@ -26,36 +26,6 @@ const UserSettings = () => {
   );
   const [prevAbout, setPrevAbout] = useState<string>(userProfile.about);
   const [announceUpdate, setAnnounceUpdate] = useState<Array<string>>([]);
-
-  const updateUserImg = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: string
-  ) => {
-    if (e.target.files && e.target.files.length > 0) {
-      if (
-        e.target.files[0].type !== "image/png" &&
-        e.target.files[0].type !== "image/jpeg"
-      )
-        return;
-
-      type === "userImg"
-        ? setShowAvatarImgSpinner(true)
-        : setShowCoverImgSpinner(true);
-
-      const img = e.target.files[0];
-      const imgRef = ref(storage, `users/${userProfile.uid}/${type}`);
-
-      await uploadBytes(imgRef, img);
-      const imgUrl = await getDownloadURL(imgRef);
-
-      const userRef = doc(db, "users", userProfile.uid);
-      await updateDoc(userRef, { [type]: imgUrl });
-
-      type === "userImg"
-        ? setShowAvatarImgSpinner(false)
-        : setShowCoverImgSpinner(false);
-    }
-  };
 
   const updateUserInfo = async (target: string) => {
     if (prevAbout === about && prevDisplayName === displayName) return;
@@ -145,7 +115,15 @@ const UserSettings = () => {
                   <TbCameraPlus />
                   <input
                     type="file"
-                    onChange={(e) => updateUserImg(e, "userImg")}
+                    onChange={(e) =>
+                      updateUserImg(
+                        e,
+                        "userImg",
+                        userProfile,
+                        null,
+                        setShowAvatarImgSpinner
+                      )
+                    }
                   />
                 </label>
                 {showAvatarImgSpinner && (
@@ -159,7 +137,15 @@ const UserSettings = () => {
                   <TbCameraPlus />
                   <input
                     type="file"
-                    onChange={(e) => updateUserImg(e, "coverImg")}
+                    onChange={(e) =>
+                      updateUserImg(
+                        e,
+                        "coverImg",
+                        userProfile,
+                        setShowCoverImgSpinner,
+                        null
+                      )
+                    }
                   />
                 </label>
                 {showCoverImgSpinner && (

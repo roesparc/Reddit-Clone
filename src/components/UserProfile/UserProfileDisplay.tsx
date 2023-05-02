@@ -9,6 +9,7 @@ import { INITIAL_USER_PROFILE } from "../../ts_common/initialStates";
 import { UserProfile } from "../../ts_common/interfaces";
 import UserProfileNav from "./UserProfileNav";
 import UserInteractionPosts from "./UserInteractionPosts";
+import UserProfileComments from "./UserProfileComments";
 
 const UserProfileDisplay = () => {
   const { username } = useParams();
@@ -54,6 +55,9 @@ const UserProfileDisplay = () => {
         )}
         {currentTab === "saved" && (
           <UserInteractionPosts interactionType="savedPosts" />
+        )}
+        {currentTab === "comments" && (
+          <UserProfileComments userInfo={userInfo} />
         )}
 
         <UserInfo userInfo={userInfo} />

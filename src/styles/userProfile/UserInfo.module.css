@@ -94,9 +94,3 @@
 .cakeDayContainer svg {
   color: var(--color-valid-one);
 }
-
-@media (max-width: 1020px) {
-  .root {
-    display: none;
-  }
-}

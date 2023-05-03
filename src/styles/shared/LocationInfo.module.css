@@ -65,3 +65,9 @@
   animation: var(--skeleton-animation);
   border-radius: 4px;
 }
+
+@media (max-width: 1020px) {
+  .root {
+    display: none;
+  }
+}

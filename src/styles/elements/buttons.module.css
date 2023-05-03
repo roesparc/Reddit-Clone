@@ -5,6 +5,9 @@
   min-height: 32px;
   border-radius: 2rem;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .btnVariantOne:hover {
   background-color: var(--color-button-one-hover);
@@ -20,6 +23,9 @@
   width: 120px;
   min-height: 32px;
   border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .btnVariantTwo:hover {
   background-color: var(--color-button-one-alt-hover);

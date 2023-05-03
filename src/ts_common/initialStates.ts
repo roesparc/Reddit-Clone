@@ -1,4 +1,4 @@
-import { Comment, Post, UserProfile } from "./interfaces";
+import { Comment, Community, Post, UserProfile } from "./interfaces";
 
 export const INITIAL_USER_PROFILE: UserProfile = {
   uid: "",
@@ -12,6 +12,14 @@ export const INITIAL_USER_PROFILE: UserProfile = {
   upvotedPosts: [],
   downvotedPosts: [],
   savedPosts: [],
+};
+
+export const INITIAL_COMMUNITY: Community = {
+  id: "",
+  name: "",
+  description: "",
+  img: "",
+  coverImg: "",
 };
 
 export const INITIAL_POST_DATA: Post = {

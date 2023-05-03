@@ -1,5 +1,5 @@
 import { useLocation, useParams } from "react-router-dom";
-import styles from "../../styles/userProfile/UserProfileDisplay.module.css";
+import styles from "../../styles/shared/LocationMainContent.module.css";
 import { useEffect, useState } from "react";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { db } from "../../firebase/config";

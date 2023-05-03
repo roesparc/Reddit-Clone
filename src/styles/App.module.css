@@ -10,6 +10,7 @@
   --color-valid-one: #24a0ed;
 
   --spinner-animation: spin 1s linear infinite;
+  --skeleton-animation: skeleton-pulse 1s ease-in-out infinite alternate;
 
   /* will change */
   --color-background-one: #ffffff;
@@ -41,5 +42,17 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    background-color: var(--color-loading-skeleton-initial);
+  }
+  50% {
+    background-color: var(--color-loading-skeleton-final);
+  }
+  100% {
+    background-color: var(--color-loading-skeleton-initial);
   }
 }

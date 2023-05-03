@@ -33,7 +33,7 @@
   width: 20px;
   border-radius: 4px;
   margin: 4px 0;
-  animation: skeleton-pulse 1s ease-in-out infinite alternate;
+  animation: var(--skeleton-animation);
 }
 
 .contentContainer {
@@ -46,21 +46,21 @@
   width: 30%;
   margin-bottom: 8px;
   border-radius: 4px;
-  animation: skeleton-pulse 1s ease-in-out infinite alternate;
+  animation: var(--skeleton-animation);
 }
 
 .title {
   height: 25px;
   width: 50%;
   border-radius: 4px;
-  animation: skeleton-pulse 1s ease-in-out infinite alternate;
+  animation: var(--skeleton-animation);
 }
 
 .content {
   height: 250px;
   border-radius: 4px;
   margin-top: 8px;
-  animation: skeleton-pulse 1s ease-in-out infinite alternate;
+  animation: var(--skeleton-animation);
 }
 
 .interactionsContainer {
@@ -75,24 +75,12 @@
   height: 25px;
   width: 50%;
   border-radius: 4px;
-  animation: skeleton-pulse 1s ease-in-out infinite alternate;
+  animation: var(--skeleton-animation);
 }
 
 .interactionsContainer > div:last-child {
   height: 25px;
   width: 25%;
   border-radius: 4px;
-  animation: skeleton-pulse 1s ease-in-out infinite alternate;
-}
-
-@keyframes skeleton-pulse {
-  0% {
-    background-color: var(--color-loading-skeleton-initial);
-  }
-  50% {
-    background-color: var(--color-loading-skeleton-final);
-  }
-  100% {
-    background-color: var(--color-loading-skeleton-initial);
-  }
+  animation: var(--skeleton-animation);
 }

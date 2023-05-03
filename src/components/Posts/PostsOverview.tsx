@@ -6,6 +6,7 @@ import { FaRegCommentAlt } from "react-icons/fa";
 import { BsBookmark, BsBookmarkCheckFill } from "react-icons/bs";
 import styles from "../../styles/posts/PostsOverview.module.css";
 import usePostInteractions from "../../functions/PostInteractions";
+import LoadingPosts from "./LoadingPosts";
 
 interface PostProps {
   post: Post;
@@ -146,11 +147,17 @@ const PostsOverview = ({ posts }: PostsOverviewProps) => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      {posts.map((post) => (
-        <PostDisplay key={post.postId} post={post} navigate={navigate} />
-      ))}
-    </div>
+    <>
+      {!posts.length ? (
+        <LoadingPosts />
+      ) : (
+        <div>
+          {posts.map((post) => (
+            <PostDisplay key={post.postId} post={post} navigate={navigate} />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 

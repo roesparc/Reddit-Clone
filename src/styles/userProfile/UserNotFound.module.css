@@ -1,0 +1,29 @@
+.root {
+  min-height: calc(100vh - 49px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notFoundContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px 3rem;
+  text-align: center;
+}
+
+.notFoundContent img {
+  height: 128px;
+}
+
+.notFoundContent h3 {
+  margin-top: 32px;
+  margin-bottom: 20px;
+}
+
+.notFoundContent p {
+  margin-bottom: 32px;
+  font-weight: 500;
+  font-family: "IBM Plex Sans", sans-serif;
+}

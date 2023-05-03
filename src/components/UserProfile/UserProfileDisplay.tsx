@@ -10,11 +10,13 @@ import { UserProfile } from "../../ts_common/interfaces";
 import UserProfileNav from "./UserProfileNav";
 import UserInteractionPosts from "./UserInteractionPosts";
 import UserProfileComments from "./UserProfileComments";
+import UserNotFound from "./UserNotFound";
 
 const UserProfileDisplay = () => {
   const { username } = useParams();
   const location = useLocation();
 
+  const [userExist, setUserExist] = useState<boolean>(true);
   const [currentTab, setCurrentTab] = useState<string>("");
   const [userInfo, setUserInfo] = useState<UserProfile>(INITIAL_USER_PROFILE);
 
@@ -33,36 +35,43 @@ const UserProfileDisplay = () => {
       const usernameQuerySnapshot = await getDocs(usernameQuery);
 
       if (!usernameQuerySnapshot.empty) {
+        setUserExist(true);
         setUserInfo(usernameQuerySnapshot.docs[0].data() as UserProfile);
       } else {
-        // TODO: NO USER FOUND PAGE
+        setUserExist(false);
       }
     };
     getUserId();
   }, [username]);
 
   return (
-    <div>
-      <UserProfileNav currentTab={currentTab} />
+    <>
+      {userExist ? (
+        <div>
+          <UserProfileNav currentTab={currentTab} />
 
-      <div className={styles.contentWrapper}>
-        {currentTab === username && <UserOverView userInfo={userInfo} />}
-        {currentTab === "upvoted" && (
-          <UserInteractionPosts interactionType="upvotedPosts" />
-        )}
-        {currentTab === "downvoted" && (
-          <UserInteractionPosts interactionType="downvotedPosts" />
-        )}
-        {currentTab === "saved" && (
-          <UserInteractionPosts interactionType="savedPosts" />
-        )}
-        {currentTab === "comments" && (
-          <UserProfileComments userInfo={userInfo} />
-        )}
+          <div className={styles.contentWrapper}>
+            {currentTab === username && <UserOverView userInfo={userInfo} />}
+            {currentTab === "upvoted" && (
+              <UserInteractionPosts interactionType="upvotedPosts" />
+            )}
+            {currentTab === "downvoted" && (
+              <UserInteractionPosts interactionType="downvotedPosts" />
+            )}
+            {currentTab === "saved" && (
+              <UserInteractionPosts interactionType="savedPosts" />
+            )}
+            {currentTab === "comments" && (
+              <UserProfileComments userInfo={userInfo} />
+            )}
 
-        <UserInfo userInfo={userInfo} />
-      </div>
-    </div>
+            <UserInfo userInfo={userInfo} />
+          </div>
+        </div>
+      ) : (
+        <UserNotFound />
+      )}
+    </>
   );
 };
 

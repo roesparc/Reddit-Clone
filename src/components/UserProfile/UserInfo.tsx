@@ -10,6 +10,8 @@ import { useState } from "react";
 import { UserProfile } from "../../ts_common/interfaces";
 import btnStyles from "../../styles/elements/buttons.module.css";
 import updateUserImg from "../../functions/updateUserImg";
+import locationInfoStyles from "../../styles/shared/LocationInfo.module.css";
+import LoadingLocationInfo from "../shared/LoadingLocationInfo";
 
 interface Props {
   userInfo: UserProfile;
@@ -22,64 +24,70 @@ const UserInfo = ({ userInfo }: Props) => {
     useState<boolean>(false);
 
   return (
-    <div className={styles.root}>
-      <div className={styles.coverImgContainer}>
-        <img
-          src={
-            username === userProfile.username
-              ? userProfile.coverImg
-              : userInfo.coverImg
-          }
-          alt="cover"
-        />
-        {username === userProfile.username && (
-          <label className={btnStyles.cameraBtn}>
-            <TbCameraPlus />
-            <input
-              type="file"
-              onChange={(e) =>
-                updateUserImg(
-                  e,
-                  "coverImg",
-                  userProfile,
-                  setShowCoverImgSpinner,
-                  null
-                )
+    <>
+      {!userInfo.uid.length || username !== userInfo.username ? (
+        <LoadingLocationInfo />
+      ) : (
+        <div className={locationInfoStyles.root}>
+          <div className={styles.coverImgContainer}>
+            <img
+              src={
+                username === userProfile.username
+                  ? userProfile.coverImg
+                  : userInfo.coverImg
               }
+              alt="cover"
             />
-          </label>
-        )}
-        {showCoverImgSpinner && (
-          <ImSpinner2 className={styles.coverImgSpinner} />
-        )}
-      </div>
+            {username === userProfile.username && (
+              <label className={btnStyles.cameraBtn}>
+                <TbCameraPlus />
+                <input
+                  type="file"
+                  onChange={(e) =>
+                    updateUserImg(
+                      e,
+                      "coverImg",
+                      userProfile,
+                      setShowCoverImgSpinner,
+                      null
+                    )
+                  }
+                />
+              </label>
+            )}
+            {showCoverImgSpinner && (
+              <ImSpinner2 className={styles.coverImgSpinner} />
+            )}
+          </div>
 
-      {username === userProfile.username && (
-        <Link to="/settings/profile" className={styles.userSettingsBtn}>
-          <IoSettingsOutline viewBox="20 20 480 480" />
-        </Link>
+          {username === userProfile.username && (
+            <Link to="/settings/profile" className={styles.userSettingsBtn}>
+              <IoSettingsOutline viewBox="20 20 480 480" />
+            </Link>
+          )}
+
+          <div className={styles.userImgContainer}>
+            <img src={userInfo.userImg} alt="user" />
+          </div>
+
+          <h1 className={styles.userDisplayName}>
+            {userInfo.displayName || userInfo.username}
+          </h1>
+
+          <p className={styles.username}>u/{userInfo.username}</p>
+
+          <p className={styles.about}>{userInfo.about}</p>
+
+          <div className={styles.cakeDayContainer}>
+            <h5>Cake Day</h5>
+            <p>
+              <MdOutlineCake />
+              {userInfo.cakeDay}
+            </p>
+          </div>
+        </div>
       )}
-
-      <div className={styles.userImgContainer}>
-        <img src={userInfo.userImg} alt="user" />
-      </div>
-
-      <h1 className={styles.userDisplayName}>
-        {userInfo.displayName || userInfo.username}
-      </h1>
-
-      <p className={styles.username}>u/{userInfo.username}</p>
-
-      <p className={styles.about}>{userInfo.about}</p>
-
-      <div className={styles.cakeDayContainer}>
-        <h5>Cake Day</h5>
-        <p>
-          <MdOutlineCake />
-          {userInfo.cakeDay}
-        </p>
-      </div>
-    </div>
+    </>
   );
 };
 

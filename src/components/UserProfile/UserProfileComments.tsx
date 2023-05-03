@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { UserProfile } from "../../ts_common/interfaces";
 import { useEffect, useState } from "react";
 import { useFetchComments } from "../../functions/fetchComments";
-import styles from "../../styles/posts/SharedPostsContainer.module.css";
+import styles from "../../styles/shared/SharedPostsContainer.module.css";
 import UserComments from "../Comments/UserComments";
 import LoadingComments from "../Comments/LoadingComments";
 import NothingToShow from "../shared/NothingToShow";

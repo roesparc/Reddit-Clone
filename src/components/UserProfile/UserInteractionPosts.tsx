@@ -4,7 +4,7 @@ import PostsOverview from "../Posts/PostsOverview";
 import { useParams } from "react-router-dom";
 import AccessDenied from "../shared/AccessDenied";
 import { useFetchInteractionPosts } from "../../functions/fetchPosts";
-import styles from "../../styles/posts/SharedPostsContainer.module.css";
+import styles from "../../styles/shared/SharedPostsContainer.module.css";
 import NothingToShow from "../shared/NothingToShow";
 import LoadingPosts from "../Posts/LoadingPosts";
 import { ImSpinner2 } from "react-icons/im";

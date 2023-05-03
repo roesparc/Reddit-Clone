@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import PostsOverview from "../Posts/PostsOverview";
 import PostSorting from "../Posts/PostsSorting";
 import { UserProfile } from "../../ts_common/interfaces";
-import styles from "../../styles/posts/SharedPostsContainer.module.css";
+import styles from "../../styles/shared/SharedPostsContainer.module.css";
 import { useParams } from "react-router-dom";
 import { useFetchPosts } from "../../functions/fetchPosts";
 import NothingToShow from "../shared/NothingToShow";
-import LoadingPosts from "../Posts/LoadingPosts";
 import { ImSpinner2 } from "react-icons/im";
 
 interface Props {
@@ -36,8 +35,6 @@ const UserOverView = ({ userInfo }: Props) => {
         <>
           <PostSorting setOrder={setOrder} order={order} />
           <PostsOverview posts={posts} />
-
-          {!posts.length && <LoadingPosts />}
 
           {posts.length > 0 && isLoading && (
             <ImSpinner2 className={styles.loadingPostsSpinner} />

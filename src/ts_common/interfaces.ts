@@ -14,6 +14,14 @@ export interface UserProfile {
   savedPosts: Array<string>;
 }
 
+export interface Community {
+  id: string;
+  name: string;
+  description: string;
+  img: string;
+  coverImg: string;
+}
+
 export interface PostRaw {
   subId: string;
   authorId: string;

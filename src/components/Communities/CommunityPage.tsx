@@ -4,12 +4,15 @@ import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { Community } from "../../ts_common/interfaces";
 import CommunityHeader from "./CommunityHeader";
+import CommunityPosts from "./CommunityPosts";
+import { INITIAL_COMMUNITY } from "../../ts_common/initialStates";
+import styles from "../../styles/shared/LocationMainContent.module.css";
 
 const CommunityPage = () => {
   const { subName } = useParams();
 
   const [subExist, setSubExist] = useState<boolean>(true);
-  const [subInfo, setSubInfo] = useState<Community>();
+  const [subInfo, setSubInfo] = useState<Community>(INITIAL_COMMUNITY);
 
   useEffect(() => {
     const getSubInfo = async () => {
@@ -33,6 +36,10 @@ const CommunityPage = () => {
   return (
     <div>
       <CommunityHeader subInfo={subInfo} />
+
+      <div className={styles.contentWrapper}>
+        <CommunityPosts subInfo={subInfo} />
+      </div>
     </div>
   );
 };

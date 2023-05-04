@@ -20,6 +20,7 @@ export interface Community {
   description: string;
   img: string;
   coverImg: string;
+  postNumber: number;
 }
 
 export interface PostRaw {

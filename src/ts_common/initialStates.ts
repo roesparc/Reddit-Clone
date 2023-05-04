@@ -20,6 +20,7 @@ export const INITIAL_COMMUNITY: Community = {
   description: "",
   img: "",
   coverImg: "",
+  postNumber: 0,
 };
 
 export const INITIAL_POST_DATA: Post = {

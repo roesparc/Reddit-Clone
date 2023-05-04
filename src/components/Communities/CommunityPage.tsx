@@ -7,6 +7,7 @@ import CommunityHeader from "./CommunityHeader";
 import CommunityPosts from "./CommunityPosts";
 import { INITIAL_COMMUNITY } from "../../ts_common/initialStates";
 import styles from "../../styles/shared/LocationMainContent.module.css";
+import CommunityInfo from "./CommunityInfo";
 
 const CommunityPage = () => {
   const { subName } = useParams();
@@ -39,6 +40,8 @@ const CommunityPage = () => {
 
       <div className={styles.contentWrapper}>
         <CommunityPosts subInfo={subInfo} />
+
+        <CommunityInfo subInfo={subInfo} />
       </div>
     </div>
   );

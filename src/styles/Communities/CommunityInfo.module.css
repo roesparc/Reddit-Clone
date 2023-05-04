@@ -1,0 +1,56 @@
+.aboutCommunity {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background-color: var(--color-button-one);
+  color: var(--color-background-one);
+  padding: 12px;
+}
+
+.infoContainer {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.infoContainer img {
+  height: 54px;
+  width: 54px;
+  border-radius: 50%;
+}
+
+.infoContainer h2 {
+  font-size: 16px;
+}
+
+.description {
+  margin-bottom: 8px;
+}
+
+.hr {
+  background-color: var(--color-font-one-faded);
+  border: none;
+  height: 1px;
+  margin: 16px 0;
+}
+
+.extraInfo {
+  margin: auto;
+  width: fit-content;
+  text-align: center;
+}
+
+.extraInfo p:first-child {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.extraInfo p:last-child {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color-utility-two);
+  font-family: "IBM Plex Sans", sans-serif;
+}

@@ -8,6 +8,7 @@ import CommunityPosts from "./CommunityPosts";
 import { INITIAL_COMMUNITY } from "../../ts_common/initialStates";
 import styles from "../../styles/shared/LocationMainContent.module.css";
 import CommunityInfo from "./CommunityInfo";
+import CommunityNotFound from "./CommunityNotFound";
 
 const CommunityPage = () => {
   const { subName } = useParams();
@@ -35,15 +36,21 @@ const CommunityPage = () => {
   }, [subName]);
 
   return (
-    <div>
-      <CommunityHeader subInfo={subInfo} />
+    <>
+      {subExist ? (
+        <div>
+          <CommunityHeader subInfo={subInfo} />
 
-      <div className={styles.contentWrapper}>
-        <CommunityPosts subInfo={subInfo} />
+          <div className={styles.contentWrapper}>
+            <CommunityPosts subInfo={subInfo} />
 
-        <CommunityInfo subInfo={subInfo} />
-      </div>
-    </div>
+            <CommunityInfo subInfo={subInfo} />
+          </div>
+        </div>
+      ) : (
+        <CommunityNotFound />
+      )}
+    </>
   );
 };
 

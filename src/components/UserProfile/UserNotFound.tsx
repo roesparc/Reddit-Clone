@@ -1,5 +1,5 @@
 import notFound from "../../assets/img/not_found.png";
-import styles from "../../styles/userProfile/UserNotFound.module.css";
+import styles from "../../styles/shared/NotFound.module.css";
 import stylesBtn from "../../styles/elements/buttons.module.css";
 import { Link } from "react-router-dom";
 

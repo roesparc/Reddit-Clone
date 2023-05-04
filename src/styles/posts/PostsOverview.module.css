@@ -114,7 +114,6 @@
 
 .postBody {
   margin-top: 13px;
-  /* margin-bottom: 10px; */
   max-height: 250px;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
@@ -149,7 +148,7 @@
 }
 
 @media (max-width: 520px) {
-  .author {
+  .hideAuthor {
     display: none;
   }
 }

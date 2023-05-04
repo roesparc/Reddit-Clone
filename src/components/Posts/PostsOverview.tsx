@@ -1,4 +1,9 @@
-import { Link, NavigateFunction, useNavigate } from "react-router-dom";
+import {
+  Link,
+  NavigateFunction,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { Post } from "../../ts_common/interfaces";
 import { TbArrowBigUp, TbArrowBigDown } from "react-icons/tb";
 import getElapsedtime from "../../functions/getElapsedTime";
@@ -14,6 +19,7 @@ interface PostProps {
 }
 
 const PostDisplay = ({ post, navigate }: PostProps) => {
+  const { subName } = useParams();
   const {
     isPostUpvoted,
     isPostDownvoted,
@@ -71,18 +77,21 @@ const PostDisplay = ({ post, navigate }: PostProps) => {
 
       <div className={styles.contentContainer}>
         <div className={styles.postInfo}>
-          <img src={post.subImg} alt={post.subName} />
-          <span>
-            <Link
-              to={`/r/${post.subName}`}
-              onClick={(e) => e.stopPropagation()}
-              className={styles.subName}
-            >
-              r/{post.subName}
-            </Link>
-          </span>{" "}
-          <span className={styles.author}>
-            • Posted by{" "}
+          {!subName && <img src={post.subImg} alt={post.subName} />}
+          {!subName && (
+            <span>
+              <Link
+                to={`/r/${post.subName}`}
+                onClick={(e) => e.stopPropagation()}
+                className={styles.subName}
+              >
+                r/{post.subName}
+              </Link>{" "}
+              •
+            </span>
+          )}{" "}
+          <span className={`${!subName ? styles.hideAuthor : ""}`}>
+            Posted by{" "}
             <Link
               to={`/user/${post.authorUsername}`}
               onClick={(e) => e.stopPropagation()}

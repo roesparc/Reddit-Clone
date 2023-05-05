@@ -30,11 +30,12 @@ const CommunityPosts = ({ subInfo }: Props) => {
 
   return (
     <div className={styles.root}>
+      <CreatePostInput />
+
       {isCollectionEmpty ? (
         <NothingToShow />
       ) : (
         <>
-          <CreatePostInput />
           <PostSorting order={order} setOrder={setOrder} />
           <PostsOverview posts={posts} />
 

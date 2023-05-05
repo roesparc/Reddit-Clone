@@ -145,7 +145,7 @@ export const useFetchPosts = (
         limit(pageSize)
       )
     );
-
+    setIsCollectionEmpty(false);
     setPosts([]);
   }, [whereField, whereId, order]);
 

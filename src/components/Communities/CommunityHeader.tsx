@@ -2,15 +2,18 @@ import { BsBell } from "react-icons/bs";
 import styles from "../../styles/communities/CommunityHeader.module.css";
 import { Community } from "../../ts_common/interfaces";
 import LoadingCommunityHeader from "./LoadingCommunityHeader";
+import { useParams } from "react-router-dom";
 
 interface Props {
   subInfo: Community | undefined;
 }
 
 const CommunityHeader = ({ subInfo }: Props) => {
+  const { subName } = useParams();
+
   return (
     <>
-      {!subInfo?.name.length ? (
+      {!subInfo?.name.length || subName !== subInfo.name ? (
         <LoadingCommunityHeader />
       ) : (
         <div>

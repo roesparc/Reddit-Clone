@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { Community } from "../../ts_common/interfaces";
 import { INITIAL_COMMUNITY } from "../../ts_common/initialStates";
 import {
+  DocumentData,
+  DocumentReference,
   addDoc,
   arrayUnion,
   collection,
@@ -17,12 +19,14 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { db } from "../../firebase/config";
+import { db, storage } from "../../firebase/config";
 import { BsFileTextFill, BsFillImageFill } from "react-icons/bs";
 import CommunitySelector from "./CommunitySelector";
 import { useAppSelector } from "../../redux/hooks";
 import { selectUserProfile } from "../../redux/features/auth";
 import { ImSpinner2 } from "react-icons/im";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import CreateImgPost from "./CreateImgPost";
 
 const CreatePost = () => {
   const { subName } = useParams();
@@ -34,8 +38,17 @@ const CreatePost = () => {
   const [isPostValid, setIsPostValid] = useState<boolean>(false);
   const [title, setTitle] = useState<string>("");
   const [body, setBody] = useState<string>("");
-  const [img, setImg] = useState<string>("");
+  const [imgFile, setImgFile] = useState<Blob | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const UploadImgAndUpdatePost = async (
+    postRef: DocumentReference<DocumentData>
+  ) => {
+    const storageRef = ref(storage, `posts/${postRef.id}`);
+    await uploadBytes(storageRef, imgFile!);
+    const imgUrl = await getDownloadURL(storageRef);
+    updateDoc(postRef, { img: imgUrl });
+  };
 
   const createPost = async () => {
     setIsSubmitting(true);
@@ -45,12 +58,14 @@ const CreatePost = () => {
       subId: subInfo.id,
       title: title,
       body: body,
-      img: img,
+      img: "",
       timestamp: serverTimestamp(),
       upvotes: 1,
       downvotes: 0,
       commentNumber: 0,
     });
+
+    if (imgFile) await UploadImgAndUpdatePost(postRef);
 
     await updateDoc(doc(db, "users", userProfile.uid), {
       upvotedPosts: arrayUnion(postRef.id),
@@ -61,11 +76,19 @@ const CreatePost = () => {
 
   useEffect(() => {
     const verifyPostValidity = () => {
-      if (title.length > 0 && subInfo.id.length > 0) setIsPostValid(true);
-      else setIsPostValid(false);
+      let isValid = false;
+
+      if (selectedType === "image") {
+        isValid = !!imgFile && title.length > 0 && subInfo.id.length > 0;
+      } else {
+        isValid = title.length > 0 && subInfo.id.length > 0;
+      }
+
+      setIsPostValid(isValid);
     };
+
     verifyPostValidity();
-  }, [title, subInfo]);
+  }, [title, subInfo, selectedType, imgFile]);
 
   useEffect(() => {
     const getCommunityInfoFromUrl = async () => {
@@ -93,14 +116,20 @@ const CreatePost = () => {
           <div className={styles.postTypeContainer}>
             <button
               className={selectedType === "post" ? styles.activeType : ""}
-              onClick={() => setSelectedType("post")}
+              onClick={() => {
+                setImgFile(null);
+                setSelectedType("post");
+              }}
             >
               <BsFileTextFill />
               Post
             </button>
             <button
               className={selectedType === "image" ? styles.activeType : ""}
-              onClick={() => setSelectedType("image")}
+              onClick={() => {
+                setBody("");
+                setSelectedType("image");
+              }}
             >
               <BsFillImageFill />
               Image
@@ -119,13 +148,17 @@ const CreatePost = () => {
               <p>{title.length}/300</p>
             </div>
 
-            <textarea
-              className={styles.postBody}
-              rows={1}
-              placeholder="Text (optional)"
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-            ></textarea>
+            {selectedType === "post" ? (
+              <textarea
+                className={styles.postBody}
+                rows={1}
+                placeholder="Text (optional)"
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+              ></textarea>
+            ) : (
+              <CreateImgPost setImgFile={setImgFile} />
+            )}
           </div>
 
           <div className={styles.submitBtnContainer}>

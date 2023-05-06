@@ -1,0 +1,66 @@
+.dragDropContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 280px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  text-align: center;
+  border: 1px dashed var(--color-border-one);
+  cursor: pointer;
+  padding: 1rem;
+}
+.dragDropContainer:hover {
+  background-color: #0079d30d;
+}
+
+.dragActive {
+  border: 2px dashed var(--color-button-one);
+  background-color: #0079d30d;
+}
+
+.dragDropContainer p {
+  font-family: "IBM Plex Sans", sans-serif;
+  color: var(--color-button-one);
+  font-weight: 500;
+  user-select: none;
+}
+
+.dragActive p {
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.imgContainer {
+  max-width: fit-content;
+  max-height: fit-content;
+  margin: auto;
+  position: relative;
+  padding: 8px 8px 0 8px;
+}
+
+.imgContainer img {
+  max-width: 100%;
+  max-height: 360px;
+  display: block;
+}
+
+.imgContainer button {
+  display: none;
+  position: absolute;
+  background-color: black;
+  color: white;
+  border: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+}
+.imgContainer:hover button {
+  display: flex;
+}
+
+.imgContainer button svg {
+  font-size: 14px;
+}

@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import UserProfileDisplay from "./UserProfile/UserProfileDisplay";
 import UserSettings from "./UserProfile/UserSettings";
 import CommunityPage from "./Communities/CommunityPage";
+import CreatePost from "./CreatePost/CreatePost";
 
 const Main = () => {
   return (
@@ -29,6 +30,10 @@ const Main = () => {
         <Route path="/settings/profile" element={<UserSettings />} />
 
         <Route path="/r/:subName" element={<CommunityPage />} />
+
+        <Route path="/submit" element={<CreatePost />} />
+
+        <Route path="/r/:subName/submit" element={<CreatePost />} />
       </Routes>
     </main>
   );

@@ -1,0 +1,134 @@
+.root {
+  width: 740px;
+}
+
+.root h1 {
+  padding: 4px;
+  margin: 16px 0;
+  border-bottom: 1px solid var(--color-border-one);
+  display: flex;
+  height: 33px;
+  font-size: 18px;
+}
+
+.createPostContainer {
+  background-color: var(--color-background-one);
+  border-radius: 5px;
+}
+
+.postTypeContainer {
+  margin-bottom: 12px;
+  display: flex;
+}
+
+.postTypeContainer button {
+  gap: 4px;
+  padding: 15px 17px;
+  flex: 1;
+  color: var(--color-utility-one);
+  background-color: inherit;
+}
+
+.postTypeContainer button:hover {
+  background-color: #0079d30d;
+}
+
+.postTypeContainer button:first-child {
+  border-color: var(--color-border-one);
+  border-style: solid;
+  border-width: 0 1px 1px 0;
+}
+
+.postTypeContainer button:last-child {
+  border: none;
+  border-bottom: 1px solid var(--color-border-one);
+}
+
+.postTypeContainer .activeType {
+  color: var(--color-link-one);
+  box-shadow: 0px -2px inset;
+}
+
+.postContentWrapper {
+  margin: 16px;
+}
+
+.titleContainer {
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.titleContainer input {
+  overflow-wrap: break-word;
+  height: 39px;
+  color: var(--color-font-one);
+  padding: 8px 68px 8px 16px;
+  background-color: transparent;
+  resize: none;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid var(--color-border-one);
+}
+
+.titleContainer p {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  bottom: 12px;
+  color: var(--color-utility-one);
+  pointer-events: none;
+  position: absolute;
+  right: 12px;
+}
+
+.postBody {
+  border: 1px solid var(--color-border-one);
+  background-color: var(--color-background-one);
+  border-radius: 4px;
+  min-height: 122px;
+  overflow: hidden auto;
+  padding: 8px 16px;
+  resize: vertical;
+  height: 41px;
+  color: var(--color-font-one);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+}
+
+.submitBtnContainer {
+  padding: 0 16px 16px;
+}
+
+.submitBtnContainer hr {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid var(--color-border-one);
+}
+
+.submitBtnContainer > div {
+  width: fit-content;
+  margin-left: auto;
+  margin-top: 16px;
+}
+
+.submitBtnContainer button {
+  padding: 4px 16px;
+  width: auto;
+}
+
+.submitBtnContainer button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+.submitSpinner {
+  font-size: 32px;
+  margin-right: 16px;
+  color: var(--color-button-one);
+  animation: var(--spinner-animation);
+  display: block;
+}

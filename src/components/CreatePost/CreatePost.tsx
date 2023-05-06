@@ -13,6 +13,7 @@ import {
   collection,
   doc,
   getDocs,
+  increment,
   limit,
   query,
   serverTimestamp,
@@ -65,11 +66,20 @@ const CreatePost = () => {
       commentNumber: 0,
     });
 
-    if (imgFile) await UploadImgAndUpdatePost(postRef);
+    const promises = [];
 
-    await updateDoc(doc(db, "users", userProfile.uid), {
-      upvotedPosts: arrayUnion(postRef.id),
-    });
+    if (imgFile) promises.push(UploadImgAndUpdatePost(postRef));
+
+    promises.push(
+      updateDoc(doc(db, "users", userProfile.uid), {
+        upvotedPosts: arrayUnion(postRef.id),
+      }),
+      updateDoc(doc(db, "subre_edits", subInfo.id), {
+        postNumber: increment(1),
+      })
+    );
+
+    await Promise.all(promises);
 
     navigate(`/r/${subInfo.name}/${postRef.id}`);
   };

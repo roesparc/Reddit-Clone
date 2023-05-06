@@ -1,0 +1,102 @@
+.root {
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.communityBtn {
+  position: relative;
+  box-sizing: border-box;
+  min-width: 300px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border-one);
+  background-color: var(--color-background-one);
+  padding: 0 8px;
+}
+
+.menuOpen {
+  box-shadow: 0 0 2px 1px var(--color-border-one);
+  border-radius: 4px 4px 0 0;
+}
+
+.communityBtn img {
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+}
+
+.communityBtn .imgSkeleton {
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 1px dashed var(--color-utility-one);
+  height: 22px;
+  width: 22px;
+  flex: unset;
+}
+
+.communityBtn span {
+  flex: 1;
+  padding-left: 8px;
+  text-align: start;
+  font-weight: 500;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.communityBtn svg {
+  color: var(--color-utility-one);
+}
+
+.communityMenu {
+  background-color: var(--color-background-one);
+  border: 1px solid var(--color-border-one);
+  box-shadow: 0 0 2px 1px var(--color-border-one);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-sizing: border-box;
+  color: var(--color-font-one);
+  left: 0px;
+  margin-top: -1px;
+  max-height: 482px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  width: 300px;
+  z-index: 1;
+}
+
+.communityMenu p {
+  padding: 16px 24px 8px;
+  color: var(--color-utility-one);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.communitySelectBtn {
+  padding: 8px 24px;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+}
+.communitySelectBtn:hover {
+  background-color: var(--color-font-one-faded);
+}
+
+.communitySelectBtn img {
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+  vertical-align: middle;
+}
+
+.communitySelectBtn span {
+  flex-grow: 1;
+  margin-left: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 400;
+  text-align: start;
+  font-family: "IBM Plex Sans", sans-serif;
+}

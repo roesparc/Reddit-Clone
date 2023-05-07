@@ -1,0 +1,126 @@
+.root {
+  padding-left: 16px;
+  box-sizing: border-box;
+  overflow: visible;
+  position: relative;
+  width: 100%;
+}
+
+.root button {
+  background-color: transparent;
+  border: none;
+  color: var(--color-utility-one);
+  border-radius: 2px;
+}
+.root button:hover {
+  background-color: var(--color-font-one-faded);
+}
+
+.threadContainer {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  height: calc(100% - 50px);
+  display: inline-block;
+  margin-left: 5px;
+  vertical-align: top;
+  width: 16px;
+}
+
+.threadContainer i {
+  border-right: 2px solid var(--color-border-one);
+  display: block;
+  height: 100%;
+  width: 50%;
+}
+
+.commentWrapper {
+  margin-top: 16px;
+  border-radius: 4px;
+  display: flex;
+  margin-left: -23px;
+  position: relative;
+  padding: 8px 0 0 8px;
+  align-items: center;
+}
+
+.ImgLink {
+  align-self: flex-start;
+  height: 28px;
+  width: 28px;
+  margin: 6px 0 0;
+  border-radius: 50%;
+}
+
+.ImgLink img {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+}
+
+.commentContainer {
+  margin-left: 8px;
+}
+
+.commentInfo {
+  margin-top: 10px;
+  min-height: 18px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: var(--color-utility-one);
+}
+
+.commentInfo a {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-font-one);
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.commentInfo span {
+  color: #0079d3;
+  font-family: "IBM Plex Sans";
+  font-weight: 700;
+}
+
+.commentBody {
+  padding: 2px 0;
+  word-break: break-word;
+}
+
+.interactionsContainer {
+  align-items: center;
+  display: flex;
+}
+
+.interactionsContainer > button {
+  height: 36px;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  font-family: "IBM Plex Sans", sans-serif;
+  padding: 4px;
+}
+
+.votesContainer {
+  margin: 3px 4px 4px -4px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.votesContainer button {
+  height: 24px;
+  width: 24px;
+}
+
+.votesContainer p {
+  margin: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  pointer-events: none;
+  word-break: normal;
+  font-family: "IBM Plex Sans", sans-serif;
+}

@@ -12,6 +12,12 @@
   border-color: var(--color-utility-one);
 }
 
+.singlePost {
+  border-radius: unset;
+  cursor: auto;
+  border: unset;
+}
+
 .root button {
   background-color: transparent;
   border: none;
@@ -116,10 +122,15 @@
   margin-top: 13px;
   max-height: 250px;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
   mask-image: linear-gradient(180deg, #000 60%, transparent);
   font-size: 16px;
   font-family: "IBM Plex Sans", sans-serif;
+}
+
+.singlePost .postBody {
+  mask-image: none;
+  max-height: fit-content;
+  padding-right: 16px;
 }
 
 .postImg {
@@ -137,6 +148,10 @@
   min-height: 40px;
 }
 
+/* .singlePost .interactionsContainer {
+  margin-top: 8px;
+} */
+
 .interactionsContainer button {
   height: 36px;
   gap: 6px;
@@ -145,6 +160,15 @@
   line-height: 16px;
   font-family: "IBM Plex Sans", sans-serif;
   padding: 4px;
+}
+
+.singlePost .commentsBtn {
+  cursor: default;
+  user-select: none;
+}
+
+.singlePost .commentsBtn:hover {
+  background-color: transparent;
 }
 
 @media (max-width: 520px) {

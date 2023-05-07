@@ -9,9 +9,10 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 interface Props {
   post: Post;
+  mode?: "single";
 }
 
-const PostDisplay = ({ post }: Props) => {
+const PostDisplay = ({ post, mode }: Props) => {
   const navigate = useNavigate();
   const { subName } = useParams();
   const {
@@ -34,6 +35,7 @@ const PostDisplay = ({ post }: Props) => {
   const getRootClasses = () => {
     const classes = [styles.root];
 
+    if (mode === "single") classes.push(styles.singlePost);
     if (isPostUpvoted) classes.push(styles.upvoted);
     if (isPostDownvoted) classes.push(styles.downvoted);
 
@@ -91,20 +93,28 @@ const PostDisplay = ({ post }: Props) => {
           {getElapsedtime(post.timestamp?.toMillis() ?? 0)}
         </div>
 
-        <Link
-          to={`/r/${post.subName}/${post.postId}`}
-          className={styles.postLink}
-        >
+        {mode === "single" ? (
           <h3>{post.title}</h3>
-        </Link>
-
-        {post.body && (
+        ) : (
           <Link
             to={`/r/${post.subName}/${post.postId}`}
             className={styles.postLink}
           >
-            <p className={styles.postBody}>{post.body}</p>
+            <h3>{post.title}</h3>
           </Link>
+        )}
+
+        {mode === "single" && post.body ? (
+          <p className={styles.postBody}>{post.body}</p>
+        ) : (
+          post.body && (
+            <Link
+              to={`/r/${post.subName}/${post.postId}`}
+              className={styles.postLink}
+            >
+              <p className={styles.postBody}>{post.body}</p>
+            </Link>
+          )
         )}
 
         {post.img && (
@@ -113,7 +123,7 @@ const PostDisplay = ({ post }: Props) => {
 
         <div className={styles.interactionsContainer}>
           <Link to={`/r/${post.subName}/${post.postId}`}>
-            <button>
+            <button className={styles.commentsBtn}>
               <FaRegCommentAlt />
               {post.commentNumber}{" "}
               {post.commentNumber === 1 ? "Comment" : "Comments"}

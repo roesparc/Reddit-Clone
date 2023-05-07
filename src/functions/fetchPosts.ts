@@ -19,7 +19,7 @@ import {
 import { db } from "../firebase/config";
 import { Post, PostRaw } from "../ts_common/interfaces";
 
-const completePostsInfo = async (
+export const completePostsInfo = async (
   docsArray: QueryDocumentSnapshot<DocumentData>[] | DocumentSnapshot<unknown>[]
 ) => {
   const posts = await Promise.all(

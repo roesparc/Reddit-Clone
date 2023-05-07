@@ -1,0 +1,6 @@
+.root {
+  width: 740px;
+  background-color: var(--color-background-one);
+  border-radius: 4px;
+  overflow: hidden;
+}

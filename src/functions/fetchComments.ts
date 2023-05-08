@@ -98,7 +98,7 @@ export const useFetchComments = (
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isCollectionEmpty, setIsCollectionEmpty] = useState<boolean>(false);
   const [q, setQ] = useState<Query<DocumentData>>();
-  const pageSize: number = 9;
+  const pageSize: number = 15;
 
   useEffect(() => {
     setQ(
@@ -114,11 +114,11 @@ export const useFetchComments = (
   }, [whereField, whereId, order]);
 
   const fetchComments = async () => {
-    if (!shouldFetch || isCollectionEmpty) return;
+    if (!shouldFetch || isCollectionEmpty || !q) return;
 
     setIsLoading(true);
 
-    const documentSnapshots = await getDocs(q!);
+    const documentSnapshots = await getDocs(q);
 
     const newComments = await completeCommentInfo(documentSnapshots.docs);
 

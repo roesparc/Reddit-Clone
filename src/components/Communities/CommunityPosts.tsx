@@ -26,6 +26,7 @@ const CommunityPosts = ({ subInfo }: Props) => {
 
   useEffect(() => {
     if (subName === subInfo.name) setShouldFetch(true);
+    else setShouldFetch(false);
   }, [subName, subInfo, order]);
 
   return (

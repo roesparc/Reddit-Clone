@@ -32,6 +32,7 @@ const CommunityPage = () => {
         setSubExist(false);
       }
     };
+    setSubInfo(INITIAL_COMMUNITY);
     getSubInfo();
   }, [subName]);
 
@@ -44,7 +45,7 @@ const CommunityPage = () => {
           <div className={styles.contentWrapper}>
             <CommunityPosts subInfo={subInfo} />
 
-            <CommunityInfo subInfo={subInfo} />
+            <CommunityInfo subId={subInfo.id} />
           </div>
         </div>
       ) : (

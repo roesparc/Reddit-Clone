@@ -1,26 +1,42 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "../../styles/communities/CommunityInfo.module.css";
 import locationInfoStyles from "../../styles/shared/LocationInfo.module.css";
-import { Community } from "../../ts_common/interfaces";
 import LoadingLocationInfo from "../shared/LoadingLocationInfo";
+import { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebase/config";
+import { Community } from "../../ts_common/interfaces";
+import { INITIAL_COMMUNITY } from "../../ts_common/initialStates";
 
 interface Props {
-  subInfo: Community;
+  subId: string;
 }
 
-const CommunityInfo = ({ subInfo }: Props) => {
-  const { subName, postId } = useParams();
+const CommunityInfo = ({ subId }: Props) => {
+  const { postId } = useParams();
   const navigate = useNavigate();
+
+  const [subInfo, setSubInfo] = useState<Community>(INITIAL_COMMUNITY);
+
+  useEffect(() => {
+    if (!subId.length) {
+      setSubInfo(INITIAL_COMMUNITY);
+    } else {
+      getDoc(doc(db, "subre_edits", subId)).then((docSnap) =>
+        setSubInfo(docSnap.data() as Community)
+      );
+    }
+  }, [subId]);
 
   return (
     <>
-      {!subInfo.id.length || subName !== subInfo.name ? (
+      {!subInfo.id.length ? (
         <LoadingLocationInfo />
       ) : (
         <div
           className={locationInfoStyles.root}
           style={{ padding: "unset", cursor: postId ? "pointer" : "initial" }}
-          onClick={() => postId && navigate(`/r/${subName}`)}
+          onClick={() => postId && navigate(`/r/${subInfo.name}`)}
         >
           <h3 className={styles.aboutCommunity}>About Community</h3>
 

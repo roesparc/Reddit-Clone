@@ -3,27 +3,22 @@ import styles from "../../styles/createPost/CommunitySelector.module.css";
 import { RxCaretDown } from "react-icons/rx";
 import { Community } from "../../ts_common/interfaces";
 import { INITIAL_COMMUNITY } from "../../ts_common/initialStates";
-import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
 interface Props {
   subInfo: Community;
-  setSubInfo: React.Dispatch<React.SetStateAction<Community>>;
+  setSelectedCommunity: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >;
 }
 
-const CommunitySelector = ({ subInfo, setSubInfo }: Props) => {
+const CommunitySelector = ({ subInfo, setSelectedCommunity }: Props) => {
   const communityBtnRef = useRef<HTMLButtonElement>(null);
   const [showCommunityMenu, setShowCommunityMenu] = useState<boolean>(false);
   const [availableCommunities, setAvailableCommunities] = useState<
     Array<Community>
   >([INITIAL_COMMUNITY]);
-
-  const changeCommunity = async (subId: string) => {
-    const docRef = doc(db, "subre_edits", subId);
-    const docSnap = await getDoc(docRef);
-
-    setSubInfo(docSnap.data() as Community);
-  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -83,7 +78,7 @@ const CommunitySelector = ({ subInfo, setSubInfo }: Props) => {
             <button
               key={community.id}
               className={styles.communitySelectBtn}
-              onClick={() => changeCommunity(community.id)}
+              onClick={() => setSelectedCommunity(community.name)}
             >
               <img src={community.img} alt="Main" />
               <span>r/{community.name}</span>

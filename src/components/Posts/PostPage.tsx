@@ -9,6 +9,7 @@ import { INITIAL_POST_DATA } from "../../ts_common/initialStates";
 import { completePostsInfo } from "../../functions/fetchPosts";
 import PostComments from "../Comments/PostComments";
 import styles from "../../styles/posts/PostPage.module.css";
+import CommunityInfo from "../Communities/CommunityInfo";
 
 const PostPage = () => {
   const { postId } = useParams();
@@ -20,6 +21,7 @@ const PostPage = () => {
       const completePost = await completePostsInfo([docSnap]);
       setPost(completePost[0]);
     };
+    setPost(INITIAL_POST_DATA);
     getPost();
   }, [postId]);
 
@@ -32,6 +34,8 @@ const PostPage = () => {
 
             <PostComments />
           </div>
+
+          <CommunityInfo subId={post.subId} />
         </div>
       )}
     </>

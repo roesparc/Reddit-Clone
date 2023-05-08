@@ -28,12 +28,16 @@ import { selectUserProfile } from "../../redux/features/auth";
 import { ImSpinner2 } from "react-icons/im";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import CreateImgPost from "./CreateImgPost";
+import CommunityInfo from "../Communities/CommunityInfo";
 
 const CreatePost = () => {
   const { subName } = useParams();
   const userProfile = useAppSelector(selectUserProfile);
   const navigate = useNavigate();
 
+  const [selectedCommunity, setSelectedCommunity] = useState<
+    string | undefined
+  >(subName);
   const [subInfo, setSubInfo] = useState<Community>(INITIAL_COMMUNITY);
   const [selectedType, setSelectedType] = useState<"post" | "image">("post");
   const [isPostValid, setIsPostValid] = useState<boolean>(false);
@@ -104,7 +108,7 @@ const CreatePost = () => {
     const getCommunityInfoFromUrl = async () => {
       const q = query(
         collection(db, "subre_edits"),
-        where("name", "==", subName),
+        where("name", "==", selectedCommunity),
         limit(1)
       );
       const querySnapshot = await getDocs(q);
@@ -112,15 +116,21 @@ const CreatePost = () => {
       setSubInfo(querySnapshot.docs[0].data() as Community);
     };
 
-    if (subName) getCommunityInfoFromUrl();
-  }, [subName]);
+    if (selectedCommunity) {
+      setSubInfo(INITIAL_COMMUNITY);
+      getCommunityInfoFromUrl();
+    }
+  }, [selectedCommunity]);
 
   return (
     <div className={stylesOuter.contentWrapper}>
       <div className={styles.root}>
         <h1>Create a post</h1>
 
-        <CommunitySelector subInfo={subInfo} setSubInfo={setSubInfo} />
+        <CommunitySelector
+          subInfo={subInfo}
+          setSelectedCommunity={setSelectedCommunity}
+        />
 
         <div className={styles.createPostContainer}>
           <div className={styles.postTypeContainer}>
@@ -190,6 +200,8 @@ const CreatePost = () => {
           </div>
         </div>
       </div>
+
+      {selectedCommunity && <CommunityInfo subId={subInfo.id} />}
     </div>
   );
 };

@@ -12,6 +12,8 @@ export interface UserProfile {
   upvotedPosts: Array<string>;
   downvotedPosts: Array<string>;
   savedPosts: Array<string>;
+  upvotedComments: Array<string>;
+  downvotedComments: Array<string>;
 }
 
 export interface Community {

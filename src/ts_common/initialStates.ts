@@ -12,6 +12,8 @@ export const INITIAL_USER_PROFILE: UserProfile = {
   upvotedPosts: [],
   downvotedPosts: [],
   savedPosts: [],
+  upvotedComments: [],
+  downvotedComments: [],
 };
 
 export const INITIAL_COMMUNITY: Community = {

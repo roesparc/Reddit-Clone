@@ -6,16 +6,6 @@
   width: 100%;
 }
 
-.root button {
-  background-color: transparent;
-  border: none;
-  color: var(--color-utility-one);
-  border-radius: 2px;
-}
-.root button:hover {
-  background-color: var(--color-font-one-faded);
-}
-
 .threadContainer {
   bottom: 0;
   left: 0;
@@ -106,6 +96,16 @@
   padding: 4px;
 }
 
+.interactionsContainer button {
+  background-color: transparent;
+  border: none;
+  color: var(--color-utility-one);
+  border-radius: 2px;
+}
+.interactionsContainer button:hover {
+  background-color: var(--color-font-one-faded);
+}
+
 .votesContainer {
   margin: 3px 4px 4px -4px;
   align-items: center;
@@ -150,4 +150,12 @@
   pointer-events: none;
   word-break: normal;
   font-family: "IBM Plex Sans", sans-serif;
+}
+
+.loadingSpinner {
+  display: block;
+  margin: 16px 36px;
+  font-size: 24px;
+  color: var(--color-main);
+  animation: var(--spinner-animation);
 }

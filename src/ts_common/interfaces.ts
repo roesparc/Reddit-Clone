@@ -52,6 +52,8 @@ export interface CommentRaw {
 
 export interface Comment extends CommentRaw {
   commentId: string;
+  parentType: "post" | "comment" | "";
+  parentCommentId: string;
   authorUsername: string;
   authorImg: string;
   subName: string;

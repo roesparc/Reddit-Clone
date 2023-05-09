@@ -43,6 +43,8 @@ export const INITIAL_POST_DATA: Post = {
 
 export const INITIAL_COMMENT_DATA: Comment = {
   commentId: "",
+  parentType: "",
+  parentCommentId: "",
   postId: "",
   authorId: "",
   authorImg: "",

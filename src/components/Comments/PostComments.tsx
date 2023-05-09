@@ -8,22 +8,24 @@ import LoadingComments from "./LoadingComments";
 import { ImSpinner2 } from "react-icons/im";
 import { IoMdChatbubbles } from "react-icons/io";
 import CommentInput from "./CommentInput";
+import { Post } from "../../ts_common/interfaces";
 
-const PostComments = () => {
+interface Props {
+  setPost: React.Dispatch<React.SetStateAction<Post>>;
+  post: Post;
+}
+
+const PostComments = ({ setPost, post }: Props) => {
   const { postId } = useParams();
   const [order] = useState<"timestamp" | "upvotes">("timestamp");
-  const { comments, isLoading, hasMore, isCollectionEmpty } = useFetchComments(
-    "postId",
-    postId!,
-    order,
-    true
-  );
+  const { comments, isLoading, hasMore, isCollectionEmpty, setComments } =
+    useFetchComments("postId", postId!, order, true);
 
   return (
     <div className={styles.root}>
-      <CommentInput />
+      <CommentInput post={post} setComments={setComments} setPost={setPost} />
 
-      {isCollectionEmpty ? (
+      {isCollectionEmpty && !comments.length ? (
         <div className={styles.noCommentsContainer}>
           <IoMdChatbubbles />
           <p>No Comments Yet</p>
@@ -35,7 +37,13 @@ const PostComments = () => {
         <>
           <div className={styles.commentContainer}>
             {comments.map((comment) => (
-              <CommentDisplay key={comment.commentId} comment={comment} />
+              <CommentDisplay
+                key={comment.commentId}
+                comment={comment}
+                post={post}
+                setPost={setPost}
+                isReply={false}
+              />
             ))}
           </div>
 

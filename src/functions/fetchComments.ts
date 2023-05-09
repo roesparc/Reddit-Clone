@@ -88,7 +88,7 @@ const useFetchFirstBatch = (callback: () => void, comments: Array<Comment>) => {
 };
 
 export const useFetchComments = (
-  whereField: "authorId" | "postId",
+  whereField: "authorId" | "postId" | "parentCommentId",
   whereId: string,
   order: "timestamp" | "upvotes",
   shouldFetch: boolean
@@ -98,18 +98,21 @@ export const useFetchComments = (
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isCollectionEmpty, setIsCollectionEmpty] = useState<boolean>(false);
   const [q, setQ] = useState<Query<DocumentData>>();
-  const pageSize: number = 15;
+  const pageSize: number = 9;
 
   useEffect(() => {
-    setQ(
-      query(
-        collection(db, "comments"),
-        where(whereField, "==", whereId),
-        orderBy(order, "desc"),
-        limit(pageSize)
-      )
+    let q = query(
+      collection(db, "comments"),
+      where(whereField, "==", whereId),
+      orderBy(order, "desc"),
+      limit(pageSize)
     );
 
+    if (whereField === "postId") {
+      q = query(q, where("parentType", "==", "post"));
+    }
+
+    setQ(q);
     setComments([]);
   }, [whereField, whereId, order]);
 
@@ -154,5 +157,6 @@ export const useFetchComments = (
     isLoading,
     hasMore,
     isCollectionEmpty,
+    setComments,
   };
 };

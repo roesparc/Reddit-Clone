@@ -32,7 +32,7 @@ const PostPage = () => {
           <div className={styles.root}>
             <PostDisplay post={post} mode="single" />
 
-            <PostComments />
+            <PostComments setPost={setPost} post={post} />
           </div>
 
           <CommunityInfo subId={post.subId} />

@@ -1,0 +1,49 @@
+.root {
+  border: 1px solid var(--color-border-one);
+  border-radius: 4px;
+  margin: 24px 40px 24px 48px;
+  overflow: hidden;
+}
+.root:focus-within {
+  border: 1px solid var(--color-font-one);
+}
+
+.root textarea {
+  min-height: 122px;
+  overflow: hidden auto;
+  padding: 8px 16px;
+  resize: vertical;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  overflow-wrap: break-word;
+  font-family: "Noto Sans";
+  font-size: 14px;
+  outline: none;
+}
+
+.root > div {
+  background-color: var(--color-input-one);
+  padding: 4px 8px;
+}
+
+.root button {
+  display: block;
+  margin-left: auto;
+  font-size: 12px;
+  width: fit-content;
+  min-height: auto;
+  padding: 4px 20px;
+}
+.root button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+.submitSpinner {
+  display: block;
+  font-size: 17px;
+  animation: var(--spinner-animation);
+  color: var(--color-background-one);
+}

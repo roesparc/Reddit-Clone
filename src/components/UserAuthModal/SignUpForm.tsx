@@ -106,6 +106,8 @@ const SignUpForm = () => {
       upvotedPosts: [],
       downvotedPosts: [],
       savedPosts: [],
+      upvotedComments: [],
+      downvotedComments: [],
       cakeDay: new Date().toLocaleDateString("en-US", {
         month: "long",
         day: "numeric",

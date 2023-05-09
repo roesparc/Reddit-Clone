@@ -3,3 +3,9 @@
   display: flex;
   justify-content: center;
 }
+
+@media (max-width: 450px) {
+  .contentWrapper {
+    padding: unset;
+  }
+}

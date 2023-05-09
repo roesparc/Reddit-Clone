@@ -131,6 +131,8 @@
   mask-image: none;
   max-height: fit-content;
   padding-right: 16px;
+  font-size: 14px;
+  font-family: "Noto Sans", sans-serif;
 }
 
 .postImg {

@@ -76,6 +76,9 @@
   color: var(--color-font-one);
   font-family: "IBM Plex Sans", sans-serif;
 }
+.commentInfo a:hover {
+  text-decoration: underline;
+}
 
 .commentInfo span {
   color: #0079d3;
@@ -113,6 +116,30 @@
 .votesContainer button {
   height: 24px;
   width: 24px;
+}
+.votesContainer button:first-child:hover {
+  color: var(--color-upvote);
+}
+.votesContainer button:last-child:hover {
+  color: var(--color-downvote);
+}
+
+.upvoted .upvoteBtn,
+.upvoted .upvoteCount {
+  color: var(--color-upvote);
+}
+
+.upvoted .upvoteBtn svg {
+  fill: var(--color-upvote);
+}
+
+.downvoted .downvoteBtn,
+.downvoted .upvoteCount {
+  color: var(--color-downvote);
+}
+
+.downvoted .downvoteBtn svg {
+  fill: var(--color-downvote);
 }
 
 .votesContainer p {

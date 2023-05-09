@@ -3,7 +3,7 @@ const getElapsedtime = (datePast: number) => {
 
   if (elapsed < 60) {
     if (elapsed >= 2) return `${Math.floor(elapsed)} seconds ago`;
-    else return "1 second ago";
+    else return "just now";
   }
 
   elapsed /= 60;

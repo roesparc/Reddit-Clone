@@ -10,7 +10,7 @@ const PostsOverview = ({ posts }: Props) => {
   return (
     <>
       {!posts.length ? (
-        <LoadingPosts />
+        <LoadingPosts posts={[1, 2, 3]} />
       ) : (
         <div>
           {posts.map((post) => (

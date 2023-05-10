@@ -1,12 +1,14 @@
 import { TbArrowBigUp, TbArrowBigDown } from "react-icons/tb";
 import styles from "../../styles/posts/LoadingPosts.module.css";
 
-const LoadingPosts = () => {
-  const loadingPosts = [1, 2, 3];
+interface Props {
+  posts: Array<number>;
+}
 
+const LoadingPosts = ({ posts }: Props) => {
   return (
     <div>
-      {loadingPosts.map((post) => (
+      {posts.map((post) => (
         <div key={post} className={styles.root}>
           <div className={styles.votesContainer}>
             <button>

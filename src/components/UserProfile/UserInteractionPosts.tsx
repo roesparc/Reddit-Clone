@@ -28,7 +28,7 @@ const UserInteractionPosts = ({ interactionType }: Props) => {
           <>
             <PostsOverview posts={posts} />
 
-            {!posts.length && <LoadingPosts />}
+            {!posts.length && <LoadingPosts posts={[1, 2, 3]} />}
 
             {posts.length > 0 && isLoading && (
               <ImSpinner2 className={styles.loadingPostsSpinner} />

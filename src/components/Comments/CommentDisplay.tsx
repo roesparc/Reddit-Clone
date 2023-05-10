@@ -9,6 +9,9 @@ import CommentInput from "./CommentInput";
 import { useFetchComments } from "../../functions/fetchComments";
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
+import { useAppSelector } from "../../redux/hooks";
+import { selectUserProfile } from "../../redux/features/auth";
+import deleteComment from "../../functions/deleteComment";
 
 interface Props {
   comment: Comment;
@@ -18,7 +21,9 @@ interface Props {
 }
 
 const CommentDisplay = ({ comment, setPost, isReply, post }: Props) => {
+  const userProfile = useAppSelector(selectUserProfile);
   const [showReplyInput, setShowReplyInput] = useState<boolean>(false);
+  const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const { comments, setComments, isLoading } = useFetchComments(
     "parentCommentId",
     comment.commentId!,
@@ -63,50 +68,63 @@ const CommentDisplay = ({ comment, setPost, isReply, post }: Props) => {
           <img src={comment.authorImg} alt="Author" />
         </Link>
 
-        <div className={styles.commentContainer}>
-          <div className={styles.commentInfo}>
-            <Link to={`/user/${comment.authorUsername}`}>
-              {comment.authorUsername}
-            </Link>{" "}
-            {comment.authorId === comment.postAuthorId && <span>OP</span>} •{" "}
-            {getElapsedtime(comment.timestamp?.toMillis() ?? 0)}
-          </div>
-
-          <p className={styles.commentBody}>{comment.body}</p>
-
-          <div className={styles.interactionsContainer}>
-            <div className={getVotesClasses()}>
-              <button
-                className={styles.upvoteBtn}
-                onClick={() => upvoteComment()}
-              >
-                <TbArrowBigUp
-                  viewBox="1.5 1.8 20 20"
-                  style={{ strokeWidth: 1.5 }}
-                />
-              </button>
-              <p>{upvoteCount - downvoteCount}</p>
-              <button
-                className={styles.downvoteBtn}
-                onClick={() => downvoteComment()}
-              >
-                <TbArrowBigDown
-                  viewBox="1.5 1.8 20 20"
-                  style={{ strokeWidth: 1.5 }}
-                />
-              </button>
+        {isDeleted ? (
+          <p className={styles.deletedInfo}>Comment deleted by user</p>
+        ) : (
+          <div className={styles.commentContainer}>
+            <div className={styles.commentInfo}>
+              <Link to={`/user/${comment.authorUsername}`}>
+                {comment.authorUsername}
+              </Link>{" "}
+              {comment.authorId === comment.postAuthorId && <span>OP</span>} •{" "}
+              {getElapsedtime(comment.timestamp?.toMillis() ?? 0)}
             </div>
 
-            {!isReply && (
-              <button onClick={() => setShowReplyInput((prev) => !prev)}>
-                <FaRegCommentAlt /> Reply
-              </button>
-            )}
+            <p className={styles.commentBody}>{comment.body}</p>
+
+            <div className={styles.interactionsContainer}>
+              <div className={getVotesClasses()}>
+                <button
+                  className={styles.upvoteBtn}
+                  onClick={() => upvoteComment()}
+                >
+                  <TbArrowBigUp
+                    viewBox="1.5 1.8 20 20"
+                    style={{ strokeWidth: 1.5 }}
+                  />
+                </button>
+                <p>{upvoteCount - downvoteCount}</p>
+                <button
+                  className={styles.downvoteBtn}
+                  onClick={() => downvoteComment()}
+                >
+                  <TbArrowBigDown
+                    viewBox="1.5 1.8 20 20"
+                    style={{ strokeWidth: 1.5 }}
+                  />
+                </button>
+              </div>
+
+              {!isReply && (
+                <button onClick={() => setShowReplyInput((prev) => !prev)}>
+                  <FaRegCommentAlt /> Reply
+                </button>
+              )}
+
+              {comment.authorId === userProfile.uid && (
+                <button
+                  onClick={() => deleteComment(comment, setIsDeleted, setPost)}
+                  className={styles.deleteBtn}
+                >
+                  Delete
+                </button>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
-      {showReplyInput && (
+      {!isDeleted && showReplyInput && (
         <CommentInput
           parentCommentId={comment.commentId}
           post={post}
@@ -120,15 +138,16 @@ const CommentDisplay = ({ comment, setPost, isReply, post }: Props) => {
         <ImSpinner2 className={styles.loadingSpinner} />
       )}
 
-      {comments.map((comment) => (
-        <CommentDisplay
-          key={comment.commentId}
-          comment={comment}
-          setPost={setPost}
-          isReply={true}
-          post={post}
-        />
-      ))}
+      {!isDeleted &&
+        comments.map((comment) => (
+          <CommentDisplay
+            key={comment.commentId}
+            comment={comment}
+            setPost={setPost}
+            isReply={true}
+            post={post}
+          />
+        ))}
     </div>
   );
 };

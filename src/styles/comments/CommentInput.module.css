@@ -47,3 +47,9 @@
   animation: var(--spinner-animation);
   color: var(--color-background-one);
 }
+
+@media (max-width: 550px) {
+  .root {
+    margin: 24px 12px 24px 12px;
+  }
+}

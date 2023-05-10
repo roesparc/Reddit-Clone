@@ -30,13 +30,3 @@
 .noCommentsContainer p:last-child {
   font-size: 14px;
 }
-
-@media (max-width: 550px) {
-  .commentTextArea {
-    margin: 24px 12px 24px 12px;
-  }
-
-  .commentContainer {
-    padding-right: unset;
-  }
-}

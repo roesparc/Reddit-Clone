@@ -108,7 +108,7 @@ export const useFetchComments = (
       limit(pageSize)
     );
 
-    if (whereField === "postId") {
+    if (whereField === "postId" || whereField === "authorId") {
       q = query(q, where("parentType", "==", "post"));
     }
 

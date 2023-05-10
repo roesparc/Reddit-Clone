@@ -5,9 +5,8 @@ import getElapsedtime from "../../functions/getElapsedTime";
 import styles from "../../styles/comments/UserComments.module.css";
 import { useAppSelector } from "../../redux/hooks";
 import { selectUserProfile } from "../../redux/features/auth";
-import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../../firebase/config";
 import { useState } from "react";
+import deleteComment from "../../functions/deleteComment";
 
 interface CommentProps {
   comment: Comment;
@@ -18,35 +17,28 @@ const CommentDisplay = ({ comment, navigate }: CommentProps) => {
   const userProfile = useAppSelector(selectUserProfile);
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
 
-  const deleteComment = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.stopPropagation();
-    await deleteDoc(doc(db, "comments", comment.commentId));
-    setIsDeleted(true);
-  };
-
   return (
     <div
       className={styles.comment}
-      onClick={() => navigate(`/r/${comment.subName}/${comment.postId}`)}
+      onClick={(e) => {
+        if (
+          (e.target as HTMLElement).tagName !== "A" &&
+          !(e.target as HTMLElement).closest("button")
+        ) {
+          navigate(`/r/${comment.subName}/${comment.postId}`);
+        }
+      }}
     >
       <div className={styles.commentInfo}>
         <FaRegCommentAlt />
-        <Link
-          to={`/user/${comment.authorUsername}`}
-          onClick={(e) => e.stopPropagation()}
-        >
+        <Link to={`/user/${comment.authorUsername}`}>
           {comment.authorUsername}
         </Link>
         <p>commented on</p>
         <Link to={`/r/${comment.subName}/${comment.postId}`}>
           {comment.postTitle}
         </Link>
-        •
-        <Link to={`/r/${comment.subName}`} onClick={(e) => e.stopPropagation()}>
-          r/{comment.subName}
-        </Link>
+        •<Link to={`/r/${comment.subName}`}>r/{comment.subName}</Link>
       </div>
 
       <div className={styles.contentWrapper}>
@@ -59,10 +51,7 @@ const CommentDisplay = ({ comment, navigate }: CommentProps) => {
         ) : (
           <div>
             <div className={styles.commentInfoInner}>
-              <Link
-                to={`/user/${comment.authorUsername}`}
-                onClick={(e) => e.stopPropagation()}
-              >
+              <Link to={`/user/${comment.authorUsername}`}>
                 {comment.authorUsername}
               </Link>
               {comment.authorId === comment.postAuthorId && <span>OP</span>}
@@ -81,7 +70,9 @@ const CommentDisplay = ({ comment, navigate }: CommentProps) => {
 
               <div className={styles.buttonsContainer}>
                 {comment.authorId === userProfile.uid && (
-                  <button onClick={(e) => deleteComment(e)}>Delete</button>
+                  <button onClick={() => deleteComment(comment, setIsDeleted)}>
+                    Delete
+                  </button>
                 )}
               </div>
             </div>

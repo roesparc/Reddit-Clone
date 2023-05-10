@@ -70,6 +70,7 @@ const CommentInput = ({
         authorImg: userProfile.userImg,
         authorUsername: userProfile.username,
         postAuthorId: post.authorId,
+        postId: postId,
         body: comment,
         upvotes: 1,
         downvotes: 0,

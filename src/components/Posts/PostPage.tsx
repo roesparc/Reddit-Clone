@@ -10,35 +10,48 @@ import { completePostsInfo } from "../../functions/fetchPosts";
 import PostComments from "../Comments/PostComments";
 import styles from "../../styles/posts/PostPage.module.css";
 import CommunityInfo from "../Communities/CommunityInfo";
+import LoadingPosts from "./LoadingPosts";
+import PostNotFound from "./PostNotFound";
 
 const PostPage = () => {
   const { postId } = useParams();
   const [post, setPost] = useState<Post>(INITIAL_POST_DATA);
+  const [postExist, setPostExist] = useState<boolean>(true);
 
   useEffect(() => {
     const getPost = async () => {
       const docSnap = await getDoc(doc(db, "posts", postId!));
-      const completePost = await completePostsInfo([docSnap]);
-      setPost(completePost[0]);
+
+      if (docSnap.exists()) {
+        const completePost = await completePostsInfo([docSnap]);
+        setPost(completePost[0]);
+      } else {
+        setPostExist(false);
+      }
     };
+    setPostExist(true);
     setPost(INITIAL_POST_DATA);
     getPost();
   }, [postId]);
 
-  return (
-    <>
-      {!!post.postId && (
-        <div className={stylesOuter.contentWrapper}>
-          <div className={styles.root}>
-            <PostDisplay post={post} mode="single" />
+  return postExist ? (
+    <div className={stylesOuter.contentWrapper}>
+      {post.postId.length ? (
+        <div className={styles.root}>
+          <PostDisplay post={post} mode="single" />
 
-            <PostComments setPost={setPost} post={post} />
-          </div>
-
-          <CommunityInfo subId={post.subId} />
+          <PostComments setPost={setPost} post={post} />
+        </div>
+      ) : (
+        <div className={styles.root}>
+          <LoadingPosts posts={[1]} />
         </div>
       )}
-    </>
+
+      <CommunityInfo subId={post.subId} />
+    </div>
+  ) : (
+    <PostNotFound />
   );
 };
 

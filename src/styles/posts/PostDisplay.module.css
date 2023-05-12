@@ -122,9 +122,12 @@
   margin-top: 13px;
   max-height: 250px;
   overflow: hidden;
-  mask-image: linear-gradient(180deg, #000 60%, transparent);
   font-size: 16px;
   font-family: "IBM Plex Sans", sans-serif;
+}
+
+.mask {
+  mask-image: linear-gradient(180deg, #000 60%, transparent);
 }
 
 .singlePost .postBody {
@@ -150,9 +153,9 @@
   min-height: 40px;
 }
 
-/* .singlePost .interactionsContainer {
-  margin-top: 8px;
-} */
+.singlePost .interactionsContainer {
+  margin-top: 13px;
+}
 
 .interactionsContainer button {
   height: 36px;
@@ -171,6 +174,46 @@
 
 .singlePost .commentsBtn:hover {
   background-color: transparent;
+}
+
+.announceContainer {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.postDeletedAnnounce {
+  background-color: white;
+  padding: 1rem 3rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-align: center;
+  width: max-content;
+  z-index: 1;
+  border: 1px solid var(--color-utility-one);
+  box-shadow: 0 0 3px var(--color-utility-one);
+  animation: var(--announce-animation);
+}
+
+.postDeleted {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  font-family: "IBM Plex Sans", sans-serif;
+  padding: 4px;
+  color: var(--color-utility-one);
+}
+
+.deletingSpinner {
+  margin-left: 8px;
+  font-size: 20px;
+  color: var(--color-button-one);
+  animation: var(--spinner-animation);
 }
 
 @media (max-width: 520px) {

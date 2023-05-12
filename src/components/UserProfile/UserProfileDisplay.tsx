@@ -17,12 +17,12 @@ const UserProfileDisplay = () => {
   const location = useLocation();
 
   const [userExist, setUserExist] = useState<boolean>(true);
-  const [currentTab, setCurrentTab] = useState<string>("");
+  const [currentTab, setCurrentTab] = useState<string>(username!);
   const [userInfo, setUserInfo] = useState<UserProfile>(INITIAL_USER_PROFILE);
 
   useEffect(() => {
     const currentTab = location.pathname.split("/").pop();
-    if (currentTab) setCurrentTab(currentTab);
+    setCurrentTab(currentTab!);
   }, [location.pathname]);
 
   useEffect(() => {

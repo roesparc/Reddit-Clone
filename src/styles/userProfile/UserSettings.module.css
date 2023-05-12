@@ -157,20 +157,10 @@
   font-weight: 700;
   border-radius: 4px;
   box-shadow: 0 0 10px 0px var(--color-overlay);
-  animation: announce 300ms ease;
+  animation: var(--announce-animation);
   display: flex;
   align-items: center;
   gap: 5px;
-}
-
-@keyframes announce {
-  from {
-    transform: translateY(15px) scale(0.5);
-  }
-
-  to {
-    transform: translateY(0) scale(1);
-  }
 }
 
 @media (max-width: 580px) {

@@ -29,8 +29,10 @@ h3 {
 }
 
 p,
-a {
+a,
+div {
   font-size: 14px;
+  white-space: pre-line;
 }
 
 a {

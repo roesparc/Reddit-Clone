@@ -11,6 +11,7 @@
 
   --spinner-animation: spin 1s linear infinite;
   --skeleton-animation: skeleton-pulse 1s ease-in-out infinite alternate;
+  --announce-animation: announce 300ms ease;
 
   /* will change */
   --color-background-one: #ffffff;
@@ -54,5 +55,15 @@
   }
   100% {
     background-color: var(--color-loading-skeleton-initial);
+  }
+}
+
+@keyframes announce {
+  from {
+    transform: translateY(15px) scale(0.5);
+  }
+
+  to {
+    transform: translateY(0) scale(1);
   }
 }

@@ -19,6 +19,7 @@ import {
   serverTimestamp,
   updateDoc,
   where,
+  writeBatch,
 } from "firebase/firestore";
 import { db, storage } from "../../firebase/config";
 import { BsFileTextFill, BsFillImageFill } from "react-icons/bs";
@@ -52,7 +53,7 @@ const CreatePost = () => {
     const storageRef = ref(storage, `posts/${postRef.id}`);
     await uploadBytes(storageRef, imgFile!);
     const imgUrl = await getDownloadURL(storageRef);
-    updateDoc(postRef, { img: imgUrl });
+    await updateDoc(postRef, { img: imgUrl });
   };
 
   const createPost = async () => {
@@ -70,20 +71,19 @@ const CreatePost = () => {
       commentNumber: 0,
     });
 
-    const promises = [];
+    if (imgFile) await UploadImgAndUpdatePost(postRef);
 
-    if (imgFile) promises.push(UploadImgAndUpdatePost(postRef));
+    const batch = writeBatch(db);
 
-    promises.push(
-      updateDoc(doc(db, "users", userProfile.uid), {
-        upvotedPosts: arrayUnion(postRef.id),
-      }),
-      updateDoc(doc(db, "subre_edits", subInfo.id), {
-        postNumber: increment(1),
-      })
-    );
+    batch.update(doc(db, "users", userProfile.uid), {
+      upvotedPosts: arrayUnion(postRef.id),
+    });
 
-    await Promise.all(promises);
+    batch.update(doc(db, "subre_edits", subInfo.id), {
+      postNumber: increment(1),
+    });
+
+    await batch.commit();
 
     navigate(`/r/${subInfo.name}/${postRef.id}`);
   };
@@ -105,7 +105,7 @@ const CreatePost = () => {
   }, [title, subInfo, selectedType, imgFile]);
 
   useEffect(() => {
-    const getCommunityInfoFromUrl = async () => {
+    const getCommunityInfo = async () => {
       const q = query(
         collection(db, "subre_edits"),
         where("name", "==", selectedCommunity),
@@ -118,7 +118,7 @@ const CreatePost = () => {
 
     if (selectedCommunity) {
       setSubInfo(INITIAL_COMMUNITY);
-      getCommunityInfoFromUrl();
+      getCommunityInfo();
     }
   }, [selectedCommunity]);
 

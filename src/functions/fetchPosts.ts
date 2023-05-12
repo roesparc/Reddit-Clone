@@ -124,8 +124,8 @@ export const useFetchInteractionPosts = (
 };
 
 export const useFetchPosts = (
-  whereField: "authorId" | "subId",
-  whereId: string,
+  whereField: "authorId" | "subId" | undefined,
+  whereId: string | undefined,
   order: "timestamp" | "upvotes",
   shouldFetch: boolean
 ) => {
@@ -140,7 +140,7 @@ export const useFetchPosts = (
     setQ(
       query(
         collection(db, "posts"),
-        where(whereField, "==", whereId),
+        ...(whereField ? [where(whereField, "==", whereId)] : []),
         orderBy(order, "desc"),
         limit(pageSize)
       )
@@ -150,11 +150,11 @@ export const useFetchPosts = (
   }, [whereField, whereId, order]);
 
   const fetchPosts = async () => {
-    if (!shouldFetch || isCollectionEmpty) return;
+    if (!shouldFetch || isCollectionEmpty || !q) return;
 
     setIsLoading(true);
 
-    const documentSnapshots = await getDocs(q!);
+    const documentSnapshots = await getDocs(q);
 
     const newPosts = await completePostsInfo(documentSnapshots.docs);
 
@@ -173,7 +173,7 @@ export const useFetchPosts = (
       setQ(
         query(
           collection(db, "posts"),
-          where(whereField, "==", whereId),
+          ...(whereField ? [where(whereField, "==", whereId)] : []),
           orderBy(order, "desc"),
           startAfter(lastVisible),
           limit(pageSize)

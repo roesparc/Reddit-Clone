@@ -1,46 +1,84 @@
 import {
+  arrayRemove,
   collection,
-  deleteDoc,
   doc,
+  getDoc,
   getDocs,
   increment,
   query,
-  updateDoc,
   where,
+  writeBatch,
 } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { Comment, Post } from "../ts_common/interfaces";
 
 const deleteComment = async (
   comment: Comment,
-  setIsDeleted: React.Dispatch<React.SetStateAction<boolean>>,
+  setIsDeleted?: React.Dispatch<React.SetStateAction<boolean>>,
   setPost?: React.Dispatch<React.SetStateAction<Post>>
 ) => {
-  let deletedCommentsQuantity = 1;
-  const q = query(
+  const repliesQ = query(
     collection(db, "comments"),
     where("parentCommentId", "==", comment.commentId)
   );
-  const querySnapshot = await getDocs(q);
 
-  if (!querySnapshot.empty) {
-    deletedCommentsQuantity += querySnapshot.docs.length;
-    await Promise.all(querySnapshot.docs.map((doc) => deleteDoc(doc.ref)));
+  const usersUpvotedQ = query(
+    collection(db, "users"),
+    where("upvotedComments", "array-contains", comment.commentId)
+  );
+
+  const usersDownvotedQ = query(
+    collection(db, "users"),
+    where("downvotedComments", "array-contains", comment.commentId)
+  );
+
+  const [repliesSnap, usersUpvotedSnap, usersDownvotedSnap, postSnap] =
+    await Promise.all([
+      getDocs(repliesQ),
+      getDocs(usersUpvotedQ),
+      getDocs(usersDownvotedQ),
+      getDoc(doc(db, "posts", comment.postId)),
+    ]);
+
+  const batch = writeBatch(db);
+
+  batch.delete(doc(db, "comments", comment.commentId));
+
+  if (!repliesSnap.empty) {
+    repliesSnap.forEach((doc) =>
+      deleteComment(
+        { ...doc.data(), commentId: doc.id } as Comment,
+        undefined,
+        setPost
+      )
+    );
   }
 
-  Promise.all([
-    deleteDoc(doc(db, "comments", comment.commentId)),
-    updateDoc(doc(db, "posts", comment.postId), {
-      commentNumber: increment(-deletedCommentsQuantity),
-    }),
-  ]);
+  usersUpvotedSnap.forEach((doc) =>
+    batch.update(doc.ref, {
+      upvotedComments: arrayRemove(comment.commentId),
+    })
+  );
 
-  setPost &&
-    setPost((prev) => ({
-      ...prev,
-      commentNumber: prev.commentNumber - deletedCommentsQuantity,
-    }));
-  setIsDeleted(true);
+  usersDownvotedSnap.forEach((doc) => {
+    batch.update(doc.ref, {
+      downvotedComments: arrayRemove(comment.commentId),
+    });
+  });
+
+  if (postSnap.exists()) {
+    batch.update(postSnap.ref, {
+      commentNumber: increment(-1),
+    });
+  }
+
+  await batch.commit();
+
+  setPost?.((prev) => ({
+    ...prev,
+    commentNumber: prev.commentNumber - 1,
+  }));
+  setIsDeleted?.(true);
 };
 
 export default deleteComment;

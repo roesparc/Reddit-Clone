@@ -1,0 +1,31 @@
+.root {
+  font-weight: 700;
+  color: var(--color-utility-one);
+}
+
+.root > p {
+  margin-bottom: 2rem;
+}
+
+.root a {
+  font-weight: 700;
+  color: var(--color-main);
+}
+.root a:hover {
+  text-decoration: underline;
+}
+
+.authorContainer {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+}
+
+.authorContainer svg {
+  display: block;
+  transition: all 500ms ease;
+}
+.authorContainer svg:hover {
+  transform: rotate(360deg) scale(1.2);
+}

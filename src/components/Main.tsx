@@ -4,11 +4,14 @@ import UserSettings from "./UserProfile/UserSettings";
 import CommunityPage from "./Communities/CommunityPage";
 import CreatePost from "./CreatePost/CreatePost";
 import PostPage from "./Posts/PostPage";
+import HomePage from "./HomePage/HomePage";
 
 const Main = () => {
   return (
     <main>
       <Routes>
+        <Route path="/" element={<HomePage />} />
+
         <Route path="/user/:username" element={<UserProfileDisplay />} />
 
         <Route

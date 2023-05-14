@@ -10,11 +10,9 @@ const HomeInfoCard = () => (
         project
       </a>{" "}
       was created as part of The Odin Project's curriculum, specifically as the
-      final project in their JavaScript course. Throughout this course, I gained
-      extensive knowledge and skills, and I successfully completed all its
-      projects. If you're interested, you can check out my{" "}
-      <a href="https://github.com/roesparc/">GitHub page</a> to see the projects
-      I've worked on.
+      final project in their JavaScript course. Feel free to check out my{" "}
+      <a href="https://github.com/roesparc/">GitHub page</a> to explore all the
+      projects I've worked on.
     </p>
 
     <p>

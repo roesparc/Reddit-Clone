@@ -14,6 +14,7 @@ export interface UserProfile {
   savedPosts: Array<string>;
   upvotedComments: Array<string>;
   downvotedComments: Array<string>;
+  notifications: Array<string>;
 }
 
 export interface Community {
@@ -64,5 +65,26 @@ export interface Comment extends CommentRaw {
   upvotes: number;
   downvotes: number;
   replyNumber: number;
+  timestamp: Timestamp | null;
+}
+
+export interface NotificationRaw {
+  authorId: string;
+  subId: string;
+  postId: string;
+}
+
+export interface Notification extends NotificationRaw {
+  isRead: boolean;
+  notificationId: string;
+  forUserId: string;
+  targetId: string;
+  authorUsername: string;
+  authorImg: string;
+  subName: string;
+  notification: string;
+  body: string;
+  type: "upvote" | "comment" | null;
+  originUrl: string;
   timestamp: Timestamp | null;
 }

@@ -1,4 +1,10 @@
-import { Comment, Community, Post, UserProfile } from "./interfaces";
+import {
+  Comment,
+  Community,
+  Notification,
+  Post,
+  UserProfile,
+} from "./interfaces";
 
 export const INITIAL_USER_PROFILE: UserProfile = {
   uid: "",
@@ -14,6 +20,7 @@ export const INITIAL_USER_PROFILE: UserProfile = {
   savedPosts: [],
   upvotedComments: [],
   downvotedComments: [],
+  notifications: [],
 };
 
 export const INITIAL_COMMUNITY: Community = {
@@ -58,5 +65,23 @@ export const INITIAL_COMMENT_DATA: Comment = {
   upvotes: 0,
   downvotes: 0,
   replyNumber: 0,
+  timestamp: null,
+};
+
+export const INITIAL_NOTIFICATION_DATA: Notification = {
+  isRead: false,
+  notificationId: "",
+  authorId: "",
+  forUserId: "",
+  subId: "",
+  postId: "",
+  targetId: "",
+  authorUsername: "",
+  authorImg: "",
+  subName: "",
+  notification: "",
+  body: "",
+  type: null,
+  originUrl: "",
   timestamp: null,
 };

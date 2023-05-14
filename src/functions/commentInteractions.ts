@@ -1,15 +1,57 @@
 import { useState } from "react";
 import { selectUserProfile } from "../redux/features/auth";
 import { useAppSelector } from "../redux/hooks";
-import { Comment } from "../ts_common/interfaces";
+import { Comment, UserProfile } from "../ts_common/interfaces";
 import {
+  WriteBatch,
   arrayRemove,
   arrayUnion,
   doc,
   increment,
-  updateDoc,
+  serverTimestamp,
+  writeBatch,
 } from "firebase/firestore";
 import { db } from "../firebase/config";
+
+const sendNotification = (
+  comment: Comment,
+  userProfile: UserProfile,
+  batch: WriteBatch
+) => {
+  if (userProfile.uid === comment.authorId) return;
+
+  batch.set(doc(db, "notifications", userProfile.uid + comment.commentId), {
+    isRead: false,
+    authorId: userProfile.uid,
+    forUserId: comment.authorId,
+    subId: comment.subId,
+    postId: comment.postId,
+    targetId: comment.commentId,
+    notification: "upvoted your comment",
+    body: comment.body,
+    type: "upvote",
+    originUrl: `/r/${comment.subName}/${comment.postId}`,
+    timestamp: serverTimestamp(),
+  });
+
+  batch.update(doc(db, "users", comment.authorId), {
+    notifications: arrayUnion(userProfile.uid + comment.commentId),
+  });
+};
+
+const removeNotification = (
+  comment: Comment,
+  userProfile: UserProfile,
+  batch: WriteBatch
+) => {
+  if (userProfile.uid === comment.authorId) return;
+
+  batch.delete(doc(db, "notifications", userProfile.uid + comment.commentId));
+
+  batch.update(doc(db, "users", comment.authorId), {
+    notifications: arrayRemove(userProfile.uid + comment.commentId),
+  });
+};
 
 const useCommentInteractions = (comment: Comment) => {
   const userProfile = useAppSelector(selectUserProfile);
@@ -25,44 +67,65 @@ const useCommentInteractions = (comment: Comment) => {
   const upvoteComment = () => {
     const userRef = doc(db, "users", userProfile.uid);
     const commentRef = doc(db, "comments", comment.commentId);
+    const batch = writeBatch(db);
 
     if (isCommentUpvoted) {
-      updateDoc(userRef, { upvotedComments: arrayRemove(comment.commentId) });
-      updateDoc(commentRef, { upvotes: increment(-1) });
+      batch.update(userRef, {
+        upvotedComments: arrayRemove(comment.commentId),
+      });
+      batch.update(commentRef, { upvotes: increment(-1) });
+      removeNotification(comment, userProfile, batch);
       setUpvoteCount((prevCount) => prevCount - 1);
+
+      batch.commit();
     } else {
-      updateDoc(userRef, { upvotedComments: arrayUnion(comment.commentId) });
-      updateDoc(commentRef, { upvotes: increment(1) });
+      batch.update(userRef, { upvotedComments: arrayUnion(comment.commentId) });
+      batch.update(commentRef, { upvotes: increment(1) });
+      sendNotification(comment, userProfile, batch);
       setUpvoteCount((prevCount) => prevCount + 1);
 
       if (isCommentDownvoted) {
-        updateDoc(userRef, {
+        batch.update(userRef, {
           downvotedComments: arrayRemove(comment.commentId),
         });
-        updateDoc(commentRef, { downvotes: increment(-1) });
+        batch.update(commentRef, { downvotes: increment(-1) });
         setDownvoteCount((prevCount) => prevCount - 1);
       }
+
+      batch.commit();
     }
   };
 
   const downvoteComment = () => {
     const userRef = doc(db, "users", userProfile.uid);
     const commentRef = doc(db, "comments", comment.commentId);
+    const batch = writeBatch(db);
 
     if (isCommentDownvoted) {
-      updateDoc(userRef, { downvotedComments: arrayRemove(comment.commentId) });
-      updateDoc(commentRef, { downvotes: increment(-1) });
+      batch.update(userRef, {
+        downvotedComments: arrayRemove(comment.commentId),
+      });
+      batch.update(commentRef, { downvotes: increment(-1) });
       setDownvoteCount((prevCount) => prevCount - 1);
+
+      batch.commit();
     } else {
-      updateDoc(userRef, { downvotedComments: arrayUnion(comment.commentId) });
-      updateDoc(commentRef, { downvotes: increment(1) });
+      batch.update(userRef, {
+        downvotedComments: arrayUnion(comment.commentId),
+      });
+      batch.update(commentRef, { downvotes: increment(1) });
       setDownvoteCount((prevCount) => prevCount + 1);
 
       if (isCommentUpvoted) {
-        updateDoc(userRef, { upvotedComments: arrayRemove(comment.commentId) });
-        updateDoc(commentRef, { upvotes: increment(-1) });
+        batch.update(userRef, {
+          upvotedComments: arrayRemove(comment.commentId),
+        });
+        batch.update(commentRef, { upvotes: increment(-1) });
+        removeNotification(comment, userProfile, batch);
         setUpvoteCount((prevCount) => prevCount - 1);
       }
+
+      batch.commit();
     }
   };
 

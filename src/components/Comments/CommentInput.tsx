@@ -4,13 +4,14 @@ import { useState, useEffect } from "react";
 import { useAppSelector } from "../../redux/hooks";
 import { selectUserProfile } from "../../redux/features/auth";
 import {
+  WriteBatch,
   addDoc,
   arrayUnion,
   collection,
   doc,
   increment,
   serverTimestamp,
-  updateDoc,
+  writeBatch,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { useParams } from "react-router-dom";
@@ -18,7 +19,7 @@ import { Comment, Post } from "../../ts_common/interfaces";
 import { ImSpinner2 } from "react-icons/im";
 
 interface Props {
-  parentCommentId?: string;
+  passedComment?: Comment;
   post: Post;
   setShowReplyInput?: React.Dispatch<React.SetStateAction<boolean>>;
   setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
@@ -26,7 +27,7 @@ interface Props {
 }
 
 const CommentInput = ({
-  parentCommentId,
+  passedComment,
   post,
   setShowReplyInput,
   setComments,
@@ -39,28 +40,46 @@ const CommentInput = ({
   const [isCommentValid, setIsCommentValid] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const updateFirestoreDocs = async (commentId: string) => {
-    const promises = [];
+  const sendNotification = (commentId: string, batch: WriteBatch) => {
+    const parent = passedComment ? passedComment : post;
 
-    promises.push(
-      updateDoc(doc(db, "users", userProfile.uid), {
-        upvotedComments: arrayUnion(commentId),
-      }),
+    if (userProfile.uid === parent.authorId) return;
 
-      updateDoc(doc(db, "posts", postId!), {
-        commentNumber: increment(1),
-      })
-    );
+    batch.set(doc(db, "notifications", userProfile.uid + commentId), {
+      isRead: false,
+      authorId: userProfile.uid,
+      forUserId: parent.authorId,
+      subId: parent.subId,
+      postId: parent.postId,
+      targetId: commentId,
+      notification: passedComment
+        ? "replied to your comment"
+        : "replied to your post",
+      body: comment,
+      type: "comment",
+      originUrl: `/r/${parent.subName}/${parent.postId}`,
+      timestamp: serverTimestamp(),
+    });
 
-    if (parentCommentId) {
-      promises.push(
-        updateDoc(doc(db, "comments", parentCommentId), {
-          replyNumber: increment(1),
-        })
-      );
+    batch.update(doc(db, "users", parent.authorId), {
+      notifications: arrayUnion(userProfile.uid + commentId),
+    });
+  };
+
+  const updateFirestoreDocs = async (commentId: string, batch: WriteBatch) => {
+    batch.update(doc(db, "users", userProfile.uid), {
+      upvotedComments: arrayUnion(commentId),
+    });
+
+    batch.update(doc(db, "posts", postId!), {
+      commentNumber: increment(1),
+    });
+
+    if (passedComment) {
+      batch.update(doc(db, "comments", passedComment.commentId), {
+        replyNumber: increment(1),
+      });
     }
-
-    await Promise.all(promises);
   };
 
   const addCommentToUI = (commentId: string) => {
@@ -90,8 +109,8 @@ const CommentInput = ({
       authorId: userProfile.uid,
       postId: postId,
       subId: post.subId,
-      parentCommentId: parentCommentId ? parentCommentId : "",
-      parentType: parentCommentId ? "comment" : "post",
+      parentCommentId: passedComment ? passedComment.commentId : "",
+      parentType: passedComment ? "comment" : "post",
       body: comment,
       upvotes: 1,
       downvotes: 0,
@@ -99,7 +118,10 @@ const CommentInput = ({
       timestamp: serverTimestamp(),
     });
 
-    await updateFirestoreDocs(commentRef.id);
+    const batch = writeBatch(db);
+    updateFirestoreDocs(commentRef.id, batch);
+    sendNotification(commentRef.id, batch);
+    await batch.commit();
 
     addCommentToUI(commentRef.id);
 
@@ -115,7 +137,7 @@ const CommentInput = ({
   return (
     <div
       className={styles.root}
-      style={parentCommentId ? { margin: "12px" } : undefined}
+      style={passedComment ? { margin: "12px" } : undefined}
     >
       <textarea
         rows={1}

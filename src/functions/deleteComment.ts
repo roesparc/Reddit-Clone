@@ -32,13 +32,24 @@ const deleteComment = async (
     where("downvotedComments", "array-contains", comment.commentId)
   );
 
-  const [repliesSnap, usersUpvotedSnap, usersDownvotedSnap, postSnap] =
-    await Promise.all([
-      getDocs(repliesQ),
-      getDocs(usersUpvotedQ),
-      getDocs(usersDownvotedQ),
-      getDoc(doc(db, "posts", comment.postId)),
-    ]);
+  const notificationsQ = query(
+    collection(db, "notifications"),
+    where("targetId", "==", comment.commentId)
+  );
+
+  const [
+    repliesSnap,
+    usersUpvotedSnap,
+    usersDownvotedSnap,
+    notificationsSnap,
+    postSnap,
+  ] = await Promise.all([
+    getDocs(repliesQ),
+    getDocs(usersUpvotedQ),
+    getDocs(usersDownvotedQ),
+    getDocs(notificationsQ),
+    getDoc(doc(db, "posts", comment.postId)),
+  ]);
 
   const batch = writeBatch(db);
 
@@ -60,9 +71,16 @@ const deleteComment = async (
     })
   );
 
-  usersDownvotedSnap.forEach((doc) => {
+  usersDownvotedSnap.forEach((doc) =>
     batch.update(doc.ref, {
       downvotedComments: arrayRemove(comment.commentId),
+    })
+  );
+
+  notificationsSnap.forEach((document) => {
+    batch.delete(document.ref);
+    batch.update(doc(db, "users", document.data().forUserId), {
+      notifications: arrayRemove(document.id),
     });
   });
 

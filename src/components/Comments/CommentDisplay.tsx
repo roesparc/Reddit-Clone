@@ -126,7 +126,7 @@ const CommentDisplay = ({ comment, setPost, isReply, post }: Props) => {
 
       {!isDeleted && showReplyInput && (
         <CommentInput
-          parentCommentId={comment.commentId}
+          passedComment={comment}
           post={post}
           setPost={setPost}
           setComments={setComments}

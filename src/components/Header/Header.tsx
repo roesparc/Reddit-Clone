@@ -12,10 +12,11 @@ import {
   setSignUpMode,
 } from "../../redux/features/userAuthModal";
 import { selectUserProfile } from "../../redux/features/auth";
-import { BsPlusLg, BsBell, BsMoon, BsSun } from "react-icons/bs";
+import { BsPlusLg, BsMoon, BsSun } from "react-icons/bs";
 import { FaHome } from "react-icons/fa";
 import UserNav from "./UserNav";
 import { selectCurrentTheme, toggleTheme } from "../../redux/features/theme";
+import Notifications from "./Notifications";
 
 const Header = () => {
   const location = useLocation();
@@ -67,9 +68,7 @@ const Header = () => {
               </button>
             </Link>
 
-            <button className={styles.userInteractionBtns}>
-              <BsBell />
-            </button>
+            <Notifications />
 
             <UserNav />
           </div>

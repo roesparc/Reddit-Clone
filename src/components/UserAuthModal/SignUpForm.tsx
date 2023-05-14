@@ -98,7 +98,7 @@ const SignUpForm = () => {
     setDoc(doc(db, "users", userCredential.user.uid), {
       uid: userCredential.user.uid,
       username: username,
-      displayName: username,
+      displayName: "",
       about: "",
       userImg: avatarUrl,
       coverImg: coverUrl,
@@ -108,6 +108,7 @@ const SignUpForm = () => {
       savedPosts: [],
       upvotedComments: [],
       downvotedComments: [],
+      notifications: ["1"],
       cakeDay: new Date().toLocaleDateString("en-US", {
         month: "long",
         day: "numeric",

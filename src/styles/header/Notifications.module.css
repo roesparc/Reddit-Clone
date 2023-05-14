@@ -1,0 +1,132 @@
+.root {
+  position: fixed;
+  right: 180px;
+  top: 50px;
+  width: 350px;
+  background-color: var(--color-background-one);
+  border: 1px solid var(--color-border-one);
+  border-radius: 4px;
+  overflow-y: auto;
+  max-height: 80%;
+  z-index: 1;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.heading {
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.notificationsContainer {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.spinner {
+  display: block;
+  margin: 2rem auto;
+  font-size: 4rem;
+  color: var(--color-main);
+  animation: var(--spinner-animation);
+}
+
+.noNotifications {
+  text-align: center;
+  margin: 2rem 0;
+  font-weight: 700;
+  color: var(--color-utility-one);
+}
+
+.notification {
+  display: flex;
+  padding: 16px;
+}
+
+.notification:hover {
+  box-shadow: 3px 0 inset var(--color-utility-one);
+}
+
+.imgSide {
+  padding-right: 8px;
+  position: relative;
+}
+
+.imgSide img {
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  display: block;
+  object-fit: cover;
+}
+
+.imgSide span {
+  background-color: #ffffff;
+  border: 1px solid #edeff1;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  height: 20px;
+  left: 12px;
+  position: absolute;
+  top: 18px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upvoteType {
+  stroke-width: 1.5;
+  color: var(--color-main);
+  fill: var(--color-main);
+  font-size: 12px;
+}
+
+.commentType {
+  color: #0076d1;
+  fill: #0076d1;
+  font-size: 12px;
+}
+
+.notificationInfo {
+  margin-bottom: 4px;
+  color: var(--color-font-one);
+}
+
+.notification span {
+  color: var(--color-utility-one);
+  font-size: 12px;
+}
+
+.notificationBody {
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  display: -webkit-inline-box;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  line-height: 18px;
+  font-size: 14px !important;
+}
+
+.btnContainer {
+  position: relative;
+  cursor: pointer;
+}
+
+.notificationNumber {
+  position: absolute;
+  font-family: "IBM Plex Sans";
+  font-weight: 700;
+  background-color: var(--color-main);
+  color: white;
+  font-size: 10px;
+  height: 16px;
+  width: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+  user-select: none;
+}

@@ -31,12 +31,22 @@ const deletePost = async (
     where("savedPosts", "array-contains", post.postId)
   );
 
-  const [usersUpvotedSnap, usersDownvotedSnap, usersSavedSnap] =
-    await Promise.all([
-      getDocs(usersUpvotedQ),
-      getDocs(usersDownvotedQ),
-      getDocs(usersSavedQ),
-    ]);
+  const notificationsQ = query(
+    collection(db, "notifications"),
+    where("postId", "==", post.postId)
+  );
+
+  const [
+    usersUpvotedSnap,
+    usersDownvotedSnap,
+    usersSavedSnap,
+    notificationsSnap,
+  ] = await Promise.all([
+    getDocs(usersUpvotedQ),
+    getDocs(usersDownvotedQ),
+    getDocs(usersSavedQ),
+    getDocs(notificationsQ),
+  ]);
 
   const batch = writeBatch(db);
 
@@ -61,6 +71,13 @@ const deletePost = async (
       savedPosts: arrayRemove(post.postId),
     })
   );
+
+  notificationsSnap.forEach((document) => {
+    batch.delete(document.ref);
+    batch.update(doc(db, "users", document.data().forUserId), {
+      notifications: arrayRemove(document.id),
+    });
+  });
 
   batch.update(doc(db, "subre_edits", post.subId), {
     postNumber: increment(-1),

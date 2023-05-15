@@ -130,3 +130,9 @@
   right: 0;
   user-select: none;
 }
+
+@media (max-width: 1080px) {
+  .root {
+    right: 3%;
+  }
+}

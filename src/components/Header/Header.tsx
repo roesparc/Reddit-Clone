@@ -4,7 +4,6 @@ import { ReactComponent as LogoText } from "../../assets/img/logo_text.svg";
 import styles from "../../styles/header/Header.module.css";
 import btnStyles from "../../styles/elements/buttons.module.css";
 import { RxCaretDown } from "react-icons/rx";
-import { IoSearchOutline } from "react-icons/io5";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   openAuthModal,
@@ -17,6 +16,7 @@ import { FaHome } from "react-icons/fa";
 import UserNav from "./UserNav";
 import { selectCurrentTheme, toggleTheme } from "../../redux/features/theme";
 import Notifications from "./Notifications";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   const location = useLocation();
@@ -45,19 +45,7 @@ const Header = () => {
         </button>
       </div>
 
-      <div className={styles.searchBarContainer}>
-        <form className={styles.searchBarForm}>
-          <label htmlFor="header-search-bar" className={styles.searchBarLabel}>
-            <IoSearchOutline className={styles.searchBarIcon} />
-          </label>
-          <input
-            className={styles.searchBarInput}
-            type="search"
-            id="header-search-bar"
-            placeholder="Search"
-          />
-        </form>
-      </div>
+      <SearchBar />
 
       <div className={styles.rightSide}>
         {userProfile.uid ? (

@@ -1,0 +1,118 @@
+.root {
+  flex-grow: 1;
+  margin: 0 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  background-color: var(--color-input-one);
+  border: 1px solid var(--color-border-one);
+  border-radius: 20px;
+  height: 40px;
+  max-width: 690px;
+  max-width: 360px;
+  position: relative;
+}
+.root:hover,
+.root:focus-within {
+  border-color: var(--color-button-one);
+  background-color: var(--color-background-one);
+}
+
+.searchBarForm {
+  flex-grow: 1;
+  display: flex;
+}
+
+.searchBarLabel {
+  margin-right: 9px;
+  display: block;
+}
+
+.searchBarIcon {
+  font-size: 20px;
+  display: block;
+  color: var(--color-utility-one);
+}
+
+.searchBarInput {
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  overflow: hidden;
+}
+.searchBarInput::-webkit-search-cancel-button {
+  display: none;
+}
+
+.searchResults {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  min-width: 250px;
+  max-height: 250px;
+  background-color: var(--color-background-one);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 4px 0 #1c1c1c33;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.searchResult {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+}
+.searchResult:hover {
+  background-color: var(--color-font-one-faded);
+}
+
+.searchResult img {
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  display: block;
+  object-fit: cover;
+}
+
+.searchResult p {
+  color: var(--color-font-one);
+  font-family: "IBM Plex Sans";
+  font-weight: 500;
+}
+
+.spinner {
+  display: block;
+  margin: 2rem auto;
+  font-size: 4rem;
+  color: var(--color-main);
+  animation: var(--spinner-animation);
+}
+
+.noResults {
+  text-align: center;
+  margin: 2rem 0;
+  font-weight: 700;
+  color: var(--color-utility-one);
+}
+
+@media (max-width: 650px) {
+  .root {
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .root {
+    padding: 0 0.5rem;
+  }
+
+  .searchBarLabel {
+    margin-right: 0.5rem;
+  }
+}

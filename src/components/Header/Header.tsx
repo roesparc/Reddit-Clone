@@ -15,7 +15,7 @@ import UserNav from "./UserNav";
 import { selectCurrentTheme, toggleTheme } from "../../redux/features/theme";
 import Notifications from "./Notifications";
 import SearchBar from "./SearchBar";
-import MainNav from "../../styles/header/MainNav";
+import MainNav from "./MainNav";
 
 const Header = () => {
   const dispatch = useAppDispatch();

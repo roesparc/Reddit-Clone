@@ -1,9 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import { ReactComponent as LogoText } from "../../assets/img/logo_text.svg";
 import styles from "../../styles/header/Header.module.css";
 import btnStyles from "../../styles/elements/buttons.module.css";
-import { RxCaretDown } from "react-icons/rx";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   openAuthModal,
@@ -12,14 +11,13 @@ import {
 } from "../../redux/features/userAuthModal";
 import { selectUserProfile } from "../../redux/features/auth";
 import { BsPlusLg, BsMoon, BsSun } from "react-icons/bs";
-import { FaHome } from "react-icons/fa";
 import UserNav from "./UserNav";
 import { selectCurrentTheme, toggleTheme } from "../../redux/features/theme";
 import Notifications from "./Notifications";
 import SearchBar from "./SearchBar";
+import MainNav from "../../styles/header/MainNav";
 
 const Header = () => {
-  const location = useLocation();
   const dispatch = useAppDispatch();
   const userProfile = useAppSelector(selectUserProfile);
   const currentTheme = useAppSelector(selectCurrentTheme);
@@ -32,17 +30,7 @@ const Header = () => {
           <LogoText className={styles.logoText} />
         </Link>
 
-        <button className={styles.navBtn}>
-          {location.pathname === "/" ? (
-            <>
-              <FaHome className={styles.currentLocationImg} />
-              <span className={styles.currentLocationInfo}>Home</span>
-              <RxCaretDown viewBox="1 1 13 13" className={styles.caretDown} />
-            </>
-          ) : (
-            ""
-          )}
-        </button>
+        <MainNav />
       </div>
 
       <SearchBar />

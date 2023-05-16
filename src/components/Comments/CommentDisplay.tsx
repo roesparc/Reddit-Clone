@@ -9,9 +9,14 @@ import CommentInput from "./CommentInput";
 import { useFetchComments } from "../../functions/fetchComments";
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectUserProfile } from "../../redux/features/auth";
 import deleteComment from "../../functions/deleteComment";
+import {
+  openAuthModal,
+  setLogInMode,
+} from "../../redux/features/userAuthModal";
+import { BsTrash3 } from "react-icons/bs";
 
 interface Props {
   comment: Comment;
@@ -21,8 +26,11 @@ interface Props {
 }
 
 const CommentDisplay = ({ comment, setPost, isReply, post }: Props) => {
+  const dispatch = useAppDispatch();
   const userProfile = useAppSelector(selectUserProfile);
+
   const [showReplyInput, setShowReplyInput] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const { comments, setComments, isLoading } = useFetchComments(
     "parentCommentId",
@@ -38,6 +46,16 @@ const CommentDisplay = ({ comment, setPost, isReply, post }: Props) => {
     upvoteComment,
     downvoteComment,
   } = useCommentInteractions(comment);
+
+  const handleCommentInteraction = (interactionFn: () => void) => {
+    if (!userProfile.username) {
+      dispatch(openAuthModal());
+      dispatch(setLogInMode());
+      return;
+    }
+
+    interactionFn();
+  };
 
   const getVotesClasses = () => {
     const classes = [styles.votesContainer];
@@ -86,7 +104,7 @@ const CommentDisplay = ({ comment, setPost, isReply, post }: Props) => {
               <div className={getVotesClasses()}>
                 <button
                   className={styles.upvoteBtn}
-                  onClick={() => upvoteComment()}
+                  onClick={() => handleCommentInteraction(upvoteComment)}
                 >
                   <TbArrowBigUp
                     viewBox="1.5 1.8 20 20"
@@ -96,7 +114,7 @@ const CommentDisplay = ({ comment, setPost, isReply, post }: Props) => {
                 <p>{upvoteCount - downvoteCount}</p>
                 <button
                   className={styles.downvoteBtn}
-                  onClick={() => downvoteComment()}
+                  onClick={() => handleCommentInteraction(downvoteComment)}
                 >
                   <TbArrowBigDown
                     viewBox="1.5 1.8 20 20"
@@ -106,19 +124,34 @@ const CommentDisplay = ({ comment, setPost, isReply, post }: Props) => {
               </div>
 
               {!isReply && (
-                <button onClick={() => setShowReplyInput((prev) => !prev)}>
+                <button
+                  onClick={() => {
+                    if (!userProfile.username) {
+                      dispatch(openAuthModal());
+                      dispatch(setLogInMode());
+                      return;
+                    }
+
+                    setShowReplyInput((prev) => !prev);
+                  }}
+                >
                   <FaRegCommentAlt /> Reply
                 </button>
               )}
 
-              {comment.authorId === userProfile.uid && (
-                <button
-                  onClick={() => deleteComment(comment, setIsDeleted, setPost)}
-                  className={styles.deleteBtn}
-                >
-                  Delete
-                </button>
-              )}
+              {comment.authorId === userProfile.uid &&
+                (isDeleting && !isDeleted ? (
+                  <ImSpinner2 className={styles.deletingSpinner} />
+                ) : (
+                  <button
+                    onClick={() => {
+                      setIsDeleting(true);
+                      deleteComment(comment, setIsDeleted, setPost);
+                    }}
+                  >
+                    <BsTrash3 /> Delete
+                  </button>
+                ))}
             </div>
           </div>
         )}

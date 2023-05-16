@@ -6,11 +6,15 @@ import styles from "../../styles/posts/PostDisplay.module.css";
 import usePostInteractions from "../../functions/PostInteractions";
 import { Post } from "../../ts_common/interfaces";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectUserProfile } from "../../redux/features/auth";
 import { useEffect, useState, useRef } from "react";
 import deletePost from "../../functions/deletePost";
 import { ImSpinner2 } from "react-icons/im";
+import {
+  openAuthModal,
+  setLogInMode,
+} from "../../redux/features/userAuthModal";
 
 interface Props {
   post: Post;
@@ -18,9 +22,11 @@ interface Props {
 }
 
 const PostDisplay = ({ post, mode }: Props) => {
-  const bodyRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const userProfile = useAppSelector(selectUserProfile);
+  const bodyRef = useRef<HTMLDivElement>(null);
+
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isDeleted, setIsDeleted] = useState<boolean>(false);
   const { subName } = useParams();
@@ -34,6 +40,16 @@ const PostDisplay = ({ post, mode }: Props) => {
     downvotePost,
     savePost,
   } = usePostInteractions(post);
+
+  const handlePostInteraction = (interactionFn: () => void) => {
+    if (!userProfile.username) {
+      dispatch(openAuthModal());
+      dispatch(setLogInMode());
+      return;
+    }
+
+    !isDeleted && interactionFn();
+  };
 
   const getRootClasses = () => {
     const classes = [styles.root];
@@ -78,14 +94,14 @@ const PostDisplay = ({ post, mode }: Props) => {
       <div className={styles.votesContainer}>
         <button
           className={styles.upvoteBtn}
-          onClick={() => !isDeleted && upvotePost()}
+          onClick={() => handlePostInteraction(upvotePost)}
         >
           <TbArrowBigUp viewBox="1.5 1.8 20 20" style={{ strokeWidth: 1.5 }} />
         </button>
         <p className={styles.upvoteCount}>{upvoteCount - downvoteCount}</p>
         <button
           className={styles.downvoteBtn}
-          onClick={() => !isDeleted && downvotePost()}
+          onClick={() => handlePostInteraction(downvotePost)}
         >
           <TbArrowBigDown
             viewBox="1.5 1.8 20 20"
@@ -120,6 +136,7 @@ const PostDisplay = ({ post, mode }: Props) => {
           <Link
             to={`/r/${post.subName}/${post.postId}`}
             className={styles.postLink}
+            onClick={(e) => e.stopPropagation()}
           >
             <h3>{post.title}</h3>
           </Link>
@@ -132,6 +149,7 @@ const PostDisplay = ({ post, mode }: Props) => {
             <Link
               to={`/r/${post.subName}/${post.postId}`}
               className={styles.postLink}
+              onClick={(e) => e.stopPropagation()}
             >
               <div ref={bodyRef} className={styles.postBody}>
                 {post.body}
@@ -157,12 +175,12 @@ const PostDisplay = ({ post, mode }: Props) => {
           </Link>
 
           {isPostSaved ? (
-            <button onClick={() => !isDeleted && savePost()}>
+            <button onClick={() => handlePostInteraction(savePost)}>
               <BsBookmarkCheckFill />
               Unsave
             </button>
           ) : (
-            <button onClick={() => !isDeleted && savePost()}>
+            <button onClick={() => handlePostInteraction(savePost)}>
               <BsBookmark />
               Save
             </button>

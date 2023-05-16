@@ -10,12 +10,13 @@ import {
   setSignUpMode,
 } from "../../redux/features/userAuthModal";
 import { selectUserProfile } from "../../redux/features/auth";
-import { BsPlusLg, BsMoon, BsSun } from "react-icons/bs";
+import { BsPlusLg } from "react-icons/bs";
 import UserNav from "./UserNav";
 import { selectCurrentTheme, toggleTheme } from "../../redux/features/theme";
 import Notifications from "./Notifications";
 import SearchBar from "./SearchBar";
 import MainNav from "./MainNav";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -73,7 +74,7 @@ const Header = () => {
               className={styles.themeBtn}
               onClick={() => dispatch(toggleTheme())}
             >
-              {currentTheme === "light" ? <BsMoon /> : <BsSun />}
+              {currentTheme === "light" ? <FaMoon /> : <FaSun />}
             </button>
           </div>
         )}

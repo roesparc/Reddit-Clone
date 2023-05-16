@@ -104,4 +104,12 @@
   .leftSide {
     gap: unset;
   }
+
+  .authBtns {
+    gap: 1rem;
+  }
+
+  .authBtns > button:nth-child(2) {
+    width: 90px;
+  }
 }

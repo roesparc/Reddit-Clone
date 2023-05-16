@@ -8,13 +8,17 @@ import { useFetchPosts } from "../../functions/fetchPosts";
 import PostsOverview from "../Posts/PostsOverview";
 import NothingToShow from "../shared/NothingToShow";
 import { ImSpinner2 } from "react-icons/im";
+import { useAppSelector } from "../../redux/hooks";
+import { selectUserProfile } from "../../redux/features/auth";
 
 interface Props {
   subInfo: Community;
 }
 
 const CommunityPosts = ({ subInfo }: Props) => {
+  const userProfile = useAppSelector(selectUserProfile);
   const { subName } = useParams();
+
   const [order, setOrder] = useState<"timestamp" | "upvotes">("timestamp");
   const [shouldFetch, setShouldFetch] = useState<boolean>(false);
   const { posts, isLoading, hasMore, isCollectionEmpty } = useFetchPosts(
@@ -31,7 +35,7 @@ const CommunityPosts = ({ subInfo }: Props) => {
 
   return (
     <div className={styles.root}>
-      <CreatePostInput />
+      {userProfile.username && <CreatePostInput />}
 
       {isCollectionEmpty ? (
         <NothingToShow />

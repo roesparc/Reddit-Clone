@@ -9,6 +9,14 @@ import { ImSpinner2 } from "react-icons/im";
 import { IoMdChatbubbles } from "react-icons/io";
 import CommentInput from "./CommentInput";
 import { Post } from "../../ts_common/interfaces";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { selectUserProfile } from "../../redux/features/auth";
+import stylesBtn from "../../styles/elements/buttons.module.css";
+import { BsPlusLg } from "react-icons/bs";
+import {
+  openAuthModal,
+  setLogInMode,
+} from "../../redux/features/userAuthModal";
 
 interface Props {
   setPost: React.Dispatch<React.SetStateAction<Post>>;
@@ -16,14 +24,29 @@ interface Props {
 }
 
 const PostComments = ({ setPost, post }: Props) => {
+  const dispatch = useAppDispatch();
+  const userProfile = useAppSelector(selectUserProfile);
   const { postId } = useParams();
+
   const [order] = useState<"timestamp" | "upvotes">("timestamp");
   const { comments, isLoading, hasMore, isCollectionEmpty, setComments } =
     useFetchComments("postId", postId!, order, true);
 
   return (
     <div className={styles.root}>
-      <CommentInput post={post} setComments={setComments} setPost={setPost} />
+      {userProfile.username ? (
+        <CommentInput post={post} setComments={setComments} setPost={setPost} />
+      ) : (
+        <button
+          className={`${stylesBtn.btnVariantTwo} ${styles.addCommentBtn}`}
+          onClick={() => {
+            dispatch(openAuthModal());
+            dispatch(setLogInMode());
+          }}
+        >
+          <BsPlusLg style={{ strokeWidth: "0.5" }} /> Add a comment
+        </button>
+      )}
 
       {isCollectionEmpty && !comments.length ? (
         <div className={styles.noCommentsContainer}>

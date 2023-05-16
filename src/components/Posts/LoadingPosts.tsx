@@ -9,7 +9,11 @@ const LoadingPosts = ({ posts }: Props) => {
   return (
     <div>
       {posts.map((post) => (
-        <div key={post} className={styles.root}>
+        <div
+          key={post}
+          className={styles.root}
+          style={posts.length === 1 ? { marginBottom: "unset" } : undefined}
+        >
           <div className={styles.votesContainer}>
             <button>
               <TbArrowBigUp

@@ -30,3 +30,10 @@
 .noCommentsContainer p:last-child {
   font-size: 14px;
 }
+
+.addCommentBtn {
+  width: auto;
+  padding: 0 2rem;
+  gap: 8px;
+  margin: 24px 40px 24px 48px;
+}

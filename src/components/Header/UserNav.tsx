@@ -5,7 +5,7 @@ import { RxCaretDown } from "react-icons/rx";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
 import { BsEye } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "../../styles/header/UserNav.module.css";
 import btnStyles from "../../styles/elements/buttons.module.css";
 import { signOut } from "firebase/auth";
@@ -15,12 +15,25 @@ import { doc, updateDoc } from "firebase/firestore";
 
 const UserNav = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const currentTheme = useAppSelector(selectCurrentTheme);
   const userProfile = useAppSelector(selectUserProfile);
 
   const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
   const userNavBtnRef = useRef<HTMLButtonElement>(null);
   const themeBtnRef = useRef<HTMLButtonElement>(null);
+
+  const handleSignOut = () => {
+    if (
+      location.pathname === "/settings/profile" ||
+      location.pathname.split("/").pop() === "submit"
+    ) {
+      navigate("/");
+    }
+
+    signOut(auth);
+  };
 
   useEffect(() => {
     const updateUserTheme = async () => {
@@ -94,7 +107,7 @@ const UserNav = () => {
 
           <button
             className={`${styles.sectionTitle} ${styles.sectionOnlyBtn}`}
-            onClick={() => signOut(auth)}
+            onClick={handleSignOut}
           >
             <FiLogOut style={{ strokeWidth: 1 }} />
             <h3>Log Out</h3>

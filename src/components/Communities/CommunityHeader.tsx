@@ -1,4 +1,3 @@
-import { BsBell } from "react-icons/bs";
 import styles from "../../styles/communities/CommunityHeader.module.css";
 import { Community } from "../../ts_common/interfaces";
 import LoadingCommunityHeader from "./LoadingCommunityHeader";
@@ -31,12 +30,6 @@ const CommunityHeader = ({ subInfo }: Props) => {
                 <div>
                   <h1>{subInfo?.name}</h1>
                   <h2>r/{subInfo?.name}</h2>
-                </div>
-
-                <div>
-                  <button className={styles.notificationBtn}>
-                    <BsBell />
-                  </button>
                 </div>
               </div>
             </div>

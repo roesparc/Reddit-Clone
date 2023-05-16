@@ -9,6 +9,7 @@ import { db } from "../../firebase/config";
 import { useAppSelector } from "../../redux/hooks";
 import { selectUserProfile } from "../../redux/features/auth";
 import { BsPlusLg } from "react-icons/bs";
+import noUserPic from "../../assets/img/not_found.png";
 
 interface CurrentLocation {
   name: string;
@@ -115,7 +116,7 @@ const MainNav = () => {
         ) : location.pathname === "/settings/profile" ? (
           <>
             <img
-              src={userProfile.userImg}
+              src={userProfile.userImg ? userProfile.userImg : noUserPic}
               alt="user"
               className={styles.currentLocationImg}
             />
@@ -163,17 +164,21 @@ const MainNav = () => {
             <p>Home</p>
           </Link>
 
-          <h3>Other</h3>
+          {userProfile.username && (
+            <>
+              <h3>Other</h3>
 
-          <Link to="/settings/profile" className={styles.navItem}>
-            <img src={userProfile.userImg} alt="user" />
-            <p>User Settings</p>
-          </Link>
+              <Link to="/settings/profile" className={styles.navItem}>
+                <img src={userProfile.userImg} alt="user" />
+                <p>User Settings</p>
+              </Link>
 
-          <Link to="/submit" className={styles.navItem}>
-            <BsPlusLg />
-            <p>Create Post</p>
-          </Link>
+              <Link to="/submit" className={styles.navItem}>
+                <BsPlusLg />
+                <p>Create Post</p>
+              </Link>
+            </>
+          )}
         </div>
       )}
     </div>

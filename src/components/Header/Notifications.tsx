@@ -29,6 +29,16 @@ const Notifications = () => {
   };
 
   useEffect(() => {
+    if (userProfile.notifications.length > 9) {
+      document.title = "(+9) Re_edit";
+    } else if (userProfile.notifications.length) {
+      document.title = `(${userProfile.notifications.length}) Re_edit`;
+    } else {
+      document.title = "Re_edit";
+    }
+  }, [userProfile.notifications.length]);
+
+  useEffect(() => {
     if (!isLoading)
       updateDoc(doc(db, "users", userProfile.uid), { notifications: [] });
   }, [isLoading, userProfile.uid]);

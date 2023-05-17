@@ -44,7 +44,7 @@
 }
 
 .notification:hover {
-  box-shadow: 3px 0 inset var(--color-utility-one);
+  box-shadow: 3px 0 inset var(--color-link-one);
 }
 
 .imgSide {

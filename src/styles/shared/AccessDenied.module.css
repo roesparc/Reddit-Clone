@@ -2,6 +2,7 @@
   background: var(--color-background-one);
   border-radius: 4px;
   color: var(--color-utility-two);
+  min-height: 150px;
   height: 100%;
   display: flex;
   justify-content: center;

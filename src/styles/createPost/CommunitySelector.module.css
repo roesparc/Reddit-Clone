@@ -23,6 +23,7 @@
   height: 22px;
   width: 22px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .communityBtn .imgSkeleton {
@@ -88,6 +89,7 @@
   width: 20px;
   border-radius: 100%;
   vertical-align: middle;
+  object-fit: cover;
 }
 
 .communitySelectBtn span {
@@ -99,4 +101,10 @@
   font-weight: 400;
   text-align: start;
   font-family: "IBM Plex Sans", sans-serif;
+}
+
+@media (max-width: 450px) {
+  .communityBtn {
+    margin: auto;
+  }
 }

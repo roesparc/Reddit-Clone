@@ -1,6 +1,7 @@
 .root {
   color: var(--color-utility-two);
   height: 100%;
+  min-height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;

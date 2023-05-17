@@ -58,3 +58,9 @@
   background-color: transparent;
   color: var(--color-button-one);
 }
+
+@media (max-width: 1020px) {
+  .infoContainer {
+    max-width: 640px;
+  }
+}

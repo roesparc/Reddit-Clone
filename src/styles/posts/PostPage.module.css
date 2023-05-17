@@ -1,5 +1,7 @@
 .root {
-  width: 740px;
+  width: 100%;
+  max-width: 740px;
+  min-width: 355px;
   background-color: var(--color-background-one);
   border-radius: 4px;
   overflow: hidden;

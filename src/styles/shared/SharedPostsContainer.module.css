@@ -1,5 +1,7 @@
 .root {
-  width: 640px;
+  width: 100%;
+  max-width: 640px;
+  min-width: 355px;
 }
 
 .loadingPostsSpinner {
@@ -16,11 +18,4 @@
   font-weight: 600;
   font-size: 16px;
   color: var(--color-utility-two);
-}
-
-@media (max-width: 640px) {
-  .root {
-    max-width: 640px;
-    min-width: 355px;
-  }
 }

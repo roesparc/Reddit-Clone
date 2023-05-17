@@ -80,9 +80,9 @@
   background-color: var(--color-font-one-faded);
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1200px) {
   .rightSide {
-    width: unset;
+    width: 322px;
   }
 
   .logoText {
@@ -90,19 +90,25 @@
   }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 1080px) {
+  .rightSide,
   .leftSide {
-    gap: 1rem;
+    width: 170px;
   }
 
-  .authBtns button:first-child {
+  .authBtns > button:first-child {
     display: none;
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 650px) {
   .leftSide {
-    gap: unset;
+    gap: 1rem;
+    width: unset;
+  }
+
+  .rightSide {
+    width: unset;
   }
 
   .authBtns {
@@ -111,5 +117,11 @@
 
   .authBtns > button:nth-child(2) {
     width: 90px;
+  }
+}
+
+@media (max-width: 420px) {
+  .leftSide {
+    gap: unset;
   }
 }

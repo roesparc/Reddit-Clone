@@ -1,5 +1,7 @@
 .root {
-  width: 740px;
+  width: 100%;
+  max-width: 740px;
+  min-width: 355px;
 }
 
 .root h1 {
@@ -131,4 +133,10 @@
   color: var(--color-button-one);
   animation: var(--spinner-animation);
   display: block;
+}
+
+@media (max-width: 450px) {
+  .root h1 {
+    justify-content: center;
+  }
 }

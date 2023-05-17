@@ -17,6 +17,7 @@ const PostPage = () => {
   const { postId } = useParams();
   const [post, setPost] = useState<Post>(INITIAL_POST_DATA);
   const [postExist, setPostExist] = useState<boolean>(true);
+  const [isPostDeleting, setIsPostDeleting] = useState<boolean>(false);
 
   useEffect(() => {
     const getPost = async () => {
@@ -38,9 +39,18 @@ const PostPage = () => {
     <div className={stylesOuter.contentWrapper}>
       {post.postId.length ? (
         <div className={styles.root}>
-          <PostDisplay post={post} mode="single" />
+          <PostDisplay
+            post={post}
+            mode="single"
+            isPostDeleting={isPostDeleting}
+            setIsPostDeleting={setIsPostDeleting}
+          />
 
-          <PostComments setPost={setPost} post={post} />
+          <PostComments
+            setPost={setPost}
+            post={post}
+            isPostDeleting={isPostDeleting}
+          />
         </div>
       ) : (
         <div className={styles.root}>

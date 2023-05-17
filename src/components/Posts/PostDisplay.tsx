@@ -19,17 +19,23 @@ import {
 interface Props {
   post: Post;
   mode?: "single";
+  isPostDeleting?: boolean;
+  setIsPostDeleting?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const PostDisplay = ({ post, mode }: Props) => {
+const PostDisplay = ({
+  post,
+  mode,
+  isPostDeleting,
+  setIsPostDeleting,
+}: Props) => {
+  const { subName } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const userProfile = useAppSelector(selectUserProfile);
   const bodyRef = useRef<HTMLDivElement>(null);
 
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
-  const [isDeleted, setIsDeleted] = useState<boolean>(false);
-  const { subName } = useParams();
+  const [isPostDeleted, setIsPostDeleted] = useState<boolean>(false);
   const {
     isPostUpvoted,
     isPostDownvoted,
@@ -48,7 +54,7 @@ const PostDisplay = ({ post, mode }: Props) => {
       return;
     }
 
-    !isDeleted && interactionFn();
+    !isPostDeleted && interactionFn();
   };
 
   const getRootClasses = () => {
@@ -70,14 +76,14 @@ const PostDisplay = ({ post, mode }: Props) => {
   useEffect(() => {
     let timeout: NodeJS.Timeout;
 
-    if (isDeleted) {
+    if (isPostDeleted) {
       timeout = setTimeout(() => {
         navigate("/");
       }, 3000);
     }
 
     return () => clearTimeout(timeout);
-  }, [isDeleted, navigate]);
+  }, [isPostDeleted, navigate]);
 
   return (
     <div
@@ -188,17 +194,17 @@ const PostDisplay = ({ post, mode }: Props) => {
 
           {post.authorId === userProfile.uid &&
             mode === "single" &&
-            (isDeleting && !isDeleted ? (
+            (isPostDeleting && !isPostDeleted ? (
               <ImSpinner2 className={styles.deletingSpinner} />
-            ) : isDeleted ? (
+            ) : isPostDeleted ? (
               <span className={styles.postDeleted}>
                 Deleted <FaCheck />
               </span>
             ) : (
               <button
                 onClick={() => {
-                  setIsDeleting(true);
-                  deletePost(post, setIsDeleted);
+                  setIsPostDeleting!(true);
+                  deletePost(post, setIsPostDeleted);
                 }}
               >
                 <BsTrash3 /> Delete
@@ -207,7 +213,7 @@ const PostDisplay = ({ post, mode }: Props) => {
         </div>
       </div>
 
-      {isDeleted && (
+      {isPostDeleted && (
         <div className={styles.announceContainer}>
           <p className={styles.postDeletedAnnounce}>
             Post deleted successfully.

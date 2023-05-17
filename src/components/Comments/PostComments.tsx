@@ -21,9 +21,10 @@ import {
 interface Props {
   setPost: React.Dispatch<React.SetStateAction<Post>>;
   post: Post;
+  isPostDeleting: boolean;
 }
 
-const PostComments = ({ setPost, post }: Props) => {
+const PostComments = ({ setPost, post, isPostDeleting }: Props) => {
   const dispatch = useAppDispatch();
   const userProfile = useAppSelector(selectUserProfile);
   const { postId } = useParams();
@@ -34,13 +35,13 @@ const PostComments = ({ setPost, post }: Props) => {
 
   return (
     <div className={styles.root}>
-      {userProfile.username ? (
+      {userProfile.username && !isPostDeleting ? (
         <CommentInput post={post} setComments={setComments} setPost={setPost} />
       ) : (
         <button
           className={`${stylesBtn.btnVariantTwo} ${styles.addCommentBtn}`}
           onClick={() => {
-            dispatch(openAuthModal());
+            !isPostDeleting && dispatch(openAuthModal());
             dispatch(setLogInMode());
           }}
         >

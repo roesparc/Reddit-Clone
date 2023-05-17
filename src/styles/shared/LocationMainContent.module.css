@@ -4,6 +4,14 @@
   justify-content: center;
 }
 
+@media (max-width: 1020px) {
+  .contentWrapper {
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: unset;
+  }
+}
+
 @media (max-width: 450px) {
   .contentWrapper {
     padding: unset;

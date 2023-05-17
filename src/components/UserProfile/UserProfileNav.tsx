@@ -5,14 +5,19 @@ import { selectUserProfile } from "../../redux/features/auth";
 
 interface Props {
   currentTab: string;
+  responsive?: boolean;
 }
 
-const UserProfileNav = ({ currentTab }: Props) => {
+const UserProfileNav = ({ currentTab, responsive }: Props) => {
   const { username } = useParams();
   const userProfile = useAppSelector(selectUserProfile);
 
   return (
-    <div className={styles.root}>
+    <div
+      className={`${styles.root} ${responsive && styles.responsive} ${
+        username === userProfile.username && styles.userProfile
+      }`}
+    >
       <Link
         to={`/user/${username}`}
         className={currentTab === username ? styles.activeTab : ""}

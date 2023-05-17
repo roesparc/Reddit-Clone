@@ -26,10 +26,36 @@
   cursor: default;
 }
 
-@media (max-width: 550px) {
+@media (min-width: 1020px) {
+  .root.responsive {
+    display: none;
+  }
+}
+
+@media (max-width: 1020px) {
   .root {
-    justify-content: unset;
-    overflow: auto;
+    display: none;
+  }
+
+  .root.responsive {
+    display: flex;
+    position: sticky;
+    top: 49px;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 640px;
+    min-width: 355px;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 580px) {
+  .root {
+    overflow-x: auto;
     padding: 0 8px;
+  }
+
+  .userProfile {
+    justify-content: unset;
   }
 }

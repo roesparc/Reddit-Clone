@@ -70,4 +70,16 @@
   .root {
     display: none;
   }
+
+  .root.responsiveShown {
+    display: block;
+    position: relative;
+    top: 0;
+    max-width: 640px;
+    width: 100%;
+    margin: 0;
+    border-radius: unset;
+    border: unset;
+    border-bottom: 1px solid var(--color-border-one);
+  }
 }

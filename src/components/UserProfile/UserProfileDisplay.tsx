@@ -65,6 +65,8 @@ const UserProfileDisplay = () => {
               <UserProfileComments userInfo={userInfo} />
             )}
 
+            <UserProfileNav currentTab={currentTab} responsive={true} />
+
             <UserInfo userInfo={userInfo} />
           </div>
         </div>

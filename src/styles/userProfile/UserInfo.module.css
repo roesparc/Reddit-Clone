@@ -69,6 +69,8 @@
   word-wrap: break-word;
   margin: 8px 0;
   text-align: center;
+  color: var(--color-utility-two);
+  font-weight: 300;
 }
 
 .cakeDayContainer {
@@ -93,4 +95,61 @@
 
 .cakeDayContainer svg {
   color: var(--color-valid-one);
+}
+
+.cakeDayResponsive {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-utility-two);
+  font-family: "IBM Plex Sans", sans-serif;
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+
+.cakeDayResponsive svg {
+  color: var(--color-valid-one);
+}
+
+@media (max-width: 1020px) {
+  .userImgContainer {
+    padding-top: 7rem;
+  }
+
+  .userImgContainer img {
+    left: 5rem;
+    top: 5rem;
+    width: 100px;
+    height: 100px;
+    border: 3px solid var(--color-background-one);
+  }
+
+  .mainInfo {
+    margin-left: 9rem;
+    margin-right: 3rem;
+    min-height: 70px;
+  }
+
+  .userDisplayName {
+    margin-top: unset;
+    text-align: start;
+  }
+
+  .username {
+    text-align: start;
+  }
+
+  .about {
+    margin: 0;
+    margin-top: 4px;
+    text-align: start;
+  }
+
+  .cakeDayResponsive {
+    display: flex;
+  }
+
+  .cakeDayContainer {
+    display: none;
+  }
 }

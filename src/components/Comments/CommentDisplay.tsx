@@ -157,7 +157,7 @@ const CommentDisplay = ({ comment, setPost, isReply, post }: Props) => {
         )}
       </div>
 
-      {!isDeleted && showReplyInput && (
+      {showReplyInput && !isDeleted && !isDeleting && (
         <CommentInput
           passedComment={comment}
           post={post}

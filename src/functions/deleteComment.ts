@@ -92,10 +92,14 @@ const deleteComment = async (
 
   await batch.commit();
 
-  setPost?.((prev) => ({
-    ...prev,
-    commentNumber: prev.commentNumber - 1,
-  }));
+  setPost?.((prev) => {
+    if (prev.commentNumber === 0) return prev;
+
+    return {
+      ...prev,
+      commentNumber: prev.commentNumber - 1,
+    };
+  });
   setIsDeleted?.(true);
 };
 

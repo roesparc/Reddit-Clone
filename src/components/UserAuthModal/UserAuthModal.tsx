@@ -9,11 +9,20 @@ import { GrClose } from "react-icons/gr";
 import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import LogInForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
+import { useEffect } from "react";
 
 const UserAuthModal = () => {
   const isUserAuthOpen = useAppSelector(selectIsUserAuthOpen);
   const authMode = useAppSelector(selectAuthMode);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isUserAuthOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isUserAuthOpen]);
 
   return (
     <>

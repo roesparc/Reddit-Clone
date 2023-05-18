@@ -4,7 +4,7 @@ import PostSorting from "../Posts/PostsSorting";
 import { UserProfile } from "../../ts_common/interfaces";
 import styles from "../../styles/shared/SharedPostsContainer.module.css";
 import { useParams } from "react-router-dom";
-import { useFetchPosts } from "../../functions/fetchPosts";
+import { useFetchPosts } from "../../hooks/useFetchPosts";
 import NothingToShow from "../shared/NothingToShow";
 import { ImSpinner2 } from "react-icons/im";
 

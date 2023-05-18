@@ -1,7 +1,7 @@
 import { BsBell } from "react-icons/bs";
 import stylesHeader from "../../styles/header/Header.module.css";
 import { useEffect, useState, useRef } from "react";
-import useFetchNotifications from "../../functions/fetchNotifications";
+import useFetchNotifications from "../../hooks/useFetchNotifications";
 import { Link } from "react-router-dom";
 import { TbArrowBigUp } from "react-icons/tb";
 import { FaCommentAlt } from "react-icons/fa";

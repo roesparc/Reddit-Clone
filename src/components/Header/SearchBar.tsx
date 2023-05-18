@@ -3,7 +3,7 @@ import styles from "../../styles/header/SearchBar.module.css";
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ImSpinner2 } from "react-icons/im";
-import useSearch from "../../functions/useSearch";
+import useSearch from "../../hooks/useSearch";
 
 const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement>(null);

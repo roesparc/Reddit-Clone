@@ -5,7 +5,7 @@ import UserAuthModal from "./components/UserAuthModal/UserAuthModal";
 import { useAppSelector } from "./redux/hooks";
 import Main from "./components/Main";
 import { selectCurrentTheme } from "./redux/features/theme";
-import useAuthStateChange from "./functions/useAuthStateChange";
+import useAuthStateChange from "./hooks/useAuthStateChange";
 
 const App = () => {
   const currentTheme = useAppSelector(selectCurrentTheme);

@@ -1,4 +1,4 @@
-import { useFetchPosts } from "../../functions/fetchPosts";
+import { useFetchPosts } from "../../hooks/useFetchPosts";
 import stylesLocationMain from "../../styles/shared/LocationMainContent.module.css";
 import stylesPostContainer from "../../styles/shared/SharedPostsContainer.module.css";
 

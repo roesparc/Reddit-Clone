@@ -3,7 +3,7 @@ import getElapsedtime from "../../functions/getElapsedTime";
 import { FaCheck, FaRegCommentAlt } from "react-icons/fa";
 import { BsBookmark, BsBookmarkCheckFill, BsTrash3 } from "react-icons/bs";
 import styles from "../../styles/posts/PostDisplay.module.css";
-import usePostInteractions from "../../functions/PostInteractions";
+import usePostInteractions from "../../hooks/usePostInteractions";
 import { Post } from "../../ts_common/interfaces";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";

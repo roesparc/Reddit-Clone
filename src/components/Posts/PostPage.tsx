@@ -6,7 +6,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import PostDisplay from "./PostDisplay";
 import { INITIAL_POST_DATA } from "../../ts_common/initialStates";
-import { completePostsInfo } from "../../functions/fetchPosts";
+import { completePostsInfo } from "../../hooks/useFetchPosts";
 import PostComments from "../Comments/PostComments";
 import styles from "../../styles/posts/PostPage.module.css";
 import CommunityInfo from "../Communities/CommunityInfo";

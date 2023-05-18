@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { useFetchComments } from "../../functions/fetchComments";
+import { useFetchComments } from "../../hooks/useFetchComments";
 import CommentDisplay from "./CommentDisplay";
 import styles from "../../styles/comments/PostComments.module.css";
 import stylesShared from "../../styles/shared/SharedPostsContainer.module.css";

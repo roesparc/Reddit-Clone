@@ -3,11 +3,13 @@ import styles from "./styles/App.module.css";
 import Header from "./components/Header/Header";
 import UserAuthModal from "./components/UserAuthModal/UserAuthModal";
 import { useEffect, useState } from "react";
-import { useAppDispatch } from "./redux/hooks";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import handleAuthStateChange from "./functions/handleAuthStateChange ";
 import Main from "./components/Main";
+import { selectCurrentTheme } from "./redux/features/theme";
 
 const App = () => {
+  const currentTheme = useAppSelector(selectCurrentTheme);
   const dispatch = useAppDispatch();
   const [isInitialRender, setIsInitialRender] = useState<boolean>(true);
 
@@ -20,7 +22,11 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <div className={`${styles.root} ${styles.lightTheme}`}>
+    <div
+      className={`${styles.root} ${
+        currentTheme === "light" ? styles.lightTheme : styles.darkTheme
+      }`}
+    >
       {!isInitialRender && (
         <HashRouter>
           <Header />

@@ -3,6 +3,19 @@
 :root {
   font-size: 12px;
   font-family: "Noto Sans", sans-serif;
+
+  /* these colors do not change when toggling the theme */
+  --color-main: #ff4500;
+  --color-overlay: #00000066;
+  --color-upvote: #ff4500;
+  --color-downvote: #7193ff;
+  --color-button-auth: #d93a00;
+  --color-button-auth-hover: #d93a00e8;
+  --color-valid-one: #24a0ed;
+
+  --spinner-animation: spin 1s linear infinite;
+  --skeleton-animation: skeleton-pulse 1s ease-in-out infinite alternate;
+  --announce-animation: announce 300ms ease;
 }
 
 * {
@@ -18,6 +31,7 @@ h5,
 h6 {
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 500;
+  color: var(--color-font-one);
 }
 
 h1 {
@@ -55,7 +69,37 @@ button svg {
 }
 
 input,
+textarea,
 label {
   font-family: "IBM Plex Sans", sans-serif;
   font-size: 14px;
+  color: var(--color-font-one);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    background-color: var(--color-loading-skeleton-initial);
+  }
+  50% {
+    background-color: var(--color-loading-skeleton-final);
+  }
+  100% {
+    background-color: var(--color-loading-skeleton-initial);
+  }
+}
+
+@keyframes announce {
+  from {
+    transform: translateY(15px) scale(0.5);
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+  }
 }

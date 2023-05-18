@@ -33,6 +33,7 @@
   flex-grow: 1;
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 500;
+  color: var(--color-font-one);
 }
 
 .caretDown {

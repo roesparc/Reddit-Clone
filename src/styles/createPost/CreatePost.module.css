@@ -32,7 +32,7 @@
 }
 
 .postTypeContainer button:hover {
-  background-color: #0079d30d;
+  background-color: var(--color-link-one-faded);
 }
 
 .postTypeContainer button:first-child {
@@ -125,6 +125,8 @@
 .submitBtnContainer button:disabled {
   cursor: not-allowed;
   filter: grayscale(1);
+  background-color: var(--color-button-one-active);
+  color: var(--color-font-disabled);
 }
 
 .submitSpinner {

@@ -78,6 +78,7 @@
 }
 
 .settingsSection input {
+  background-color: var(--color-background-one);
   border: 1px solid var(--color-border-one);
   box-sizing: border-box;
   height: 48px;
@@ -89,6 +90,7 @@
 }
 
 .settingsSection textarea {
+  background-color: var(--color-background-one);
   font-family: "IBM Plex Sans", sans-serif;
   border: 1px solid var(--color-border-one);
   border-radius: 4px;

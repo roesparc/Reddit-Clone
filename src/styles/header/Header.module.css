@@ -40,6 +40,9 @@
 .logoText {
   height: 18px;
 }
+.logoText g {
+  fill: var(--color-font-one);
+}
 
 .themeBtn {
   font-size: 20px;
@@ -47,9 +50,10 @@
   background-color: transparent;
   border-radius: 4px;
   border: 1px solid transparent;
-  color: var(--color-button-one);
+  color: var(--color-utility-one);
 }
 .themeBtn:hover {
+  background-color: var(--color-font-one-faded);
   border-color: var(--color-border-one);
 }
 

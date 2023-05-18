@@ -27,6 +27,7 @@
 
 .description {
   margin-bottom: 8px;
+  color: var(--color-font-one);
 }
 
 .hr {
@@ -47,6 +48,7 @@
   font-weight: 500;
   line-height: 20px;
   font-family: "IBM Plex Sans", sans-serif;
+  color: var(--color-font-one);
 }
 
 .extraInfo p:last-child {

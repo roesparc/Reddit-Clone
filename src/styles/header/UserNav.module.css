@@ -64,6 +64,7 @@
 .sectionTitle h3 {
   font-weight: 500;
   font-size: 14px;
+  color: inherit;
 }
 
 .userMenuSection {
@@ -104,6 +105,10 @@
 }
 .sectionOnlyBtn:hover {
   background-color: var(--color-font-one-faded);
+}
+
+.sectionOnlyBtn h3 {
+  color: inherit;
 }
 
 @media (max-width: 1080px) {

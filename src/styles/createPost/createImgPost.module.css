@@ -11,17 +11,17 @@
   padding: 1rem;
 }
 .dragDropContainer:hover {
-  background-color: #0079d30d;
+  background-color: var(--color-link-one-faded);
 }
 
 .dragActive {
-  border: 2px dashed var(--color-button-one);
-  background-color: #0079d30d;
+  border: 2px dashed var(--color-link-one);
+  background-color: var(--color-link-one-faded);
 }
 
 .dragDropContainer p {
   font-family: "IBM Plex Sans", sans-serif;
-  color: var(--color-button-one);
+  color: var(--color-link-one);
   font-weight: 500;
   user-select: none;
 }

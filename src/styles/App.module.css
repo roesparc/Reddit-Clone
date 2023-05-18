@@ -1,69 +1,70 @@
 .lightTheme {
-  /* wont change */
-  --color-main: #ff4500;
-  --color-overlay: #00000066;
-  --color-upvote: #ff4500;
-  --color-downvote: #7193ff;
-  --color-button-auth: #d93a00;
-  --color-button-auth-hover: #d93a00e8;
-  --color-error-one: #fb133a;
-  --color-valid-one: #24a0ed;
-
-  --spinner-animation: spin 1s linear infinite;
-  --skeleton-animation: skeleton-pulse 1s ease-in-out infinite alternate;
-  --announce-animation: announce 300ms ease;
-
-  /* will change */
   --color-background-one: #ffffff;
   --color-background-post: #ffffffcc;
   --canvas: #dae0e6;
+
   --color-font-one: #1a1a1b;
   --color-font-one-faded: #1a1a1b1a;
-  --color-button-one: #0076d1;
-  --color-button-one-hover: #0076d1eb;
-  --color-button-one-active: #0076d1c2;
-  --color-button-one-alt-hover: #0076d10a;
-  --color-button-one-alt-active: #0076d129;
+  --color-font-disabled: #ffffff80;
+
+  --color-button-one: #ff4500;
+  --color-button-one-hover: #ff4400e1;
+  --color-button-one-active: #ff4500c2;
+  --color-button-one-alt-hover: #ff45000a;
+  --color-button-one-alt-active: #ff450029;
+
   --color-link-one: #0079d3;
+  --color-link-one-faded: #0079d30d;
+
   --color-border-one: #edeff1;
+
   --color-input-one: #f6f7f8;
   --color-input-border-one: #00000033;
   --color-label-one: #737577;
+
   --color-utility-one: #878a8c;
   --color-utility-two: #787c7e;
+
   --color-loading-skeleton-initial: #f1f1f1;
   --color-loading-skeleton-final: #e0e0e0;
+
+  --color-error-one: #fb133a;
+}
+
+.darkTheme {
+  --color-background-one: #1a1a1b;
+  --color-background-post: #1a1a1bcc;
+  --canvas: #030303;
+
+  --color-font-one: #d7dadc;
+  --color-font-one-faded: #d7dadc1a;
+  --color-font-disabled: #1a1a1b80;
+
+  --color-button-one: #d7dadc;
+  --color-button-one-hover: #d7dadceb;
+  --color-button-one-active: #d7dadcc2;
+  --color-button-one-alt-hover: #d7dadc0a;
+  --color-button-one-alt-active: #d7dadc29;
+
+  --color-link-one: #d7dadc;
+  --color-link-one-faded: #d7dadc0a;
+
+  --color-border-one: #343536;
+
+  --color-input-one: #272729;
+  --color-input-border-one: #ffffff33;
+  --color-label-one: #737577;
+
+  --color-utility-one: #878a8c;
+  --color-utility-two: #818384;
+
+  --color-loading-skeleton-initial: #252525;
+  --color-loading-skeleton-final: #303030;
+
+  --color-error-one: #ff5252;
 }
 
 .root {
   min-height: 100vh;
   background-color: var(--canvas);
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes skeleton-pulse {
-  0% {
-    background-color: var(--color-loading-skeleton-initial);
-  }
-  50% {
-    background-color: var(--color-loading-skeleton-final);
-  }
-  100% {
-    background-color: var(--color-loading-skeleton-initial);
-  }
-}
-
-@keyframes announce {
-  from {
-    transform: translateY(15px) scale(0.5);
-  }
-
-  to {
-    transform: translateY(0) scale(1);
-  }
 }

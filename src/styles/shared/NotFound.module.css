@@ -26,4 +26,5 @@
   margin-bottom: 32px;
   font-weight: 500;
   font-family: "IBM Plex Sans", sans-serif;
+  color: var(--color-font-one);
 }

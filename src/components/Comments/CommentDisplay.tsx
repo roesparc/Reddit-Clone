@@ -111,7 +111,11 @@ const CommentDisplay = ({ comment, setPost, isReply, post }: Props) => {
                     style={{ strokeWidth: 1.5 }}
                   />
                 </button>
-                <p>{upvoteCount - downvoteCount}</p>
+
+                <p className={styles.upvoteCount}>
+                  {upvoteCount - downvoteCount}
+                </p>
+
                 <button
                   className={styles.downvoteBtn}
                   onClick={() => handleCommentInteraction(downvoteComment)}

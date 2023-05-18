@@ -21,6 +21,8 @@
   font-family: "Noto Sans";
   font-size: 14px;
   outline: none;
+  background-color: var(--color-background-one);
+  color: var(--color-font-one);
 }
 
 .root > div {
@@ -39,6 +41,8 @@
 .root button:disabled {
   cursor: not-allowed;
   filter: grayscale(1);
+  background-color: var(--color-button-one-active);
+  color: var(--color-font-disabled);
 }
 
 .submitSpinner {

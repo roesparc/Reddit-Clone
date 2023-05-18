@@ -91,6 +91,9 @@
 .postLink:visited {
   color: var(--color-utility-one);
 }
+.postLink:visited h3 {
+  color: var(--color-utility-one);
+}
 
 .postInfo,
 .postInfo a {
@@ -137,6 +140,7 @@
   padding-right: 16px;
   font-size: 14px;
   font-family: "Noto Sans", sans-serif;
+  color: var(--color-font-one);
 }
 
 .postImg {
@@ -186,18 +190,20 @@
 }
 
 .postDeletedAnnounce {
+  color: var(--color-font-one);
   background-color: var(--color-background-one);
   padding: 1rem 3rem;
   border-radius: 4px;
   font-weight: 600;
   text-align: center;
   width: max-content;
-  border: 1px solid var(--color-utility-one);
-  box-shadow: 0 0 3px var(--color-utility-one);
+  border: 1px solid var(--color-border-one);
+  box-shadow: 0 0 3px var(--color-font-one-faded);
   animation: var(--announce-animation);
 }
 
 .postDeleted {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   height: 36px;

@@ -89,6 +89,7 @@
 .commentBody {
   padding: 2px 0;
   word-break: break-word;
+  color: var(--color-font-one);
 }
 
 .interactionsContainer {
@@ -152,7 +153,8 @@
   fill: var(--color-downvote);
 }
 
-.votesContainer p {
+.upvoteCount {
+  color: var(--color-font-one);
   margin: 4px;
   font-size: 12px;
   font-weight: 700;

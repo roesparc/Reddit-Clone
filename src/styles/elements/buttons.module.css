@@ -55,7 +55,7 @@
   width: 19.5px;
 }
 .toggleBtnActive {
-  background-color: var(--color-link-one);
+  background-color: #0079d3;
   justify-content: flex-end;
 }
 

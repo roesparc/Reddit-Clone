@@ -41,6 +41,7 @@
   text-align: start;
   font-weight: 500;
   font-family: "IBM Plex Sans", sans-serif;
+  color: var(--color-font-one);
 }
 
 .communityBtn svg {
@@ -79,6 +80,7 @@
   width: 100%;
   background-color: transparent;
   border: none;
+  color: var(--color-font-one);
 }
 .communitySelectBtn:hover {
   background-color: var(--color-font-one-faded);

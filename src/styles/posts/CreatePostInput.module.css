@@ -34,6 +34,6 @@
 }
 .root input:hover,
 .root input:focus-within {
-  border-color: var(--color-button-one);
+  border-color: var(--color-link-one);
   background-color: var(--color-background-one);
 }

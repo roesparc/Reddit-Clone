@@ -15,7 +15,7 @@
 }
 .root:hover,
 .root:focus-within {
-  border-color: var(--color-button-one);
+  border-color: var(--color-link-one);
   background-color: var(--color-background-one);
 }
 
@@ -54,10 +54,10 @@
   width: 100%;
   min-width: 250px;
   max-height: 250px;
+  border: 1px solid var(--color-border-one);
   background-color: var(--color-background-one);
   border-radius: 0 0 4px 4px;
-  box-shadow: 0 2px 4px 0 #1c1c1c33;
-  box-sizing: border-box;
+  box-shadow: 0 2px 4px 0 var(--color-font-one-faded);
   overflow-x: hidden;
   overflow-y: auto;
 }

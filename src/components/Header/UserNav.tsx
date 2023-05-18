@@ -22,7 +22,7 @@ const UserNav = () => {
 
   const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
   const userNavBtnRef = useRef<HTMLButtonElement>(null);
-  const themeBtnRef = useRef<HTMLButtonElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   const handleSignOut = () => {
     if (
@@ -47,15 +47,15 @@ const UserNav = () => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         !userNavBtnRef.current?.contains(event.target as Node) &&
-        !themeBtnRef.current?.contains(event.target as Node)
+        !userMenuRef.current?.contains(event.target as Node)
       ) {
         setShowUserMenu(false);
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
-    return () => document.removeEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -71,7 +71,7 @@ const UserNav = () => {
       </button>
 
       {showUserMenu && (
-        <div className={styles.userMenu}>
+        <div className={styles.userMenu} ref={userMenuRef}>
           <div className={styles.sectionTitle}>
             <HiOutlineUserCircle
               viewBox="1.5 1.5 20 20"
@@ -81,8 +81,15 @@ const UserNav = () => {
           </div>
 
           <div className={styles.userMenuSection}>
-            <Link to={`/user/${userProfile.username}`}>Profile</Link>
-            <Link to="/settings/profile">User Settings</Link>
+            <Link
+              to={`/user/${userProfile.username}`}
+              onClick={() => setShowUserMenu(false)}
+            >
+              Profile
+            </Link>
+            <Link to="/settings/profile" onClick={() => setShowUserMenu(false)}>
+              User Settings
+            </Link>
           </div>
 
           <div className={styles.sectionTitle}>
@@ -91,7 +98,7 @@ const UserNav = () => {
           </div>
 
           <div className={styles.userMenuSection}>
-            <button onClick={() => dispatch(toggleTheme())} ref={themeBtnRef}>
+            <button onClick={() => dispatch(toggleTheme())}>
               <span>Dark Mode</span>
               <div
                 className={`${btnStyles.toggleBtn} ${

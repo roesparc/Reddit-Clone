@@ -7,20 +7,25 @@ import useSearch from "../../functions/useSearch";
 
 const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const searchResultsRef = useRef<HTMLDivElement>(null);
+
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [showResults, setShowResults] = useState<boolean>(false);
   const { isLoading, searchResults } = useSearch(searchTerm);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (!inputRef.current?.contains(event.target as Node)) {
+      if (
+        !inputRef.current?.contains(event.target as Node) &&
+        !searchResultsRef.current?.contains(event.target as Node)
+      ) {
         setShowResults(false);
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
-    return () => document.removeEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -50,14 +55,19 @@ const SearchBar = () => {
       </form>
 
       {showResults && searchTerm && (
-        <div className={styles.searchResults}>
+        <div className={styles.searchResults} ref={searchResultsRef}>
           {isLoading ? (
             <ImSpinner2 className={styles.spinner} />
           ) : !searchResults.length ? (
             <p className={styles.noResults}>No results</p>
           ) : (
             searchResults.map((result, index) => (
-              <Link key={index} to={result.url} className={styles.searchResult}>
+              <Link
+                key={index}
+                to={result.url}
+                className={styles.searchResult}
+                onClick={() => setShowResults(false)}
+              >
                 <img src={result.img} alt="" />
                 <p>{result.type + result.name}</p>
               </Link>

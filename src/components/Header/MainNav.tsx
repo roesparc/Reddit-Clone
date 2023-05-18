@@ -20,6 +20,7 @@ const MainNav = () => {
   const userProfile = useAppSelector(selectUserProfile);
   const location = useLocation();
   const navBtnRef = useRef<HTMLButtonElement>(null);
+  const navContainer = useRef<HTMLDivElement>(null);
 
   const [communities, setCommunities] = useState<Array<Community>>([]);
   const [showNav, setShowNav] = useState<boolean>(false);
@@ -30,14 +31,17 @@ const MainNav = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (!navBtnRef.current?.contains(event.target as Node)) {
+      if (
+        !navBtnRef.current?.contains(event.target as Node) &&
+        !navContainer.current?.contains(event.target as Node)
+      ) {
         setShowNav(false);
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
-    return () => document.removeEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   useEffect(() => {
@@ -143,7 +147,7 @@ const MainNav = () => {
       </button>
 
       {showNav && (
-        <div className={styles.navContainer}>
+        <div className={styles.navContainer} ref={navContainer}>
           <h3>Communities</h3>
 
           {communities.map((community) => (
@@ -151,6 +155,7 @@ const MainNav = () => {
               key={community.id}
               to={`/r/${community.name}`}
               className={styles.navItem}
+              onClick={() => setShowNav(false)}
             >
               <img src={community.img} alt="community" />
               <p>r/{community.name}</p>
@@ -159,7 +164,11 @@ const MainNav = () => {
 
           <h3>Feeds</h3>
 
-          <Link to="/" className={styles.navItem}>
+          <Link
+            to="/"
+            className={styles.navItem}
+            onClick={() => setShowNav(false)}
+          >
             <FaHome />
             <p>Home</p>
           </Link>
@@ -168,12 +177,20 @@ const MainNav = () => {
             <>
               <h3>Other</h3>
 
-              <Link to="/settings/profile" className={styles.navItem}>
+              <Link
+                to="/settings/profile"
+                className={styles.navItem}
+                onClick={() => setShowNav(false)}
+              >
                 <img src={userProfile.userImg} alt="user" />
                 <p>User Settings</p>
               </Link>
 
-              <Link to="/submit" className={styles.navItem}>
+              <Link
+                to="/submit"
+                className={styles.navItem}
+                onClick={() => setShowNav(false)}
+              >
                 <BsPlusLg />
                 <p>Create Post</p>
               </Link>

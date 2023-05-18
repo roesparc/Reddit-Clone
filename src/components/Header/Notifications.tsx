@@ -16,7 +16,9 @@ import { selectUserProfile } from "../../redux/features/auth";
 
 const Notifications = () => {
   const userProfile = useAppSelector(selectUserProfile);
-  const notificationBtnRef = useRef<HTMLButtonElement | null>(null);
+  const notificationBtnRef = useRef<HTMLButtonElement>(null);
+  const notificationsContainerRef = useRef<HTMLDivElement>(null);
+
   const [showNotifications, setShowNotifications] = useState<boolean>(false);
   const { isLoading, isEmpty, notifications } =
     useFetchNotifications(showNotifications);
@@ -45,14 +47,17 @@ const Notifications = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (!notificationBtnRef.current?.contains(event.target as Node)) {
+      if (
+        !notificationBtnRef.current?.contains(event.target as Node) &&
+        !notificationsContainerRef.current?.contains(event.target as Node)
+      ) {
         setShowNotifications(false);
       }
     };
 
-    document.addEventListener("click", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
-    return () => document.removeEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
@@ -74,7 +79,7 @@ const Notifications = () => {
       </button>
 
       {showNotifications && (
-        <div className={styles.root}>
+        <div className={styles.root} ref={notificationsContainerRef}>
           <h3 className={styles.heading}>Notifications</h3>
 
           <div className={styles.notificationsContainer}>
@@ -93,7 +98,10 @@ const Notifications = () => {
                       ? { backgroundColor: "#24a0ed1a" }
                       : undefined
                   }
-                  onClick={() => readNotification(notification)}
+                  onClick={() => {
+                    setShowNotifications(false);
+                    readNotification(notification);
+                  }}
                 >
                   <div className={styles.imgSide}>
                     <img src={notification.authorImg} alt="author" />

@@ -2,24 +2,14 @@ import { HashRouter } from "react-router-dom";
 import styles from "./styles/App.module.css";
 import Header from "./components/Header/Header";
 import UserAuthModal from "./components/UserAuthModal/UserAuthModal";
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import handleAuthStateChange from "./functions/handleAuthStateChange ";
+import { useAppSelector } from "./redux/hooks";
 import Main from "./components/Main";
 import { selectCurrentTheme } from "./redux/features/theme";
+import useAuthStateChange from "./functions/useAuthStateChange";
 
 const App = () => {
   const currentTheme = useAppSelector(selectCurrentTheme);
-  const dispatch = useAppDispatch();
-  const [isInitialRender, setIsInitialRender] = useState<boolean>(true);
-
-  const completeInitialRender = () => {
-    setIsInitialRender(false);
-  };
-
-  useEffect(() => {
-    handleAuthStateChange(dispatch, completeInitialRender);
-  }, [dispatch]);
+  const { isInitialRender } = useAuthStateChange();
 
   return (
     <div

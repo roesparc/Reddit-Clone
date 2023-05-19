@@ -84,7 +84,7 @@ const LogInForm = () => {
           }
         >
           <input
-            type="text"
+            type="email"
             id="sign-up-email"
             value={email}
             placeholder=" "

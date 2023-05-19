@@ -63,8 +63,3 @@
 
   --color-error-one: #ff5252;
 }
-
-.root {
-  min-height: 100vh;
-  background-color: var(--canvas);
-}

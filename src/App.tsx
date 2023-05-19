@@ -6,6 +6,7 @@ import { useAppSelector } from "./redux/hooks";
 import Main from "./components/Main";
 import { selectCurrentTheme } from "./redux/features/theme";
 import useAuthStateChange from "./hooks/useAuthStateChange";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   const currentTheme = useAppSelector(selectCurrentTheme);
@@ -19,6 +20,7 @@ const App = () => {
     >
       {!isInitialRender && (
         <HashRouter>
+          <ScrollToTop />
           <Header />
           <Main />
           <UserAuthModal />

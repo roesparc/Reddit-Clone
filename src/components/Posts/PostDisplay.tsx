@@ -90,7 +90,7 @@ const PostDisplay = ({
       className={getRootClasses()}
       onClick={(e) => {
         if (
-          (e.target as HTMLElement).tagName !== "A" &&
+          !(e.target as HTMLElement).closest("a") &&
           !(e.target as HTMLElement).closest("button")
         ) {
           navigate(`/r/${post.subName}/${post.postId}`);
@@ -118,14 +118,16 @@ const PostDisplay = ({
 
       <div className={styles.contentContainer}>
         <div className={styles.postInfo}>
-          {!subName && <img src={post.subImg} alt={post.subName} />}
           {!subName && (
-            <span>
+            <>
+              <Link to={`/r/${post.subName}`}>
+                <img src={post.subImg} alt={post.subName} />
+              </Link>
               <Link to={`/r/${post.subName}`} className={styles.subName}>
                 r/{post.subName}
               </Link>{" "}
               •
-            </span>
+            </>
           )}{" "}
           <span className={`${!subName ? styles.hideAuthor : ""}`}>
             Posted by{" "}

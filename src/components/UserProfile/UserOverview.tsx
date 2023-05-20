@@ -28,7 +28,10 @@ const UserOverView = ({ userInfo }: Props) => {
   }, [userInfo, username, order]);
 
   return (
-    <div className={styles.root}>
+    <div
+      className={styles.root}
+      style={!hasMore ? { paddingBottom: "unset" } : undefined}
+    >
       {isCollectionEmpty ? (
         <NothingToShow />
       ) : (

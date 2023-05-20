@@ -34,7 +34,10 @@ const CommunityPosts = ({ subInfo }: Props) => {
   }, [subName, subInfo, order]);
 
   return (
-    <div className={styles.root}>
+    <div
+      className={styles.root}
+      style={!hasMore ? { paddingBottom: "unset" } : undefined}
+    >
       {userProfile.username && <CreatePostInput />}
 
       {isCollectionEmpty ? (

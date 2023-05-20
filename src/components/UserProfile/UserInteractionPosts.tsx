@@ -20,7 +20,12 @@ const UserInteractionPosts = ({ interactionType }: Props) => {
     useFetchInteractionPosts(interactionType);
 
   return (
-    <div className={styles.root}>
+    <div
+      className={styles.root}
+      style={
+        !hasMore || isCollectionEmpty ? { paddingBottom: "unset" } : undefined
+      }
+    >
       {username === userProfile.username ? (
         isCollectionEmpty ? (
           <NothingToShow />

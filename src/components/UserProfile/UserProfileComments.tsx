@@ -28,7 +28,10 @@ const UserProfileComments = ({ userInfo }: Props) => {
   }, [userInfo, username, order]);
 
   return (
-    <div className={styles.root}>
+    <div
+      className={styles.root}
+      style={!hasMore ? { paddingBottom: "unset" } : undefined}
+    >
       {isCollectionEmpty ? (
         <NothingToShow />
       ) : (
@@ -41,7 +44,7 @@ const UserProfileComments = ({ userInfo }: Props) => {
             <ImSpinner2 className={styles.loadingPostsSpinner} />
           )}
 
-          {!hasMore && comments.length >= 11 && (
+          {!hasMore && comments.length >= 9 && (
             <p className={styles.noMorePosts}>No more comments</p>
           )}
         </>

@@ -34,7 +34,10 @@ const PostComments = ({ setPost, post, isPostDeleting }: Props) => {
     useFetchComments("postId", postId!, order, true);
 
   return (
-    <div className={styles.root}>
+    <div
+      className={styles.root}
+      style={!hasMore ? { paddingBottom: "unset" } : undefined}
+    >
       {userProfile.username && !isPostDeleting ? (
         <CommentInput post={post} setComments={setComments} setPost={setPost} />
       ) : (
@@ -72,10 +75,7 @@ const PostComments = ({ setPost, post, isPostDeleting }: Props) => {
           </div>
 
           {isLoading && (
-            <ImSpinner2
-              className={stylesShared.loadingPostsSpinner}
-              style={{ marginBottom: "16px" }}
-            />
+            <ImSpinner2 className={stylesShared.loadingPostsSpinner} />
           )}
 
           {!hasMore && comments.length >= 9 && (

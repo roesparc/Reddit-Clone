@@ -57,8 +57,8 @@ const useInfiniteScroll = (
 ) => {
   const onScroll = useCallback(() => {
     if (
-      window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight &&
+      window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 50 &&
       hasMore &&
       !isLoading
     ) {

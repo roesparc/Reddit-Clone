@@ -20,7 +20,10 @@ const HomePage = () => {
 
   return (
     <div className={stylesLocationMain.contentWrapper}>
-      <div className={stylesPostContainer.root}>
+      <div
+        className={stylesPostContainer.root}
+        style={!hasMore ? { paddingBottom: "unset" } : undefined}
+      >
         {isCollectionEmpty ? (
           <NothingToShow />
         ) : (

@@ -1,3 +1,7 @@
+.root {
+  padding-bottom: 50px;
+}
+
 .commentContainer {
   margin: 16px 16px 0 10px;
   padding-right: 16px;

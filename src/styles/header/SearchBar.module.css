@@ -42,9 +42,6 @@
   border: none;
   overflow: hidden;
 }
-.searchBarInput::-webkit-search-cancel-button {
-  display: none;
-}
 
 .searchResults {
   position: absolute;

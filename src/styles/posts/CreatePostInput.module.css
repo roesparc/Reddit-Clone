@@ -37,3 +37,10 @@
   border-color: var(--color-link-one);
   background-color: var(--color-background-one);
 }
+
+@media (max-width: 450px) {
+  .root {
+    border: none;
+    border-radius: unset;
+  }
+}

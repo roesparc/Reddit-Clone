@@ -1,6 +1,7 @@
 .root {
   margin-bottom: 8px;
   position: relative;
+  width: fit-content;
 }
 
 .communityBtn {
@@ -58,7 +59,7 @@
   color: var(--color-font-one);
   left: 0px;
   margin-top: -1px;
-  max-height: 482px;
+  max-height: 220px;
   overflow-x: hidden;
   overflow-y: auto;
   position: absolute;
@@ -106,7 +107,7 @@
 }
 
 @media (max-width: 450px) {
-  .communityBtn {
-    margin: auto;
+  .root {
+    margin: 0 auto 8px;
   }
 }

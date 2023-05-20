@@ -99,7 +99,6 @@
 .postInfo a {
   font-size: 12px;
   font-weight: 400;
-  line-height: 16px;
   color: var(--color-utility-two);
   font-family: "IBM Plex Sans", sans-serif;
   margin-bottom: 8px;
@@ -226,5 +225,12 @@
 @media (max-width: 520px) {
   .hideAuthor {
     display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .root {
+    border: none;
+    border-radius: unset;
   }
 }

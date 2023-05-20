@@ -48,7 +48,7 @@
   border-radius: 0 0 4px 4px;
   box-sizing: border-box;
   margin-top: -1px;
-  max-height: 482px;
+  max-height: 80vh;
   overflow-x: hidden;
   overflow-y: auto;
   position: absolute;
@@ -115,5 +115,9 @@
 @media (max-width: 420px) {
   .navBtn {
     display: none;
+  }
+
+  .navContainer {
+    top: 23px;
   }
 }

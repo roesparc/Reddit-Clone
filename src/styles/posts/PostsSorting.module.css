@@ -34,3 +34,10 @@
 .activeSort svg {
   fill: var(--color-link-one);
 }
+
+@media (max-width: 450px) {
+  .root {
+    border: none;
+    border-radius: unset;
+  }
+}

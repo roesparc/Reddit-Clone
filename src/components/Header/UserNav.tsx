@@ -59,9 +59,9 @@ const UserNav = () => {
   }, []);
 
   return (
-    <>
+    <div className={styles.root}>
       <button
-        className={styles.root}
+        className={styles.userNavBtn}
         ref={userNavBtnRef}
         onClick={() => setShowUserMenu((prev) => !prev)}
       >
@@ -121,7 +121,7 @@ const UserNav = () => {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

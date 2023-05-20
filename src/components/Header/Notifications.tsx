@@ -61,7 +61,7 @@ const Notifications = () => {
   }, []);
 
   return (
-    <>
+    <div className={styles.root}>
       <button
         ref={notificationBtnRef}
         className={stylesHeader.userInteractionBtns}
@@ -79,7 +79,7 @@ const Notifications = () => {
       </button>
 
       {showNotifications && (
-        <div className={styles.root} ref={notificationsContainerRef}>
+        <div className={styles.notifications} ref={notificationsContainerRef}>
           <h3 className={styles.heading}>Notifications</h3>
 
           <div className={styles.notificationsContainer}>
@@ -150,7 +150,7 @@ const Notifications = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

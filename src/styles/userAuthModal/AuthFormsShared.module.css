@@ -143,3 +143,9 @@
   color: var(--color-button-auth);
   animation: var(--spinner-animation);
 }
+
+@media (max-height: 750px) {
+  .formWrapper h1 {
+    text-align: center;
+  }
+}

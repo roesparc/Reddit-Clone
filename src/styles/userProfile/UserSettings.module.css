@@ -101,6 +101,11 @@
   margin-top: 12px;
 }
 
+.settingsSection:last-child {
+  margin-bottom: unset;
+  padding-bottom: 32px;
+}
+
 .userImgsContainer {
   margin-top: 12px;
   display: flex;
@@ -167,7 +172,7 @@
 
 @media (max-width: 580px) {
   .bannerImgContainer {
-    width: unset;
+    width: min-content;
     flex-grow: 1;
   }
 }
